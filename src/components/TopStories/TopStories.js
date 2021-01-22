@@ -13,7 +13,7 @@ class topStories extends Component {
     }
 
     componentDidMount () {
-        axios.get('https://content.guardianapis.com/search?order-by=newest&show-fields=thumbnail%2CtrailText&page=1&page-size=5&api-key=2de4d1ab-3543-4bb4-89fa-554dbfd6f19c')
+        axios.get('https://content.guardianapis.com/search?order-by=newest&show-fields=thumbnail%2CtrailText&page=1&page-size=8&api-key=2de4d1ab-3543-4bb4-89fa-554dbfd6f19c')
             .then(response => {
                 const news = response.data.response.results;
                 this.setState({news: news, error: false});
@@ -30,7 +30,6 @@ class topStories extends Component {
 
         if (this.state.news) {
             topNewsResults = this.state.news.map( (news, index) => {
-                console.log(index);
                 return <NewsImageCard 
                     id={news.id}
                     img={news.fields.thumbnail}
@@ -40,7 +39,7 @@ class topStories extends Component {
             });
         }
         return (
-            <div>{topNewsResults}</div>
+            <div className="topStories">{topNewsResults}</div>
         )
         
     }
