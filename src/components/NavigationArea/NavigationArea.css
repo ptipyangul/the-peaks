@@ -1,0 +1,16 @@
+.navBar {
+    background-color: #003480;
+}
+
+ul li {
+ display: inline-block;
+ margin: 10px 10px;
+}
+
+a:link,
+a:visited {
+    color: #FFF;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+}
