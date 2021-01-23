@@ -3,10 +3,10 @@ import classes from "../NewsImageCard/NewsImageCard.css";
 
 class NewsWithImageCard extends Component {
     render () {
-        if (this.props.id) {
+        if (this.props.title) {
             let news = null;
             return (
-                <div key={this.props.id} className={'newsImageCard index'+this.props.index}>
+                <div className={'newsImageCard index'+this.props.index}>
                     <img src={this.props.img} /><br />
                     <div className="newsTitle">{this.props.title}</div>
                     <div>{this.props.body}</div>
