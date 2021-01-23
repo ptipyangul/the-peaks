@@ -48,7 +48,7 @@ class topStories extends Component {
         
         let topNewsResults = <p>Loading...</p>
 
-        if (this.state.news) {
+        if (!this.state.error && this.state.news) {
             topNewsResults = this.state.news.map( (news, index) => {
                 return <NewsImageCard 
                     key={news.id}

@@ -31,7 +31,7 @@ class homepageArea extends Component {
                     </div>
                     <div className="homepageSections">
                         <h2>Sports</h2>
-                        <CategoryBasedSections />
+                        <CategoryBasedSections sectionName="sport" />
                     </div>
                 </div>
             </div>
