@@ -9,29 +9,7 @@
 .newsImageCard img {
     width: 100%;
 }
-.newsImageCard.index3 img,
-.newsImageCard.index4 img  {
-    display: none;
-}
 .newsTitle {
     font-size: 15px;
     font-weight: bold;
 }
-.topStories {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-      "index0 index0 index1 index1 index2 index2"
-      "index0 index0 index3 index3 index4 index4"
-      "index5 index5 index6 index6 index7 index7";
-}
-.index0 { grid-area: index0; }
-.index1 { grid-area: index1; }
-.index3 { grid-area: index3; }
-.index5 { grid-area: index5; }
-.index6 { grid-area: index6; }
-.index7 { grid-area: index7; }
-.index2 { grid-area: index2; }
-.index4 { grid-area: index4; }

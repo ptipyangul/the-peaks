@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import classes from './TopStories.css';
 
-import NewsImageCard from "../NewsImageCard/NewsImageCard";
+import NewsImageCard from "../../NewsImageCard/NewsImageCard";
 
 class topStories extends Component {
     constructor(props) {

@@ -1,7 +1,7 @@
-import React, { Component, createContext } from 'react';
+import React, { Component } from 'react';
 import classes from './Homepage.css';
 
-import TopStories from '../../components/TopStories/TopStories';
+import TopStories from '../../components/HomepageComponents/TopStories/TopStories';
 
 class homepageArea extends Component {
 
@@ -20,13 +20,17 @@ class homepageArea extends Component {
         return (
             <div className="Homepage">
                 <div className="wrapper">
-                    <div className="topStoriesSection">
-                        <h1>Top stories</h1>
+                    <div className="homepageSections">
+                        <h2>Top stories</h2>
                         <select name="articles-sorting" id="articles-sorting" onChange={this.handleSortingChanged}>
                             <option value="newest">Newest First</option>
                             <option value="oldest">Oldest First</option>
                         </select>
                         <TopStories sorting={this.state.sorting}/>
+                    </div>
+                    <div className="homepageSections">
+                        <h2>Sports</h2>
+                        
                     </div>
                 </div>
             </div>
