@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../../configs.json';
-
 import classes from './CategoryBased.module.scss';
-
 import NewsImageCard from "../../NewsImageCard/NewsImageCard";
 
 class categoryBasedSections extends Component {
