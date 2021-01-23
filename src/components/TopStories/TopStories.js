@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import classes from './TopStories.css';
 
 import NewsImageCard from "../NewsImageCard/NewsImageCard";
 
@@ -14,7 +15,6 @@ class topStories extends Component {
     }
 
     getNews(sorting) {
-        //console.log('getting news', this.state.sorting);
         axios.get('https://content.guardianapis.com/search?order-by='
             +this.state.sorting
             +'&show-fields=thumbnail%2CtrailText&page=1&page-size=8&api-key=2de4d1ab-3543-4bb4-89fa-554dbfd6f19c')
@@ -44,7 +44,6 @@ class topStories extends Component {
         
         let topNewsResults = <p>Loading...</p>
 
-
         if (this.state.news) {
             topNewsResults = this.state.news.map( (news, index) => {
                 return <NewsImageCard 
@@ -58,7 +57,6 @@ class topStories extends Component {
         return (
             <div className="topStories">
                 {topNewsResults}
-                {this.state.sorting}
             </div>
         )
         
