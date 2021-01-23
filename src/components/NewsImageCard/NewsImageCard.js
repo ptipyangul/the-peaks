@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classes from "../NewsImageCard/NewsImageCard.module.scss";
+import { Link } from 'react-router-dom';
 
 class NewsWithImageCard extends Component {
     render () {
@@ -7,11 +8,13 @@ class NewsWithImageCard extends Component {
             let news = null;
             let newsImageCardClassName = classes.newsImageCard + ' index' + this.props.index;
             return (
-                <div className={newsImageCardClassName}>
-                    <img src={this.props.img} /><br />
-                    <div className="newsTitle">{this.props.title}</div>
-                    <div>{this.props.body}</div>
-                </div>
+                <Link to={`/article/${this.props.newsId}`}>
+                    <div className={newsImageCardClassName}>
+                        <img src={this.props.img} /><br />
+                        <div className="newsTitle">{this.props.title}</div>
+                        <div>{this.props.body}</div>
+                    </div>
+                </Link>
             );
         }
         return null;

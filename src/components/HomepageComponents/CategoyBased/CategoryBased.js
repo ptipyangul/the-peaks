@@ -17,6 +17,7 @@ class categoryBasedSections extends Component {
     getNews(sectionName) {
         axios.get(
             configs.NEWS_API_ENDPOINT
+            + '/search'
             + '?order-by=newest'
             + '&section='
             + sectionName
@@ -44,6 +45,7 @@ class categoryBasedSections extends Component {
             newsResults = this.state.news.map( (news, index) => {
                 return <NewsImageCard 
                     key={news.id}
+                    newsId = {news.id}
                     img={news.fields.thumbnail}
                     title={news.webTitle}
                     body={news.fields.trailText}

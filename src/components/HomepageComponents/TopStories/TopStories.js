@@ -18,6 +18,7 @@ class topStories extends Component {
     getNews(sorting) {
         axios.get(
             configs.NEWS_API_ENDPOINT
+            + '/search'
             + '?order-by='
             + this.state.sorting
             +'&show-fields=thumbnail%2CtrailText&page=1&page-size=8'
@@ -52,6 +53,7 @@ class topStories extends Component {
             topNewsResults = this.state.news.map( (news, index) => {
                 return <NewsImageCard 
                     key={news.id}
+                    newsId = {news.id}
                     img={news.fields.thumbnail}
                     title={news.webTitle}
                     body={news.fields.trailText}

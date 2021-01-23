@@ -32,6 +32,7 @@ class Category extends Component {
         let sectionNameParam = (this.state.categoryName == 'lifestyle') ? 'lifeandstyle' : this.state.categoryName;
         axios.get(
             configs.NEWS_API_ENDPOINT
+            + '/search'
             + '?order-by='
             + this.state.sorting
             + '&section='
