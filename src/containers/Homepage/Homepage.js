@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import appClasses from '../../App.module.scss';
 import classes from './Homepage.module.scss';
-
 import TopStories from '../../components/HomepageComponents/TopStories/TopStories';
 import CategoryBasedSections from '../../components/HomepageComponents/CategoyBased/CategoryBased';
+import NewsSorting from '../../components/NewsSorting/NewsSorting';
 
 class homepageArea extends Component {
 
@@ -24,10 +24,7 @@ class homepageArea extends Component {
                 <div className={appClasses.wrapper}>
                     <div className={classes.homepageSections}>
                         <h2>Top stories</h2>
-                        <select name="articles-sorting" id="articles-sorting" onChange={this.handleSortingChanged}>
-                            <option value="newest">Newest First</option>
-                            <option value="oldest">Oldest First</option>
-                        </select>
+                        <NewsSorting changed={this.handleSortingChanged}/>
                         {/*<TopStories sorting={this.state.sorting}/>*/}
                     </div>
                     <div className={classes.homepageSections}>
