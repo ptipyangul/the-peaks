@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import configs from '../../../configs.json';
 import classes from './TopStories.css';
 
 import NewsImageCard from "../../NewsImageCard/NewsImageCard";
@@ -15,12 +16,15 @@ class topStories extends Component {
     }
 
     getNews(sorting) {
-        axios.get('https://content.guardianapis.com/search?order-by='
-            +this.state.sorting
-            +'&show-fields=thumbnail%2CtrailText&page=1&page-size=8&api-key=2de4d1ab-3543-4bb4-89fa-554dbfd6f19c')
+        axios.get(
+            configs.NEWS_API_ENDPOINT
+            + '?order-by='
+            + this.state.sorting
+            +'&show-fields=thumbnail%2CtrailText&page=1&page-size=8'
+            + '&api-key='
+            + configs.NEWS_API_KEY)
             .then(response => {
                 const news = response.data.response.results;
-                console.log(news);
                 this.setState({news: news, error: false});
             })
             .catch(error => {

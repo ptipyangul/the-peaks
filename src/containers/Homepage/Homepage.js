@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from './Homepage.css';
 
 import TopStories from '../../components/HomepageComponents/TopStories/TopStories';
+import CategoryBasedSections from '../../components/HomepageComponents/CategoyBased/CategoryBased';
 
 class homepageArea extends Component {
 
@@ -26,11 +27,11 @@ class homepageArea extends Component {
                             <option value="newest">Newest First</option>
                             <option value="oldest">Oldest First</option>
                         </select>
-                        <TopStories sorting={this.state.sorting}/>
+                        {/*<TopStories sorting={this.state.sorting}/>*/}
                     </div>
                     <div className="homepageSections">
                         <h2>Sports</h2>
-                        
+                        <CategoryBasedSections />
                     </div>
                 </div>
             </div>

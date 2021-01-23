@@ -7,6 +7,12 @@ class categoryBasedSections extends Component {
         super(props);
         this.state = {}
     }
+
+    render () {
+        return (
+            <div>ff</div>
+        );
+    }
 }
 
 export default categoryBasedSections;
