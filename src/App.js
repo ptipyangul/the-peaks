@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
-import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import classes from './App.module.scss';
 
 import NavigationArea from "./components/NavigationArea/NavigationArea";
 import Homepage from './containers/Homepage/Homepage';
 
-const user = {};
 
-class App extends Component {
-  render() {
-    return (      
-        <div className="App">
-            <NavigationArea/>
-            <Homepage/>
-        </div>
-    );
-  }
+function App() {
+  return (
+    <Router>
+      <div className={classes.App}>
+          <NavigationArea/>          
+      </div>
+
+      <Route path="/" exact component={Homepage} />
+
+    </Router>
+  );
 }
 
 export default App;

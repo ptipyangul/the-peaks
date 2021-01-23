@@ -1,14 +1,18 @@
-/*.homepage { }*/
+.homepage { 
+    font-size: 15px;
+}
+
 .homepageSections {
     padding: 5px;
     border: 1px solid black;
     margin-bottom: 5px;
+    .seeAll {
+        a:link,
+        a:visited {
+            color: #000;
+        }
+    }
 }
 
 /*.topStoriesSection { }
-.categoryBasedSections { }
-
-a:link,
-a:visited {
-    color: #000;
-}*/
+.categoryBasedSections { }*/

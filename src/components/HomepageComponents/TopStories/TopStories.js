@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../../configs.json';
-import classes from './TopStories.css';
+import classes from './TopStories.module.scss';
 
 import NewsImageCard from "../../NewsImageCard/NewsImageCard";
 
