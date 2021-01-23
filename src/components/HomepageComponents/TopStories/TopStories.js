@@ -37,6 +37,7 @@ class topStories extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        console.log(prevProps);
         if (prevProps.sorting !== this.props.sorting) {
             this.setState({sorting: this.props.sorting}, () => {
                 this.getNews(this.state.sorting);

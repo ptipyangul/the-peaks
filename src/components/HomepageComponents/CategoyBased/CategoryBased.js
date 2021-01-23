@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../../configs.json';
-//import classes from './Homepage.css';
+
+import classes from './CategoryBased.css';
 
 import NewsImageCard from "../../NewsImageCard/NewsImageCard";
 
@@ -19,7 +20,7 @@ class categoryBasedSections extends Component {
         axios.get(
             configs.NEWS_API_ENDPOINT
             + '?order-by=newest'
-            + 'section='
+            + '&section='
             + sectionName
             +'&show-fields=thumbnail%2CtrailText&page=1&page-size=3'
             + '&api-key='
@@ -51,7 +52,11 @@ class categoryBasedSections extends Component {
                     index={index} />
             });
         }
-        return newsResults
+        return (
+            <div className="categoryContainer">
+                {newsResults}
+            </div>
+        )
     }
 }
 

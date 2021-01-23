@@ -27,11 +27,23 @@ class homepageArea extends Component {
                             <option value="newest">Newest First</option>
                             <option value="oldest">Oldest First</option>
                         </select>
+                        <TopStories sorting={this.state.sorting}/>
                         {/*<TopStories sorting={this.state.sorting}/>*/}
                     </div>
                     <div className="homepageSections">
                         <h2>Sports</h2>
+                        <a href="/category/sport">See all</a>
                         <CategoryBasedSections sectionName="sport" />
+                    </div>
+                    <div className="homepageSections">
+                        <h2>Culture</h2>
+                        <a href="/category/culture">See all</a>
+                        <CategoryBasedSections sectionName="culture" />
+                    </div>
+                    <div className="homepageSections">
+                        <h2>Lifestyle</h2>
+                        <a href="/category/lifeandstyle">See all</a>
+                        <CategoryBasedSections sectionName="lifeandstyle" />
                     </div>
                 </div>
             </div>

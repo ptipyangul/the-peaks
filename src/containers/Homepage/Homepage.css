@@ -9,3 +9,8 @@
 }
 .categoryBasedSections {
 }
+
+a:link,
+a:visited {
+    color: #000;
+}

@@ -1,0 +1,12 @@
+
+.categoryContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "index0 index1 index2";
+  }
+  .categoryContainer .index0 { grid-area: index0; }
+  .categoryContainer .index1 { grid-area: index1; }
+  .categoryContainer .index2 { grid-area: index2; }
