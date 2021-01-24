@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
+import { Route , withRouter} from 'react-router-dom';
 import appClasses from '../../App.module.scss';
 import classes from './Navigation.module.scss';
 
 class Navigation extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            searchKey: null
+            redirectedToSearch: false
         }
     }
 
-    handleSearchBoxChange (event) {
+    handleSearchBoxChanged (event) {
         this.setState({ searchKey: event.target.value });
+    }
+
+    componentDidUpdate() {
+        if (!this.state.redirectedToSearch) {
+            this.setState({ redirectedToSearch: true });
+            this.props.history.push('/search');
+        }
     }
 
     render () {
@@ -29,7 +36,10 @@ class Navigation extends Component {
                         </ul>
                     </div>
                     <div>
-                        <input type="text" placeholder="Search" onChange={this.handleSearchBoxChange} />
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            onKeyUp={event => this.handleSearchBoxChanged(event)}/>
                     </div>
                     <br />
                 </div>

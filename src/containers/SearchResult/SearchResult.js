@@ -14,7 +14,10 @@ class SearchResult extends Component {
             error: false,
             searchResults: null
         }
+
+        this.cancel = null;
     }
+
 
     parseParams = (querystring) => {
         const params = new URLSearchParams(querystring);    
@@ -30,6 +33,13 @@ class SearchResult extends Component {
     };
 
     getSearchResults() {
+
+        if ( this.cancel ) {
+            this.cancel.cancel();
+        }
+
+        this.cancel = axios.CancelToken.source();
+
         axios.get(
             configs.NEWS_API_ENDPOINT
             + '/search'
@@ -39,18 +49,23 @@ class SearchResult extends Component {
             + this.state.sorting
             +'&show-fields=thumbnail%2CtrailText&page=1&page-size=10'
             + '&api-key='
-            + configs.NEWS_API_KEY)
+            + configs.NEWS_API_KEY
+            ,{ cancelToken: this.cancel.token })
             .then(response => {
                 const searchResults = response.data.response.results;
-                console.log(searchResults);
-                this.setState({searchResults: searchResults, error: false, searched: true});
+                this.setState({ searchResults: searchResults, error: false, searched: true });
             })
             .catch(error => {
                 this.setState({error: true});
+                if (axios.isCancel(error) || error) {
+                    this.setState({
+                        error: true
+                    })
+                }
             });
     }
 
-    componentDidMount () {
+    componentDidMount() {
         if (this.state.searchKey == null) {
             let qs = this.parseParams(this.props.location.search);
             if (qs.q) {
@@ -60,9 +75,20 @@ class SearchResult extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.state.searchKey && this.state.searched == false && !this.state.error) {
+        /*if ( prevProps.location.search != this.props.location.search
+            && this.state.searchKey
+            && this.state.searched == false
+            && !this.state.error) {
             this.getSearchResults();
         }
+        if ( this.state.searchKey
+            && !this.state.error ) {
+                this.getSearchResults();
+        }*/
+    }
+
+    handleSearchBoxChanged(event) {
+        this.setState({ searchKey: event.target.value });
     }
 
     render () {
@@ -84,6 +110,10 @@ class SearchResult extends Component {
             <div>
                 <div className={appClasses.wrapper}>
                     <h1>Search Result</h1>
+                    <input
+                        type="text"
+                        placeholder="Search"
+                        onChange={event => this.handleSearchBoxChanged(event)}/> <br />
                     {results}
                 </div>
             </div>
