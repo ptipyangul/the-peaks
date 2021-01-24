@@ -15,7 +15,7 @@ class topStories extends Component {
         }
     }
 
-    getNews(sorting) {
+    getNews() {
         axios.get(
             configs.NEWS_API_ENDPOINT
             + '/search'
@@ -34,13 +34,13 @@ class topStories extends Component {
     }
 
     componentDidMount () {
-        this.getNews(this.state.sorting);
+        this.getNews();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.sorting !== this.props.sorting) {
             this.setState({sorting: this.props.sorting}, () => {
-                this.getNews(this.state.sorting);
+                this.getNews();
             })
         }
     }
