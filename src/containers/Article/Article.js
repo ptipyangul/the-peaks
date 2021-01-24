@@ -9,7 +9,7 @@ class Article extends Component {
         this.state = {
             newsId: null,
             content: null,
-            error: true,
+            error: false,
             loaded: false
         }
     }
@@ -17,12 +17,14 @@ class Article extends Component {
     getArticle() {
         axios.get(
             configs.NEWS_API_ENDPOINT
-            + '/'
+            + 'search?ids='
             + this.state.newsId
+            +'&show-fields=body%2Cheadline%2Cbody'
+            +'&show-elements=image'
             + '&api-key='
             + configs.NEWS_API_KEY)
             .then(response => {
-                const content = response.data.response.content;
+                const content = response.data.response.results[0];
                 this.setState({content: content, error: false, loaded: true});                
             })
             .catch(error => {
@@ -40,23 +42,31 @@ class Article extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.state.newsId && this.state.loaded === false) {
-            //this.getArticle();
+        if (this.state.newsId && this.state.loaded == false && !this.state.error) {
+            this.getArticle();
+        }
+        if (this.state.content) {
+            document.title = this.state.content.webTitle;
         }
     }
     
     render ()  {
+
+        let articleContent = <p>Loading...</p>;
+
         // Error checking
         if (!this.state.error && this.state.content) {
-            console.log(this.state.content);
-        }
-        return (
-            <div className={appClasses.wrapper}>
+            let content = this.state.content;
+              articleContent = (
                 <div>
-                    <h1>Article page</h1>
+                    <p>{content.webPublicationDate}</p>
+                    <h1>{content.webTitle}</h1>
+                    <p>{content.fields.headline}</p>
+                    <div dangerouslySetInnerHTML={{__html: content.fields.body}} />
                 </div>
-            </div>
-        );
+            );
+        }
+        return <div className={appClasses.wrapper}>{articleContent}</div>;
     }
 }
 
