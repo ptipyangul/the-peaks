@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
 import configs from '../../../configs.json';
 import classes from './TopStories.module.scss';
@@ -11,7 +12,8 @@ class topStories extends Component {
         this.state = {
             news: null,
             error: false,
-            sorting: 'newest'
+            sorting: 'newest',
+            loading: true
         }
     }
 
@@ -26,7 +28,7 @@ class topStories extends Component {
             + configs.NEWS_API_KEY)
             .then(response => {
                 const news = response.data.response.results;
-                this.setState({news: news, error: false});
+                this.setState({news: news, error: false, loading: false});
             })
             .catch(error => {
                 this.setState({error: true});
@@ -57,12 +59,13 @@ class topStories extends Component {
                     img={news.fields.thumbnail}
                     title={news.webTitle}
                     body={news.fields.trailText}
-                    index={index} />
+                    index={index} />                
             });
         }
         return (
-            <div className="topStories">
+            <div className="topStories">                
                 {topNewsResults}
+                <ClipLoader loading={this.state.loading}/>
             </div>
         )
         
