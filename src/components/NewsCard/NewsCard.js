@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import classes from "../NewsImageCard/NewsImageCard.module.scss";
+import classes from "../NewsCard/NewsCard.module.scss";
 import { Link } from 'react-router-dom';
 
-class NewsWithImageCard extends Component {
+class NewsCard extends Component {
     render () {
         if (this.props.title) {
             let news = null;
-            let newsImageCardClassName = classes.newsImageCard + ' index' + this.props.index;
+            let newsImageCardClassName = classes.newsCard + ' index' + this.props.index;
             return (
                 <Link to={`/article/${this.props.newsId}`}>
                     <div className={newsImageCardClassName}>
                         <img src={this.props.img} /><br />
-                        <div className="newsTitle">{this.props.title}</div>
-                        <div>{this.props.body}</div>
+                        <div className={classes.newsTitle}>{this.props.title}</div>
+                        <div dangerouslySetInnerHTML={{__html: this.props.body}} />
                     </div>
                 </Link>
             );
@@ -21,4 +21,4 @@ class NewsWithImageCard extends Component {
     }
 }
 
-export default NewsWithImageCard;
+export default NewsCard;

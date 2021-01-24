@@ -3,7 +3,7 @@ import axios from 'axios';
 import configs from '../../configs.json';
 import appClasses from '../../App.module.scss';
 import classes from './Category.module.scss';
-import NewsImageCard from "../../components/NewsImageCard/NewsImageCard";
+import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
 
 class Category extends Component {
@@ -59,7 +59,7 @@ class Category extends Component {
 
         if (!this.state.error && this.state.news) {           
             newsResults = this.state.news.map( (news, index) => {
-                return <NewsImageCard 
+                return <NewsCard 
                     key={news.id}
                     img={news.fields.thumbnail}
                     title={news.webTitle}
