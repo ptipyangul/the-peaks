@@ -32,21 +32,21 @@ class homepageArea extends Component {
                         <div className={classes.seeAll}>
                             <a href="/category/sport">See all</a>
                         </div>
-                        <CategoryBasedSections sectionName="sport" />
+                        {/* <CategoryBasedSections sectionName="sport" /> */}
                     </div>
                     <div className={classes.homepageSections}>
                         <h2>Culture</h2>
                         <div className={classes.seeAll}>
                             <a href="/category/culture">See all</a>
                         </div>
-                        <CategoryBasedSections sectionName="culture" />
+                        {/* <CategoryBasedSections sectionName="culture" /> */}
                     </div>
                     <div className={classes.homepageSections}>
                         <h2>Lifestyle</h2>
                         <div className={classes.seeAll}>
                             <a href="/category/lifeandstyle">See all</a>
                         </div>
-                        <CategoryBasedSections sectionName="lifeandstyle" />
+                        {/* <CategoryBasedSections sectionName="lifeandstyle" /> */}
                     </div>
                 </div>
             </div>
