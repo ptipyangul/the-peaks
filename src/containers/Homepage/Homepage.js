@@ -25,7 +25,7 @@ class homepageArea extends Component {
                     <div className={classes.homepageSections}>
                         <h2>Top stories</h2>
                         <NewsSorting changed={this.handleSortingChanged}/>
-                        <TopStories sorting={this.state.sorting}/>
+                        {/* <TopStories sorting={this.state.sorting}/> */}
                     </div>
                     <div className={classes.homepageSections}>
                         <h2>Sports</h2>

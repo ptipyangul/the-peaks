@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
 import configs from '../../configs.json';
 import appClasses from '../../App.module.scss';
@@ -13,7 +14,8 @@ class Category extends Component {
             categoryName: this.props.match.params.categoryName,
             news: null,
             error: true,
-            sorting: 'newest'
+            sorting: 'newest',
+            loading: true
         }
     }
 
@@ -42,7 +44,7 @@ class Category extends Component {
             + configs.NEWS_API_KEY)
             .then(response => {
                 const news = response.data.response.results;
-                this.setState({news: news, error: false});
+                this.setState({news: news, error: false, loading: false});
             })
             .catch(error => {
                 this.setState({error: true});
@@ -70,10 +72,11 @@ class Category extends Component {
         return (
             <div className={appClasses.wrapper}>
                 <div className="">
-                    <h1>{this.capitalize(this.state.categoryName)}</h1>
+                    <h1>{this.capitalize(this.state.categoryName)}</h1>                    
                     <div>
                         <NewsSorting changed={this.handleSortingChanged}/>
                     </div>
+                    <ClipLoader loading={this.state.loading}/>
                     {newsResults}
                 </div>
             </div>

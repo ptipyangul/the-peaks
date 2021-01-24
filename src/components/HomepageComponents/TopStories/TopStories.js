@@ -68,7 +68,6 @@ class topStories extends Component {
                 <ClipLoader loading={this.state.loading}/>
             </div>
         )
-        
     }
 }
 

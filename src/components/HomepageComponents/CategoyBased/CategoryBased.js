@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { ClipLoader } from 'react-spinners';
 import configs from '../../../configs.json';
 import classes from './CategoryBased.module.scss';
 import NewsImageCard from "../../NewsCard/NewsCard";
@@ -10,7 +11,8 @@ class categoryBasedSections extends Component {
         super(props);
         this.state = {
             news: null,
-            error: true
+            error: true,
+            loading: true
         }
     }
 
@@ -26,7 +28,7 @@ class categoryBasedSections extends Component {
             + configs.NEWS_API_KEY)
             .then(response => {
                 const news = response.data.response.results;
-                this.setState({news: news, error: false});
+                this.setState({news: news, error: false, loading: false});
             })
             .catch(error => {
                 this.setState({error: true});
@@ -39,7 +41,7 @@ class categoryBasedSections extends Component {
 
     render () {
 
-        let newsResults = <p>loading...</p>;
+        let newsResults;
 
         if (!this.state.error && this.state.news) {           
             newsResults = this.state.news.map( (news, index) => {
@@ -54,7 +56,8 @@ class categoryBasedSections extends Component {
         }
         return (
             <div className={classes.categoryContainer}>
-                {newsResults}
+                <ClipLoader loading={this.state.loading} />
+                {newsResults}                
             </div>
         )
     }
