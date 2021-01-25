@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../configs.json';
 import appClasses from '../../App.module.scss';
-
 import NewsImageCard from "../../components/NewsCard/NewsCard";
+import Loader from "../../components/Loader/Loader";
 
 class SearchResult extends Component {
     constructor(props) {
@@ -109,7 +109,15 @@ class SearchResult extends Component {
     }
 
     handleSearchBoxChanged(event) {
-        this.setState({ searchKey: event.target.value }, () => {
+        this.setState({ searchKey: event.target.value,
+                        error: false,
+                        searchResults: [],
+                        sorting: 'newest',
+                        perPage: 2,
+                        page: 1,
+                        totalPage: null,
+                        scrolling: false
+                    }, () => {
             this.getSearchResults();
         });
     }
@@ -139,18 +147,15 @@ class SearchResult extends Component {
         return (
             <div>
                 <div className={appClasses.wrapper}>
-                    <div className="SearchResultsArea">
-                        <h1>Search Result</h1>
+                <h1>Search Result</h1>
                         <input
                             type="text"
                             placeholder="Search"
                             onChange={event => this.handleSearchBoxChanged(event)}/> <br />
-
+                    <div className="SearchResultsArea">
                         {results}
-{/* 
-                        <br />
-                        <a onClick={this.loadMore}>Load More</a> */}
                     </div>
+                    <Loader isLoading={this.state.loading} />
                 </div>
             </div>
         );
