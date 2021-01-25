@@ -9,15 +9,17 @@ class SearchResult extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchKey: null,
+            searchKey: 'covid',
             searched: false,
             error: false,
             searchResults: null,
-            sorting: 'newest'
+            sorting: 'newest',
+            perPage: 2,
+            page: 1,
+            totalPage: null
         }
         this.cancel = null;
     }
-
 
     parseParams = (querystring) => {
         const params = new URLSearchParams(querystring);    
@@ -33,6 +35,7 @@ class SearchResult extends Component {
     };
 
     getSearchResults() {
+        const { searchKey, perPage, page, searchResults, sorting } = this.state;
 
         if ( this.cancel ) {
             this.cancel.cancel();
@@ -42,14 +45,10 @@ class SearchResult extends Component {
 
         axios.get(
             configs.NEWS_API_ENDPOINT
-            + 'search'
-            + '?q='
-            + this.state.searchKey
-            + '&order-by='
-            + this.state.sorting
-            +'&show-fields=thumbnail%2CtrailText&page=1&page-size=10'
-            + '&api-key='
-            + configs.NEWS_API_KEY
+            + `search?q=${searchKey}`
+            + `&order-by=${sorting}`
+            + `&show-fields=thumbnail%2CtrailText&page=${page}&page-size=${perPage}`
+            + `&api-key=${configs.NEWS_API_KEY}`
             ,{ cancelToken: this.cancel.token })
             .then(response => {
                 const searchResults = response.data.response.results;
