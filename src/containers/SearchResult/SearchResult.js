@@ -12,7 +12,8 @@ class SearchResult extends Component {
             searchKey: null,
             searched: false,
             error: false,
-            searchResults: null
+            searchResults: null,
+            sorting: 'newest'
         }
         this.cancel = null;
     }
@@ -41,10 +42,10 @@ class SearchResult extends Component {
 
         axios.get(
             configs.NEWS_API_ENDPOINT
-            + '/search'
+            + 'search'
             + '?q='
             + this.state.searchKey
-            + 'order-by='
+            + '&order-by='
             + this.state.sorting
             +'&show-fields=thumbnail%2CtrailText&page=1&page-size=10'
             + '&api-key='
@@ -87,13 +88,16 @@ class SearchResult extends Component {
     }
 
     handleSearchBoxChanged(event) {
-        this.setState({ searchKey: event.target.value });
+        this.setState({ searchKey: event.target.value }, () => {
+            this.getSearchResults();
+        });
     }
 
     render () {
         let results = <p>Loading...</p>
 
         if (!this.state.error && this.state.searchResults) {
+            console.log(this.state.searchResults);
             results = this.state.searchResults.map( (news, index) => {
                 return <NewsImageCard 
                     key={news.id}
