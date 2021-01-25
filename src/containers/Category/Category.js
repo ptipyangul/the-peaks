@@ -66,7 +66,8 @@ class Category extends Component {
                     img={news.fields.thumbnail}
                     title={news.webTitle}
                     body={news.fields.trailText}
-                    index={index} />
+                    index={index}
+                    newsId={news.id} />
             });
         }
         return (

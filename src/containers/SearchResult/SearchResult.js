@@ -14,7 +14,6 @@ class SearchResult extends Component {
             error: false,
             searchResults: null
         }
-
         this.cancel = null;
     }
 

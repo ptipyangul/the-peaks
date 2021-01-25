@@ -16,10 +16,10 @@ class Navigation extends Component {
     }
 
     componentDidUpdate() {
-        if (!this.state.redirectedToSearch) {
+        /*if (!this.state.redirectedToSearch) {
             this.setState({ redirectedToSearch: true });
             this.props.history.push('/search');
-        }
+        }*/
     }
 
     render () {
