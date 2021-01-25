@@ -9,14 +9,15 @@ class SearchResult extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchKey: 'covid',
-            searched: false,
+            searchKey: '',
+            loading: false,
             error: false,
-            searchResults: null,
+            searchResults: [],
             sorting: 'newest',
             perPage: 2,
             page: 1,
-            totalPage: null
+            totalPage: null,
+            scrolling: false
         }
         this.cancel = null;
     }
@@ -43,6 +44,8 @@ class SearchResult extends Component {
 
         this.cancel = axios.CancelToken.source();
 
+        this.setState( { loading: true });
+
         axios.get(
             configs.NEWS_API_ENDPOINT
             + `search?q=${searchKey}`
@@ -51,8 +54,12 @@ class SearchResult extends Component {
             + `&api-key=${configs.NEWS_API_KEY}`
             ,{ cancelToken: this.cancel.token })
             .then(response => {
-                const searchResults = response.data.response.results;
-                this.setState({ searchResults: searchResults, error: false, searched: true });
+                const data = [...searchResults, ...response.data.response.results];
+                this.setState({ searchResults: data, 
+                                error: false,
+                                loading: false, 
+                                scrolling: false,
+                                totalPage: response.data.response.pages });
             })
             .catch(error => {
                 this.setState({error: true});
@@ -64,6 +71,18 @@ class SearchResult extends Component {
             });
     }
 
+    handleScroll = (e) => {
+        const { scolling, totalPage, page, loading } = this.state;
+        if (scolling) return;
+        if (totalPage <= page) return;
+        if (loading) return;
+        const lastElement = document.querySelector('div.SearchResultsArea > a:last-child');
+        const lastElementOffset = lastElement.offsetTop + lastElement.clientHeight;
+        const pageOffset = window.pageYOffset + window.innerHeight;
+        let bottomOffset = 20;
+        if (pageOffset > lastElementOffset - bottomOffset) this.loadMore();
+    }
+
     componentDidMount() {
         if (this.state.searchKey == null) {
             let qs = this.parseParams(this.props.location.search);
@@ -71,12 +90,15 @@ class SearchResult extends Component {
                 this.setState({ searchKey: qs.q });
             }
         }
+        this.scrollListener = window.addEventListener('scroll', (e) => {
+            this.handleScroll(e);
+        })
     }
 
     componentDidUpdate(prevProps) {
         /*if ( prevProps.location.search != this.props.location.search
             && this.state.searchKey
-            && this.state.searched == false
+            && this.state.loading == false
             && !this.state.error) {
             this.getSearchResults();
         }
@@ -92,11 +114,17 @@ class SearchResult extends Component {
         });
     }
 
+    loadMore = () => {
+        this.setState(prevState => ({ 
+            page: prevState.page + 1,
+            scrolling: true
+         }), this.getSearchResults);
+    }
+
     render () {
         let results = <p>Loading...</p>
 
         if (!this.state.error && this.state.searchResults) {
-            console.log(this.state.searchResults);
             results = this.state.searchResults.map( (news, index) => {
                 return <NewsImageCard 
                     key={news.id}
@@ -111,12 +139,18 @@ class SearchResult extends Component {
         return (
             <div>
                 <div className={appClasses.wrapper}>
-                    <h1>Search Result</h1>
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        onChange={event => this.handleSearchBoxChanged(event)}/> <br />
-                    {results}
+                    <div className="SearchResultsArea">
+                        <h1>Search Result</h1>
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            onChange={event => this.handleSearchBoxChanged(event)}/> <br />
+
+                        {results}
+{/* 
+                        <br />
+                        <a onClick={this.loadMore}>Load More</a> */}
+                    </div>
                 </div>
             </div>
         );

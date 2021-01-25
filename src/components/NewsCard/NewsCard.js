@@ -8,7 +8,7 @@ class NewsCard extends Component {
             let news = null;
             let newsImageCardClassName = classes.newsCard + ' index' + this.props.index;
             return (
-                <Link to={`/article/${this.props.newsId}`}>
+                <Link className={classes.newCardLink} to={`/article/${this.props.newsId}`}>
                     <div className={newsImageCardClassName}>
                         <img src={this.props.img} /><br />
                         <div className={classes.newsTitle}>{this.props.title}</div>
