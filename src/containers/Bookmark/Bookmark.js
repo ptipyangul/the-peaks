@@ -4,6 +4,7 @@ import { ClipLoader } from 'react-spinners';
 import configs from '../../configs.json';
 import appClasses from '../../App.module.scss';
 import NewsCard from "../../components/NewsCard/NewsCard";
+import NewsSorting from '../../components/NewsSorting/NewsSorting';
 
 class Bookmark extends Component {
     constructor(props) {
@@ -12,8 +13,10 @@ class Bookmark extends Component {
             localBookmarks: null,
             loadedBookmarks: null,
             error: null,
-            loading: true
+            loading: true,
+            sorting: 'newest'
         }
+        const sorting = 'newest';
     }
 
     getBookmarks() {
@@ -23,6 +26,8 @@ class Bookmark extends Component {
             configs.NEWS_API_ENDPOINT
             + 'search?ids='
             + idsString
+            + '&order-by='
+            + this.state.sorting
             +'&show-fields=thumbnail%2CtrailText'
             +'&show-elements=image'
             + '&api-key='
@@ -32,7 +37,6 @@ class Bookmark extends Component {
                 this.setState({loadedBookmarks: data, error: false, loading: false});           
             })
             .catch(error => {
-                console.log('error');
                 this.setState({error: true});
             });
     }
@@ -42,14 +46,12 @@ class Bookmark extends Component {
         if (bookmarks) {
             this.setState({ localBookmarks: bookmarks }, () => {
                 this.getBookmarks();
+                // apply loading..
             });            
         }
     }
 
-    setLocalStoredBookmark (ids) {
-        let obj = ['technology/2014/feb/17/flappy-bird-clones-apple-google',
-                    'australia-news/live/2021/jan/25/australia-news-live-sa-nsw-victoria-heatwave-safety-warnings-covid-19-queensland-police-australia-day-invasion'];
-        localStorage.setItem('bookmarks', JSON.stringify(obj));
+    componentDidUpdate(prevProps) {
     }
 
     getLocalStoredBookmark() {
@@ -57,9 +59,17 @@ class Bookmark extends Component {
         return JSON.parse(bookmarks);
     }
 
+    handleSortingChanged = (event) => {
+        if (event.target.value != this.state.sorting) {
+            this.setState({ sorting: event.target.value }, () => {
+                this.getBookmarks();
+            });
+        }
+    }
+
     render () {
 
-        let newsResults = <p>loading...</p>;
+        let newsResults;
 
         if (!this.state.error && this.state.loadedBookmarks) {           
             newsResults = this.state.loadedBookmarks.map( (news, index) => {
@@ -77,6 +87,7 @@ class Bookmark extends Component {
                 <div className="">
                     <h1>All Bookmarks</h1>
                     <ClipLoader loading={this.state.loading}/>
+                    <NewsSorting changed={this.handleSortingChanged}/>
                     {newsResults}
                 </div>
             </div>

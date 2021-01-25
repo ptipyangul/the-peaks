@@ -54,7 +54,7 @@ class Article extends Component {
     
     render ()  {
 
-        let articleContent = <p>Loading...</p>;
+        let articleContent;
 
         // Error checking
         if (!this.state.error && this.state.content) {
