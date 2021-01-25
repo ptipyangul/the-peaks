@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { ClipLoader } from 'react-spinners';
 import configs from '../../configs.json';
 import appClasses from '../../App.module.scss';
+import BookmarkButton from '../../components/BookmarkButton/BookmarkButton';
 
 class Article extends Component {
     constructor(props) {
@@ -66,7 +68,12 @@ class Article extends Component {
                 </div>
             );
         }
-        return <div className={appClasses.wrapper}>{articleContent}</div>;
+        return (
+            <div className={appClasses.wrapper}>
+                <BookmarkButton newsId={this.state.newsId} />
+                {articleContent}
+            </div>
+        );
     }
 }
 
