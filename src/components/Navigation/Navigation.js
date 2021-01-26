@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Route , withRouter} from 'react-router-dom';
-import appClasses from '../../App.module.scss';
 import classes from './Navigation.module.scss';
+import layoutStyle from '../../layout.scss';
+
+import logo from '../../assets/logo.png';
 
 class Navigation extends Component {
     constructor(props) {
@@ -24,29 +25,29 @@ class Navigation extends Component {
 
     render () {
         return (
-            <div className={classes.navBar}>
-                <div className={appClasses.wrapper}>
-                    <div className="Logo"><a href="/">Logo</a></div>
-                    <div className={classes.navRow}>
-                        <ul>
-                            <li><a href="/">NEWS TODAY</a></li>
-                            <li><a href="/category/sport">SPORTS</a></li>
-                            <li><a href="/category/culture">CULTURE</a></li>
-                            <li><a href="/category/lifestyle">LIFESTYLE</a></li>
-                        </ul>
+            <div className={classes.NavBar}>
+                <div className="wrapper">
+                    <div className={classes.navBarContainer}>                    
+                        <div className={classes.Logo}><a href="/"><img src={logo} /></a></div>
+                        <div className={classes.Nav}>
+                            <ul>
+                                <li className={classes.news}><a href="/">NEWS TODAY</a></li>
+                                <li className={classes.sport}><a href="/category/sport">SPORTS</a></li>
+                                <li className={classes.culture}><a href="/category/culture">CULTURE</a></li>
+                                <li className={classes.lifestyle}><a href="/category/lifestyle">LIFESTYLE</a></li>
+                            </ul>
+                        </div>
+                        <div className={classes.Search}>
+                            <input
+                                type="text"
+                                placeholder="Search all news"
+                                onKeyUp={event => this.handleSearchBoxChanged(event)}/>
+                        </div>
                     </div>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            onKeyUp={event => this.handleSearchBoxChanged(event)}/>
-                    </div>
-                    <br />
                 </div>
             </div>
         )
     }
-
 }
 
 export default Navigation;

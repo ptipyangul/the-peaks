@@ -1,14 +1,97 @@
-.navBar {
+.NavBar {
     background-color: #003480;
-    ul li {
-        display: inline-block;
-        margin: 10px 10px;
+}
+
+.navBarContainer {
+    display: grid;
+    grid-template-columns: 60% auto;
+}
+
+.Logo { 
+    grid-column: span 2;
+    img {
+        max-width: 110px;
+        margin: 10px 0;
+    }
+}
+.Nav {
+    ul {
+        display: flex;
+        height: 50px;
+        line-height: 50px;
+        padding: 0;
+        margin: 0;
+        align-items: stretch
+    }
+    li {
+        flex: 1;
+        margin: 0;
+        list-style: none;
+        border-bottom: 3px solid;
+        text-align: center;
+    }
+    .news {
+        border-color: #388e3c;
+    }
+    .news:hover {
+        background-color: #388e3c;
+    }
+    .sport {
+        border-color: #f50057;
+    }
+    .sport:hover {
+        background-color: #f50057;
+    }
+    .culture {
+        border-color: #ffca28;
+    }
+    .culture:hover {
+        background-color: #ffca28;
+    }
+    .lifestyle {
+        border-color: #2196f3;
+    }
+    .lifestyle:hover {
+        background-color: #2196f3;
     }
     a:link,
     a:visited {
+        display: block;
         color: #FFF;
         font-size: 15px;
         font-weight: bold;
         text-decoration: none;
     }
+}
+.Search { 
+    text-align: right;
+
+    input[type=text] {
+        width: 95px;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: 2px solid #ccc;
+        font-size: 16px;
+        background-color: transparent;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 17px;
+        background-image: url('../../assets/search_24px.png');
+        padding: 12px 20px 12px 40px;
+        transition: width 0.4s ease-in-out;
+        color: transparent;
+      }
+      input[type=text]::placeholder {
+        color: transparent;
+      }
+      input[type=text]:focus {
+        color: #FFF;
+        width: 50%;
+        background-position: 10px;
+        outline-width: 0;
+      }
+      input[type=text]:focus::placeholder {
+        color: #FFF;
+        opacity: 0.5;
+      }
 }
