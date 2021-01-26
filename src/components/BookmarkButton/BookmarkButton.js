@@ -28,10 +28,12 @@ class BookmarkButton extends Component {
 
     checkAndUpdateBookmarks() {
         let bookmarks = localStorage.getItem('bookmarks');
-        bookmarks = JSON.parse(bookmarks);
-        let isExisted = ( this.getKeyByValue(bookmarks, this.state.newsId) >= 0 ) ? true : false;
-        let newLabel = ( isExisted ) ? "REMOVE BOOKMARK" : "ADD BOOKMARK";
-        this.setState({ isExisted: isExisted, buttonLabel: newLabel });
+        if (bookmarks) {
+            bookmarks = JSON.parse(bookmarks);            
+            let isExisted = ( this.getKeyByValue(bookmarks, this.state.newsId) >= 0 ) ? true : false;
+            let newLabel = ( isExisted ) ? "REMOVE BOOKMARK" : "ADD BOOKMARK";
+            this.setState({ isExisted: isExisted, buttonLabel: newLabel });
+        }
     }
 
     handleBookmarkBtnClick () {
