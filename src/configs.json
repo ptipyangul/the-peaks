@@ -1,4 +1,5 @@
 {
     "NEWS_API_ENDPOINT": "https://content.guardianapis.com/",
-    "NEWS_API_KEY": "2de4d1ab-3543-4bb4-89fa-554dbfd6f19c"
+    "NEWS_API_KEY": "2de4d1ab-3543-4bb4-89fa-554dbfd6f19c",
+    "LOAD_PER_PAGE": 9
 }

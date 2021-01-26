@@ -14,7 +14,7 @@ class SearchResult extends Component {
             error: false,
             searchResults: [],
             sorting: 'newest',
-            perPage: 2,
+            perPage: configs.LOAD_PER_PAGE,
             page: 1,
             totalPage: null,
             scrolling: false
@@ -48,7 +48,8 @@ class SearchResult extends Component {
 
         axios.get(
             configs.NEWS_API_ENDPOINT
-            + `search?q=${searchKey}`
+            + 'search'
+            + `?q=${searchKey}`
             + `&order-by=${sorting}`
             + `&show-fields=thumbnail%2CtrailText&page=${page}&page-size=${perPage}`
             + `&api-key=${configs.NEWS_API_KEY}`
@@ -61,21 +62,28 @@ class SearchResult extends Component {
                                 scrolling: false,
                                 totalPage: response.data.response.pages });
             })
-            .catch(error => {
-                this.setState({error: true});
-                if (axios.isCancel(error) || error) {
+            .catch( error => {
+                if (axios.isCancel(error)) {
                     this.setState({
-                        error: true
-                    })
+                        error: true,
+                        message: 'Something went wrong. Please try refreshing the page.'
+                    });
+                } else if ( error ) {
+                    this.setState({
+                        error: true,
+                        loading: false,
+                        message: 'Something went wrong. Please try refreshing the page.'              
+                    });
                 }
             });
     }
 
     handleScroll = (e) => {
-        const { scolling, totalPage, page, loading } = this.state;
+        const { scolling, totalPage, page, loading, error } = this.state;
         if (scolling) return;
         if (totalPage <= page) return;
         if (loading) return;
+        if (error) return;
         const lastElement = document.querySelector('div.SearchResultsArea > a:last-child');
         const lastElementOffset = lastElement.offsetTop + lastElement.clientHeight;
         const pageOffset = window.pageYOffset + window.innerHeight;
@@ -113,7 +121,6 @@ class SearchResult extends Component {
                         error: false,
                         searchResults: [],
                         sorting: 'newest',
-                        perPage: 2,
                         page: 1,
                         totalPage: null,
                         scrolling: false
@@ -123,14 +130,16 @@ class SearchResult extends Component {
     }
 
     loadMore = () => {
-        this.setState(prevState => ({ 
-            page: prevState.page + 1,
+        this.setState({ 
+            page: this.state.page + 1,
             scrolling: true
-         }), this.getSearchResults);
+         }, () => {
+            this.getNews()
+         });
     }
 
     render () {
-        let results = <p>Loading...</p>
+        let results;
 
         if (!this.state.error && this.state.searchResults) {
             results = this.state.searchResults.map( (news, index) => {
@@ -142,6 +151,9 @@ class SearchResult extends Component {
                     body={news.fields.trailText}
                     index={index} />
             });
+        }
+        if ( this.state.error && this.state.message && !this.state.loading) {
+            results = <p>{this.state.message}</p>;
         }
 
         return (

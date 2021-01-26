@@ -22,13 +22,25 @@
         color: white;
      }
     .newsTitle {
+        display: block;
         font-family: 'Source Serif Pro', serif;
-        font-size: 20px;
+        font-size: 19px;
         font-weight: 600;
         text-align: left;
         position: absolute;
         bottom: 0;
         background-color: rgba(0,52,128,0.8);
         padding: 10px 15px 25px 10px;
+        height: 80px;
+        max-height: 80px;
+        overflow: hidden;
+    }
+}
+.newsCard:hover,
+.newsCard:focus {
+    background-size: auto 110%;
+    transition: all .5s;
+    .newsTitle {
+        background-color: rgba(0,52,128,0.98);
     }
 }

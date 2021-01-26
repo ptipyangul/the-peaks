@@ -12,12 +12,9 @@ class Loader extends Component {
     }
 
     render () {
-        let Loader = '';
-        if (this.state.isLoading) {
-            Loader = <div className={classes.Loader}></div>;
-        }
+        let Loader = (this.state.isLoading) ? <div className={classes.Loader}></div> : <div className={`${classes.Loader} ${classes.Hide}`}></div>;
         return(
-            <div>{Loader}</div>
+            <div className={classes.LoaderContainer}>{Loader}</div>
         );
     }
 }
