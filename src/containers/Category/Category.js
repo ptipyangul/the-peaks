@@ -24,9 +24,10 @@ class Category extends Component {
 
             perPage: configs.LOAD_PER_PAGE,
             page: 1,
-            totalPage: null,
+            totalPage: null
         }
         this.cancel = null;
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     capitalize = (s) => {
@@ -89,10 +90,10 @@ class Category extends Component {
             });
     }
 
-    handleScroll = (e) => {
-        const { scolling, totalPage, page, loading, error } = this.state;
+    handleScroll () {
+        const { totalPage, page, loading, error } = this.state;
         if (totalPage <= page) return;
-        if (scolling || loading || error ) return;     
+        if ( loading || error ) return;
         const lastElement = document.querySelector('div.' + `${classes.SearchResultsArea}` + ' > a:last-child');
         const lastElementOffset = lastElement.offsetTop + lastElement.clientHeight;
         const pageOffset = window.pageYOffset + window.innerHeight;
@@ -110,12 +111,11 @@ class Category extends Component {
     }
 
     componentDidMount () {
-
         this.getNews();
-
-        this.scrollListener = window.addEventListener('scroll', (e) => {
-            this.handleScroll(e);
-        })
+        window.addEventListener('scroll', this.handleScroll);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
     }
 
     render () {

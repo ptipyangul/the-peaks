@@ -28,6 +28,7 @@ class SearchResult extends Component {
             totalPage: null,            
         }
         this.cancel = null;
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
     parseParams = (querystring) => {
@@ -88,10 +89,9 @@ class SearchResult extends Component {
     }
 
     handleScroll = (e) => {
-        const { scolling, totalPage, page, loading, error } = this.state;
+        const { scrolling, totalPage, page, loading, error } = this.state;
         if (totalPage <= page) return;
-        if (scolling || loading || error ) return;
-        console.log('div.' + `${classes.SearchResultsArea}` + ' > a:last-child');
+        if (scrolling || loading || error ) return;
         const lastElement = document.querySelector('div.' + `${classes.SearchResultsArea}` + ' > a:last-child');
         const lastElementOffset = lastElement.offsetTop + lastElement.clientHeight;
         const pageOffset = window.pageYOffset + window.innerHeight;
@@ -106,9 +106,10 @@ class SearchResult extends Component {
                 this.setState({ searchKey: qs.q });
             }
         }
-        this.scrollListener = window.addEventListener('scroll', (e) => {
-            this.handleScroll(e);
-        })
+        window.addEventListener('scroll', this.handleScroll);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
     }
 
     componentDidUpdate(prevProps) {
