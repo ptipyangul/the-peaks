@@ -23,23 +23,33 @@ class Navigation extends Component {
             this.props.history.push('/search');
         }*/
     }
+
+    handleHamburgerCheckBox = () => {
+        if (!document.body.classList.contains(`${classes.noScroll}`)) {
+            document.body.classList.add(`${classes.noScroll}`);
+        } else {
+            document.body.classList.remove(`${classes.noScroll}`);
+        }
+    }
     render () {
         return (
             <div className={classes.NavBar}>
                 <div className="wrapper">
                     <div className={classes.navBarContainer}>
-                        <input type="checkbox" id="check" />
-                        <label for="check" className="checkbtn">
-                            <i class="fas fa-bars"></i>
-                        </label>
                         <div className={classes.Logo}><a href="/"><img src={logo} /></a></div>
                         <div className={classes.Nav}>
-                            <ul>
-                                <li className={classes.news}><a href="/">NEWS TODAY</a></li>
-                                <li className={classes.sport}><a href="/category/sport">SPORTS</a></li>
-                                <li className={classes.culture}><a href="/category/culture">CULTURE</a></li>
-                                <li className={classes.lifestyle}><a href="/category/lifestyle">LIFESTYLE</a></li>
-                            </ul>
+                            <nav>
+                                <input type="checkbox" id="hamburgerCheckBox" className={classes.checkBox} />
+                                <label for="hamburgerCheckBox" className={classes.checkBtn} onClick={this.handleHamburgerCheckBox}>
+                                    <img src={hamburgerIcon} />
+                                </label>
+                                <ul>
+                                    <li className={classes.news}><a href="/">NEWS TODAY</a></li>
+                                    <li className={classes.sport}><a href="/category/sport">SPORTS</a></li>
+                                    <li className={classes.culture}><a href="/category/culture">CULTURE</a></li>
+                                    <li className={classes.lifestyle}><a href="/category/lifestyle">LIFESTYLE</a></li>
+                                </ul>
+                            </nav>
                         </div>
                         <div className={classes.Search}>
                             <input
