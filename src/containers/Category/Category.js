@@ -12,15 +12,19 @@ class Category extends Component {
         super(props);
         this.state = {
             categoryName: this.props.match.params.categoryName,
-            searchResults: [],
-            error: true,
             sorting: 'newest',
-            loading: true,
+
+            searchResults: [],
+
+            loading: false,
+            scrolling: false,
+
+            error: true,           
             message: '',
+
             perPage: configs.LOAD_PER_PAGE,
             page: 1,
             totalPage: null,
-            scrolling: false
         }
         this.cancel = null;
     }
@@ -87,13 +91,8 @@ class Category extends Component {
 
     handleScroll = (e) => {
         const { scolling, totalPage, page, loading, error } = this.state;
-
-        console.log(page);
-
-        if (scolling) return;
         if (totalPage <= page) return;
-        if (loading || error ) return;
-        
+        if (scolling || loading || error ) return;     
         const lastElement = document.querySelector('div.' + `${classes.SearchResultsArea}` + ' > a:last-child');
         const lastElementOffset = lastElement.offsetTop + lastElement.clientHeight;
         const pageOffset = window.pageYOffset + window.innerHeight;
@@ -112,7 +111,7 @@ class Category extends Component {
 
     componentDidMount () {
 
-        this.getNews(this.props.sectionName);
+        this.getNews();
 
         this.scrollListener = window.addEventListener('scroll', (e) => {
             this.handleScroll(e);

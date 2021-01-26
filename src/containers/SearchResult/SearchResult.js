@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../configs.json';
+import layoutStyle from '../../layout.scss';
 import appClasses from '../../App.module.scss';
+import classes from '../SearchResult/SearchResult.module.scss';
 import NewsImageCard from "../../components/NewsCard/NewsCard";
+import NewsSorting from '../../components/NewsSorting/NewsSorting';
 import Loader from "../../components/Loader/Loader";
 
 class SearchResult extends Component {
@@ -10,14 +13,19 @@ class SearchResult extends Component {
         super(props);
         this.state = {
             searchKey: '',
-            loading: false,
-            error: false,
-            searchResults: [],
             sorting: 'newest',
+
+            searchResults: [],
+
+            loading: false,
+            scrolling: false,
+            
+            error: false,
+            message: '',
+
             perPage: configs.LOAD_PER_PAGE,
             page: 1,
-            totalPage: null,
-            scrolling: false
+            totalPage: null,            
         }
         this.cancel = null;
     }
@@ -58,7 +66,8 @@ class SearchResult extends Component {
                 const data = [...searchResults, ...response.data.response.results];
                 this.setState({ searchResults: data, 
                                 error: false,
-                                loading: false, 
+                                message: null,
+                                loading: false,
                                 scrolling: false,
                                 totalPage: response.data.response.pages });
             })
@@ -80,11 +89,10 @@ class SearchResult extends Component {
 
     handleScroll = (e) => {
         const { scolling, totalPage, page, loading, error } = this.state;
-        if (scolling) return;
         if (totalPage <= page) return;
-        if (loading) return;
-        if (error) return;
-        const lastElement = document.querySelector('div.SearchResultsArea > a:last-child');
+        if (scolling || loading || error ) return;
+        console.log('div.' + `${classes.SearchResultsArea}` + ' > a:last-child');
+        const lastElement = document.querySelector('div.' + `${classes.SearchResultsArea}` + ' > a:last-child');
         const lastElementOffset = lastElement.offsetTop + lastElement.clientHeight;
         const pageOffset = window.pageYOffset + window.innerHeight;
         let bottomOffset = 20;
@@ -157,18 +165,20 @@ class SearchResult extends Component {
         }
 
         return (
-            <div>
-                <div className={appClasses.wrapper}>
-                <h1>Search Result</h1>
-                        <input
-                            type="text"
-                            placeholder="Search"
-                            onChange={event => this.handleSearchBoxChanged(event)}/> <br />
-                    <div className="SearchResultsArea">
-                        {results}
-                    </div>
-                    <Loader isLoading={this.state.loading} />
+            <div className="wrapper">
+                <input
+                type="text"
+                placeholder="Search"
+                onChange={event => this.handleSearchBoxChanged(event)}/> <br />
+
+                <div className={classes.searchContainer}>
+                    <div className={classes.HeadingDiv}><h1>Search Result</h1></div>           
+                    <div className={classes.newsSortingDiv}><NewsSorting changed={this.handleSortingChanged}/></div>
                 </div>
+                <div className={classes.SearchResultsArea}>
+                    {results}
+                </div>
+                <Loader isLoading={this.state.loading} />
             </div>
         );
     }

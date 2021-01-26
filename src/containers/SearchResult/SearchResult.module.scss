@@ -1,0 +1,18 @@
+.searchContainer {
+    display: table;
+    width: 100%;
+}
+.HeadingDiv {
+    display: table-cell;
+    vertical-align: middle; 
+}
+.newsSortingDiv {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+}
+.SearchResultsArea {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 30px;
+}
