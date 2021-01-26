@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
 import configs from '../../configs.json';
-import appClasses from '../../App.module.scss';
+import layoutStyle from '../../layout.scss';
 import classes from './Category.module.scss';
 import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
@@ -71,15 +70,14 @@ class Category extends Component {
             });
         }
         return (
-            <div className={appClasses.wrapper}>
-                <div className="">
-                    <h1>{this.capitalize(this.state.categoryName)}</h1>                    
-                    <div>
-                        <NewsSorting changed={this.handleSortingChanged}/>
-                    </div>
-                    <ClipLoader loading={this.state.loading}/>
-                    {newsResults}
+            <div className="wrapper">
+                <div className={classes.categoryContainer}>
+                    <div className={classes.HeadingDiv}><h1>{this.capitalize(this.state.categoryName)}</h1></div>           
+                    <div className={classes.newsSortingDiv}><NewsSorting changed={this.handleSortingChanged}/></div>
                 </div>
+                <div className={classes.searchResultsDiv}>
+                    {newsResults}
+                </div>    
             </div>
         )
     }

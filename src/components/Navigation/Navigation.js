@@ -40,7 +40,7 @@ class Navigation extends Component {
                         <div className={classes.Nav}>
                             <nav>
                                 <input type="checkbox" id="hamburgerCheckBox" className={classes.checkBox} />
-                                <label for="hamburgerCheckBox" className={classes.checkBtn} onClick={this.handleHamburgerCheckBox}>
+                                <label htmlFor="hamburgerCheckBox" className={classes.checkBtn} onClick={this.handleHamburgerCheckBox}>
                                     <img src={hamburgerIcon} />
                                 </label>
                                 <ul>
