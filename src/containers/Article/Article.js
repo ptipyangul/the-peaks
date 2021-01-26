@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { ClipLoader } from 'react-spinners';
 import configs from '../../configs.json';
-import appClasses from '../../App.module.scss';
+import layoutStyle from '../../layout.scss';
+import classes from '../Article/Article.module.scss';
 import BookmarkButton from '../../components/BookmarkButton/BookmarkButton';
+import Loader from "../../components/Loader/Loader";
 
 class Article extends Component {
     constructor(props) {
@@ -12,25 +13,36 @@ class Article extends Component {
             newsId: null,
             content: null,
             error: false,
-            loaded: false
+            loaded: false,
+            message: ''
         }
     }
 
     getArticle() {
+        this.setState( { loading: true });
         axios.get(
             configs.NEWS_API_ENDPOINT
             + 'search?ids='
             + this.state.newsId
-            +'&show-fields=body%2Cheadline%2Cbody'
-            +'&show-elements=image'
-            + '&api-key='
-            + configs.NEWS_API_KEY)
+            + '&show-fields=body%2Cheadline%2Cbody'
+            + '&show-elements=image'
+            + `&api-key=${configs.NEWS_API_KEY}`)
             .then(response => {
                 const content = response.data.response.results[0];
-                this.setState({content: content, error: false, loaded: true});                
+                this.setState({content: content,
+                    message: null,
+                    error: false,
+                    loaded: true, 
+                    loading: false });                
             })
             .catch(error => {
-                this.setState({error: true});
+                if ( error ) {
+                    this.setState({
+                        error: true,
+                        loading: false,
+                        message: 'Something went wrong. Please try refreshing the page.'              
+                    });
+                }
             });
     }
 
@@ -44,7 +56,7 @@ class Article extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.state.newsId && this.state.loaded == false && !this.state.error) {
+        if (this.state.newsId && !this.state.loaded && !this.state.loading && !this.state.error) {
             this.getArticle();
         }
         if (this.state.content) {
@@ -60,18 +72,22 @@ class Article extends Component {
         if (!this.state.error && this.state.content) {
             let content = this.state.content;
               articleContent = (
-                <div>
-                    <p>{content.webPublicationDate}</p>
-                    <h1>{content.webTitle}</h1>
-                    <p>{content.fields.headline}</p>
-                    <div dangerouslySetInnerHTML={{__html: content.fields.body}} />
+                <div className={classes.articleContent}>
+                    <p className={classes.pubDate}>{content.webPublicationDate}</p>
+                    <h1 className={classes.title}>{content.webTitle}</h1>
+                    <p className={classes.headline}>{content.fields.headline}</p>
+                    <hr />
+                    <div className={classes.content} dangerouslySetInnerHTML={{__html: content.fields.body}} />
                 </div>
             );
         }
         return (
-            <div className={appClasses.wrapper}>
-                <BookmarkButton newsId={this.state.newsId} />
-                {articleContent}
+            <div className={classes.articlePage}>
+                <div className="wrapper">
+                    <BookmarkButton newsId={this.state.newsId} />
+                    {articleContent}
+                    <Loader isLoading={this.state.loading} />
+                </div>
             </div>
         );
     }

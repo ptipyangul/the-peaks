@@ -52,7 +52,7 @@ class BookmarkButton extends Component {
     render ()  {
         return(
             <div>
-                <button onClick={() => this.handleBookmarkBtnClick(this)}>{this.state.buttonLabel}</button>
+                <button class="bookmarkBtn" onClick={() => this.handleBookmarkBtnClick(this)}>{this.state.buttonLabel}</button>
             </div>
         );
     };
