@@ -3,6 +3,7 @@ import classes from './Navigation.module.scss';
 import layoutStyle from '../../layout.scss';
 
 import logo from '../../assets/logo.png';
+import hamburgerIcon from '../../assets/hamburger.png';
 
 class Navigation extends Component {
     constructor(props) {
@@ -22,12 +23,15 @@ class Navigation extends Component {
             this.props.history.push('/search');
         }*/
     }
-
     render () {
         return (
             <div className={classes.NavBar}>
                 <div className="wrapper">
-                    <div className={classes.navBarContainer}>                    
+                    <div className={classes.navBarContainer}>
+                        <input type="checkbox" id="check" />
+                        <label for="check" className="checkbtn">
+                            <i class="fas fa-bars"></i>
+                        </label>
                         <div className={classes.Logo}><a href="/"><img src={logo} /></a></div>
                         <div className={classes.Nav}>
                             <ul>
