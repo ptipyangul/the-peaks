@@ -1,6 +1,7 @@
 # The Peaks
 
-This is a Frontend Developer Test project for Seven Peaks Software. I build this project from scratch.
+This is a Frontend Developer Test project for Seven Peaks Software. I build this project from scratch.\
+The Peaks website consists of Homepage, Category pages, Article pages,Bookmark and Search page.\
 This is my first time implementing React project! Please let me know if you have any question or comments.
 
 ## Usage
