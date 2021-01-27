@@ -1,6 +1,6 @@
 # The Peaks
 
-This is a Frontend Developer Test project for Seven Peaks Software. I build this project from scratch.
+This is the Frontend Developer Test project for Seven Peaks Software. This project was build from scratch.
 
 The Peaks website consists of Homepage, Category pages, Article pages, Bookmark and Search page.
 
