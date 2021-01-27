@@ -36,8 +36,19 @@
         height: 80px;
         max-height: 80px;
         overflow: hidden;
+        p {
+            font-size: 14px;
+            font-weight: 300;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+            'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+            sans-serif;
+            margin: 5px 0;
+        }
         @media (max-width: $ss-screen) {
             font-size: 15px;
+            p {
+                display: none;
+            }
         }
     }
 }

@@ -57,9 +57,9 @@ class topStories extends Component {
                     newsId = {news.id}
                     img={news.fields.thumbnail}
                     title={news.webTitle}
-                    body={news.fields.trailText}
+                    trailText={news.fields.trailText}
                     index={index}
-                    linkClassName={classes['index'+ index]}  />                
+                    linkClassName={classes['index'+ index]}/>                
             });
         }
         if ( this.state.error && this.state.message && !this.state.loading) {
