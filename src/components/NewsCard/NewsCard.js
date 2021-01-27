@@ -15,7 +15,7 @@ class NewsCard extends Component {
                     <div className={newsImageCardClassName} style={{ backgroundImage: `url(${newsImageURL})` }}>
                         <div className={classes.inner}>
                             <div className={classes.newsTitle}>
-                                {this.props.title}
+                                <p>{this.props.title}</p>
                                 <div className={classes.trailText}>{trailText}</div>
                             </div>
                         </div>

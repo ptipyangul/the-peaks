@@ -1,5 +1,9 @@
 @import './variables.scss';
 
+#root {
+    padding-bottom: 20px;
+}
+
 .wrapper {
     width: 90%;
     max-width: 1170px;
@@ -16,7 +20,7 @@
     font-size: 50px;
     font-weight: 700;  
     @media (max-width: $ss-screen) {
-        font-size: 40px;
+        font-size: 35px;
     }
 }
 @mixin headingH2 {
@@ -52,6 +56,14 @@ h2 {
     cursor: pointer;
     @media (max-width: $ss-screen) {
         font-size: 11px;
+    }
+}
+@media (max-width: $ss-screen) {
+    .bookmarkBtn.topStories {
+        font-size: 0;
+        padding: 15px;
+        background-size: 15px;
+        background-position: 7px;
     }
 }
 

@@ -3,6 +3,7 @@
 .categoryContainer {
     display: table;
     width: 100%;
+    padding: 20px 0;
 }
 .HeadingDiv {
     display: table-cell;
@@ -21,6 +22,11 @@
 }
 
 @media (max-width: $ss-screen) {
+    .HeadingDiv,
+    .newsSortingDiv {
+        display: table-row;
+        text-align: left;
+    }
     .SearchResultsArea {
         display: flex;
         flex-direction: column;
