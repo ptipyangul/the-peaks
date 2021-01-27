@@ -60,7 +60,7 @@ class Article extends Component {
             this.getArticle();
         }
         if (this.state.content) {
-            document.title = this.state.content.webTitle;
+            document.title = this.state.content.webTitle + ' | ' + configs.PAGE_TITLE;
         }
     }
     

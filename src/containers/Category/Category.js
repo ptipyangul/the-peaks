@@ -55,7 +55,6 @@ class Category extends Component {
         if ( this.cancel ) {
             this.cancel.cancel();
         }
-
         this.cancel = axios.CancelToken.source();
 
         this.setState( { loading: true });
@@ -111,9 +110,11 @@ class Category extends Component {
     }
 
     componentDidMount () {
+        document.title = this.capitalize(this.state.categoryName) + ' | ' + configs.PAGE_TITLE;
         this.getNews();
         window.addEventListener('scroll', this.handleScroll);
     }
+
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
     }

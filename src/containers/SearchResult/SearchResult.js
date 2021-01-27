@@ -9,6 +9,9 @@ import NewsSorting from '../../components/NewsSorting/NewsSorting';
 import Loader from "../../components/Loader/Loader";
 
 class SearchResult extends Component {
+
+    pageTitle = 'Search Result';
+
     constructor(props) {
         super(props);
         this.state = {
@@ -100,6 +103,7 @@ class SearchResult extends Component {
     }
 
     componentDidMount() {
+        document.title = this.pageTitle + ' | ' + configs.PAGE_TITLE;
         if (this.state.searchKey == null) {
             let qs = this.parseParams(this.props.location.search);
             if (qs.q) {

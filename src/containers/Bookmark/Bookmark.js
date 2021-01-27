@@ -8,6 +8,9 @@ import NewsSorting from '../../components/NewsSorting/NewsSorting';
 import classes from './Bookmark.module.scss';
 
 class Bookmark extends Component {
+
+    pageTitle = "All Bookmark" + ' | ';
+
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +20,6 @@ class Bookmark extends Component {
             loading: false,
             sorting: 'newest'
         }
-        const sorting = 'newest';
     }
 
     getBookmarks() {
@@ -42,6 +44,8 @@ class Bookmark extends Component {
     }
 
     componentDidMount () {
+        document.title = this.pageTitle + configs.PAGE_TITLE;
+
         let bookmarks = this.getLocalStoredBookmark();
         if (bookmarks) {
             this.setState({ localBookmarks: bookmarks }, () => {
@@ -67,6 +71,7 @@ class Bookmark extends Component {
     }
 
     render () {
+
         let newsResults;
         if (!this.state.error && this.state.loadedBookmarks) {           
             newsResults = this.state.loadedBookmarks.map( (news, index) => {
