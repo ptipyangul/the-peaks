@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import appClasses from '../../App.module.scss';
 
 class BookmarkButton extends Component {
     constructor(props) {

@@ -8,7 +8,7 @@ import classes from './Bookmark.module.scss';
 
 class Bookmark extends Component {
 
-    pageTitle = "All Bookmark" + ' | ';
+    pageTitle = "All Bookmark | ";
 
     constructor(props) {
         super(props);
@@ -62,7 +62,7 @@ class Bookmark extends Component {
     }
 
     handleSortingChanged = (event) => {
-        if (event.target.value != this.state.sorting) {
+        if (event.target.value !== this.state.sorting) {
             this.setState({ sorting: event.target.value }, () => {
                 this.getBookmarks();
             });

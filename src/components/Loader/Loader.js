@@ -6,7 +6,7 @@ class Loader extends Component {
     state = { isLoading: false };
 
     componentDidUpdate(prevProps) {
-        if ( prevProps.isLoading != this.props.isLoading ) {
+        if ( prevProps.isLoading !== this.props.isLoading ) {
             this.setState({ isLoading: this.props.isLoading });
         }
     }

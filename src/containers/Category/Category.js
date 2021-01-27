@@ -58,7 +58,7 @@ class Category extends Component {
 
         this.setState( { loading: true });
 
-        let sectionNameParam = (categoryName == 'lifestyle') ? 'lifeandstyle' : categoryName;
+        let sectionNameParam = (categoryName === 'lifestyle') ? 'lifeandstyle' : categoryName;
 
         axios.get(
             configs.NEWS_API_ENDPOINT

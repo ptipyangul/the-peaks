@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../configs.json';
-import appClasses from '../../App.module.scss';
 import classes from '../SearchResult/SearchResult.module.scss';
-import NewsImageCard from "../../components/NewsCard/NewsCard";
+import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
 import Loader from "../../components/Loader/Loader";
 
@@ -155,7 +154,7 @@ class SearchResult extends Component {
 
         if (!this.state.error && this.state.searchResults) {
             results = this.state.searchResults.map( (news, index) => {
-                return <NewsImageCard 
+                return <NewsCard 
                     key={news.id}
                     newsId = {news.id}
                     img={news.fields.thumbnail}

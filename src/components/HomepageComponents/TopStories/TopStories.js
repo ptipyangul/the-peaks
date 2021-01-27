@@ -3,7 +3,7 @@ import axios from 'axios';
 import configs from '../../../configs.json';
 import classes from './TopStories.module.scss';
 import Loader from "../../Loader/Loader";
-import NewsImageCard from "../../NewsCard/NewsCard";
+import NewsCard from "../../NewsCard/NewsCard";
 
 class topStories extends Component {
     constructor(props) {
@@ -52,7 +52,7 @@ class topStories extends Component {
         let topNewsResults;
         if (!this.state.error && this.state.news) {
             topNewsResults = this.state.news.map( (news, index) => {
-                return <NewsImageCard 
+                return <NewsCard 
                     key={news.id}
                     newsId = {news.id}
                     img={news.fields.thumbnail}

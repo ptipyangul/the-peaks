@@ -3,7 +3,7 @@ import axios from 'axios';
 import configs from '../../../configs.json';
 import classes from './CategoryBased.module.scss';
 import Loader from "../../Loader/Loader";
-import NewsImageCard from "../../NewsCard/NewsCard";
+import NewsCard from "../../NewsCard/NewsCard";
 
 class categoryBasedSections extends Component {
 
@@ -46,7 +46,7 @@ class categoryBasedSections extends Component {
 
         if (!this.state.error && this.state.news) {           
             newsResults = this.state.news.map( (news, index) => {
-                return <NewsImageCard 
+                return <NewsCard 
                     key={news.id}
                     newsId = {news.id}
                     img={news.fields.thumbnail}

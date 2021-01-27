@@ -34,12 +34,12 @@ class Navigation extends Component {
             <div className={classes.NavBar}>
                 <div className="wrapper">
                     <div className={classes.navBarContainer}>
-                        <div className={classes.Logo}><a href="/"><img src={logo} /></a></div>
+                        <div className={classes.Logo}><a href="/"><img src={logo} alt="The Peaks Logo" /></a></div>
                         <div className={classes.Nav}>
                             <nav>
                                 <input type="checkbox" id="hamburgerCheckBox" className={classes.checkBox} />
                                 <label htmlFor="hamburgerCheckBox" className={classes.checkBtn} onClick={this.handleHamburgerCheckBox}>
-                                    <img src={hamburgerIcon} />
+                                    <img src={hamburgerIcon} alt="Hamburger icon" />
                                 </label>
                                 <ul>
                                     <li className={classes.news}><a href="/">NEWS TODAY</a></li>
