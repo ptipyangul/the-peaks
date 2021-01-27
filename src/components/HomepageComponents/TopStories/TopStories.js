@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
 import configs from '../../../configs.json';
 import classes from './TopStories.module.scss';
-
+import Loader from "../../Loader/Loader";
 import NewsImageCard from "../../NewsCard/NewsCard";
 
 class topStories extends Component {
@@ -13,11 +12,12 @@ class topStories extends Component {
             news: null,
             error: false,
             sorting: 'newest',
-            loading: true
+            loading: false
         }
     }
 
     getNews() {
+        this.setState( { loading: true });
         axios.get(
             configs.NEWS_API_ENDPOINT
             + '/search'
@@ -31,7 +31,7 @@ class topStories extends Component {
                 this.setState({news: news, error: false, loading: false});
             })
             .catch(error => {
-                this.setState({error: true});
+                this.setState({ error: true, loading: false });
             });
     }
 
@@ -49,8 +49,7 @@ class topStories extends Component {
 
     render () {
         
-        let topNewsResults = <p>Loading...</p>
-
+        let topNewsResults;
         if (!this.state.error && this.state.news) {
             topNewsResults = this.state.news.map( (news, index) => {
                 return <NewsImageCard 
@@ -59,13 +58,19 @@ class topStories extends Component {
                     img={news.fields.thumbnail}
                     title={news.webTitle}
                     body={news.fields.trailText}
-                    index={index} />                
+                    index={index}
+                    linkClassName={classes['index'+ index]}  />                
             });
         }
+        if ( this.state.error && this.state.message && !this.state.loading) {
+            topNewsResults = <p>{this.state.message}</p>;
+        }
         return (
-            <div className="topStories">                
-                {topNewsResults}
-                <ClipLoader loading={this.state.loading}/>
+            <div>
+                <div className={classes.topStories}>                
+                    {topNewsResults}
+                </div>
+                <Loader isLoading={this.state.loading} />
             </div>
         )
     }

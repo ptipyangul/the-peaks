@@ -3,9 +3,7 @@
 }
 
 .homepageSections {
-    padding: 5px;
-    border: 1px solid black;
-    margin-bottom: 5px;
+    margin-bottom: 40px;
     .seeAll {
         a:link,
         a:visited {
@@ -14,5 +12,41 @@
     }
 }
 
-/*.topStoriesSection { }
-.categoryBasedSections { }*/
+.topStoriesHeader {
+    display: table;
+    width: 100%;
+    padding: 20px 0;
+    h2 {
+        width: 60%;
+        display: table-cell;
+    }
+    .bookmarkCol {
+        display: table-cell;
+        text-align: right;
+        width: 20%;
+        padding-right: 10px;
+    }
+    .topStoriesSorting {
+        display: table-cell;
+        width: 20%;
+        text-align: right;
+    }
+}
+ .categoryBaseHeader {
+    display: table;
+    width: 100%;
+    padding: 20px 0;
+    h2 {
+        width: 60%;
+        display: table-cell;
+    }
+    .categorySeeAllCol {
+        width: 40%;
+        display: table-cell;
+        text-align: right;
+        a:link,
+        a:visited {
+            color: #2196f3;
+        }
+    }
+ }

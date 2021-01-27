@@ -11,13 +11,30 @@
 //     }
 // }
 
-h1 {
+@mixin heading {
     font-family: 'Source Serif Pro', serif;
-    font-weight: 700;
-    font-size: 45px;
+    margin: 0;
+}
+@mixin headingH1 {
+    @include heading;
+    font-size: 50px;
+    font-weight: 700;    
+}
+@mixin headingH2 {
+    @include heading;
+    font-size: 40px;
+    font-weight: 700;    
+}
+
+h1 {
+    @include headingH1;
+}
+h2 {
+    @include headingH2;
 }
 
 .bookmarkBtn {
+    display: inline-block;
     background-color: #003480;
     color: #FFF;
     border: none;

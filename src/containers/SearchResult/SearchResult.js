@@ -143,7 +143,7 @@ class SearchResult extends Component {
             page: this.state.page + 1,
             scrolling: true
          }, () => {
-            this.getNews()
+            this.getSearchResults()
          });
     }
 

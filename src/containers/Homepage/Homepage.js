@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import layoutStyle from '../../layout.scss';
 import appClasses from '../../App.module.scss';
 import classes from './Homepage.module.scss';
 import TopStories from '../../components/HomepageComponents/TopStories/TopStories';
@@ -21,32 +23,43 @@ class homepageArea extends Component {
     render () {
         return (
             <div className={classes.homepage}>
-                <div className={appClasses.wrapper}>
+                <div className="wrapper">
                     <div className={classes.homepageSections}>
-                        <h2>Top stories</h2>
-                        <NewsSorting changed={this.handleSortingChanged}/>
-                        {/* <TopStories sorting={this.state.sorting}/> */}
+                        <div className={classes.topStoriesHeader}>
+                            <h1>Top stories</h1>
+                            <div className={classes.bookmarkCol}>
+                               <Link to="/bookmark"><div className="bookmarkBtn">VIEW BOOKMARK</div></Link>
+                            </div>
+                            <div className={classes.topStoriesSorting}><NewsSorting changed={this.handleSortingChanged}/></div>
+                        </div>
+                        <TopStories sorting={this.state.sorting}/>
                     </div>
                     <div className={classes.homepageSections}>
-                        <h2>Sports</h2>
-                        <div className={classes.seeAll}>
-                            <a href="/category/sport">See all</a>
+                        <div className={classes.categoryBaseHeader}>
+                            <h2>Sports</h2>
+                            <div className={classes.categorySeeAllCol}>
+                                <a href="/category/sport">See all</a>
+                            </div>
                         </div>
-                        {/* <CategoryBasedSections sectionName="sport" /> */}
+                        <CategoryBasedSections sectionName="sport" />
                     </div>
                     <div className={classes.homepageSections}>
-                        <h2>Culture</h2>
-                        <div className={classes.seeAll}>
-                            <a href="/category/culture">See all</a>
+                        <div className={classes.categoryBaseHeader}>
+                            <h2>Culture</h2>
+                            <div className={classes.categorySeeAllCol}>
+                                <a href="/category/culture">See all</a>
+                            </div>
                         </div>
-                        {/* <CategoryBasedSections sectionName="culture" /> */}
+                        <CategoryBasedSections sectionName="culture" />
                     </div>
                     <div className={classes.homepageSections}>
-                        <h2>Lifestyle</h2>
-                        <div className={classes.seeAll}>
-                            <a href="/category/lifeandstyle">See all</a>
+                        <div className={classes.categoryBaseHeader}>
+                            <h2>Lifestyle</h2>
+                            <div className={classes.categorySeeAllCol}>
+                                <a href="/category/lifestyle">See all</a>
+                            </div>
                         </div>
-                        {/* <CategoryBasedSections sectionName="lifeandstyle" /> */}
+                        <CategoryBasedSections sectionName="lifeandstyle" />
                     </div>
                 </div>
             </div>

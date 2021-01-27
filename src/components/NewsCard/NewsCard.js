@@ -11,7 +11,7 @@ class NewsCard extends Component {
             let newsImageCardClassName = classes.newsCard + ' index' + this.props.index;
             let newsImageURL = (this.props.img) ? this.props.img : noThumbnailImg;
             return (
-                <Link className={classes.newCardLink} to={`/article/${this.props.newsId}`}>
+                <Link to={`/article/${this.props.newsId}`} className={this.props.linkClassName}>
                     <div className={newsImageCardClassName} style={{ backgroundImage: `url(${newsImageURL})` }}>
                         <div className={classes.inner}>
                             <div className={classes.newsTitle}>{this.props.title}</div>
