@@ -71,14 +71,16 @@ class Article extends Component {
         // Error checking
         if (!this.state.error && this.state.content) {
             let content = this.state.content;
-              articleContent = (
-                <div className={classes.articleContent}>
-                    <p className={classes.pubDate}>{content.webPublicationDate}</p>
-                    <h1 className={classes.title}>{content.webTitle}</h1>
-                    <p className={classes.headline}>{content.fields.headline}</p>
-                    <hr />
-                    <div className={classes.content} dangerouslySetInnerHTML={{__html: content.fields.body}} />
-                </div>
+            let pubDate = new Date(content.webPublicationDate);         
+            let formatedDate = pubDate.toUTCString().replace(/,/,'').toUpperCase();
+            articleContent = (
+            <div className={classes.articleContent}>
+                <p className={classes.pubDate}>{formatedDate}</p>
+                <h1 className={classes.title}>{content.webTitle}</h1>
+                <p className={classes.headline}>{content.fields.headline}</p>
+                <hr />
+                <div className={classes.content} dangerouslySetInnerHTML={{__html: content.fields.body}} />
+            </div>
             );
         }
         return (
