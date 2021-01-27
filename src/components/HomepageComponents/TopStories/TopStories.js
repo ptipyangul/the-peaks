@@ -23,7 +23,7 @@ class topStories extends Component {
             + '/search'
             + '?order-by='
             + this.state.sorting
-            +'&show-fields=thumbnail%2CtrailText&page=1&page-size=8'
+            +'&show-fields=thumbnail%2CtrailText&page=1&page-size=8&show-section=true'
             + '&api-key='
             + configs.NEWS_API_KEY)
             .then(response => {
@@ -50,8 +50,15 @@ class topStories extends Component {
     render () {
         
         let topNewsResults;
+
+        let firstRowResults;
+        let secondRowResults;
+
         if (!this.state.error && this.state.news) {
-            topNewsResults = this.state.news.map( (news, index) => {
+            let allnews = [...this.state.news];
+            const firstHalf = allnews.splice(0, 5);
+            const secondHalf = allnews.splice(-3);
+            firstRowResults = firstHalf.map( (news, index) => {
                 return <NewsCard 
                     key={news.id}
                     newsId = {news.id}
@@ -61,14 +68,28 @@ class topStories extends Component {
                     index={index}
                     linkClassName={classes['index'+ index]}/>                
             });
+            secondRowResults = secondHalf.map( (news, index) => {
+                return <NewsCard 
+                    key={news.id}
+                    newsId = {news.id}
+                    img={news.fields.thumbnail}
+                    title={news.webTitle}
+                    trailText={news.fields.trailText}
+                    index={index}
+                    linkClassName={classes['index'+ index]}/>                
+            });
+
         }
         if ( this.state.error && this.state.message && !this.state.loading) {
             topNewsResults = <p>{this.state.message}</p>;
         }
         return (
             <div>
-                <div className={classes.topStories}>                
-                    {topNewsResults}
+                <div className={classes.topStoriesFirstRow}>                
+                    {firstRowResults}
+                </div>
+                <div className={classes.topStoriesSecondRow}>
+                    {secondRowResults}
                 </div>
                 <Loader isLoading={this.state.loading} />
             </div>

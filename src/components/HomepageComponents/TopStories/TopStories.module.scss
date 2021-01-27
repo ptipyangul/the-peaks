@@ -1,34 +1,53 @@
 @import '../../../assets/variables.scss';
 
-.topStories {
+.topStoriesFirstRow {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
     gap: 20px 20px;
-    grid-template-areas:
-      "index0 index0 index1 index2"
-      "index0 index0 index3 index4"
-      "index5 index6 index7 auto";
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+    .index0 {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+    .index3 div,
+    .index4 div  {
+        background-size: 0 0;
+    }
+    a:first-child > div {
+        padding-top: 80%;  
+        border-bottom: 3px solid #f50057;
+    }
+    a:nth-child(2) > div {
+        border-bottom: 3px solid #f50057;
+    }
+    a:nth-child(3) > div {
+        border-bottom: 3px solid #ffca28;
+    }
+    a:nth-child(4) > div {
+        border-bottom: 3px solid #2196f3;
+    }
+    a:nth-child(5) > div {
+        border-bottom: 3px solid #388e3c;
+    }
+    a:nth-child(4) > div,
+    a:nth-child(5) > div {
+        padding-top: 50%;
+        margin-top: 20px;
+    }
 }
 
-.index0 { grid-area: index0; }
-.index1 { grid-area: index1; }
-.index2 { grid-area: index2; }
-.index3 { grid-area: index3; }
-.index4 { grid-area: index4; }
-.index5 { grid-area: index5; justify-self: stretch;}
-.index6 { grid-area: index6; justify-self: stretch;}
-.index7 { grid-area: index7; justify-self: stretch;}
-
-
-.index3 div,
-.index4 div  {
-    background-position: -1000% -1000%;
+.topStoriesSecondRow {
+    display: grid;
+    gap: 20px 20px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 15px;
+    justify-content: space-between;
+    margin: 15px 0;
 }
 
 
 @media (max-width: $ss-screen) {
-    .topStories {
+    .topStoriesFirstRow {
         display: flex;
         flex-direction: column;
         flex-flow: row wrap;
@@ -42,9 +61,32 @@
             width: 100%;
             margin-bottom: 10px;
         }
+        a:first-child > div {
+            padding-top: 100%;
+        }
+        a:nth-child(4) > div,
+        a:nth-child(5) > div {
+            padding-top: 100%;
+            margin-top: 10px;
+        }
         .index3 div,
         .index4 div  {
-            background-position: center;
+            background-size: auto 100%;
+        }
+    }
+    .topStoriesSecondRow {
+        display: flex;
+        flex-direction: column;
+        flex-flow: row wrap;
+        justify-content: space-around;
+        // Clear grid
+        grid-template-columns: none;
+        grid-template-rows: none;
+        gap: 0;
+        grid-template-areas: none;
+        a {
+            width: 100%;
+            margin-bottom: 10px;
         }
     }
 }
