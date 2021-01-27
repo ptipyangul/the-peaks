@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import layoutStyle from '../../layout.scss';
 import appClasses from '../../App.module.scss';
 import classes from './Homepage.module.scss';
 import TopStories from '../../components/HomepageComponents/TopStories/TopStories';

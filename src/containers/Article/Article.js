@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../configs.json';
-import layoutStyle from '../../layout.scss';
 import classes from '../Article/Article.module.scss';
 import BookmarkButton from '../../components/BookmarkButton/BookmarkButton';
 import Loader from "../../components/Loader/Loader";

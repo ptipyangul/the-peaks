@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import classes from './Navigation.module.scss';
-import layoutStyle from '../../layout.scss';
-
 import logo from '../../assets/logo.png';
 import hamburgerIcon from '../../assets/hamburger.png';
 

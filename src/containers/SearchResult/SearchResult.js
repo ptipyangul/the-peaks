@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../configs.json';
-import layoutStyle from '../../layout.scss';
 import appClasses from '../../App.module.scss';
 import classes from '../SearchResult/SearchResult.module.scss';
 import NewsImageCard from "../../components/NewsCard/NewsCard";

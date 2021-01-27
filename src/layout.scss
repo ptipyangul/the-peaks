@@ -5,12 +5,6 @@
     margin-right: auto;
 }
 
-// @media only screen and (max-width: 768px) {
-//     .wrapper {
-//         width: 450px;
-//     }
-// }
-
 @mixin heading {
     font-family: 'Source Serif Pro', serif;
     margin: 0;
@@ -48,4 +42,23 @@ h2 {
     background-size: 18px auto;
     background-position: 10px 6px;
     cursor: pointer;
+}
+
+.footer {
+    background-color: #003480;
+    height: 200px;
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+#root {
+    flex: 1 0 auto;
+}
+.footer {
+    flex-shrink: 0;
 }
