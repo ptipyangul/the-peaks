@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../configs.json';
 import layout from '../../layout.scss';
+import Loader from "../../components/Loader/Loader";
 import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
 import classes from './Bookmark.module.scss';
@@ -13,7 +14,7 @@ class Bookmark extends Component {
             localBookmarks: null,
             loadedBookmarks: null,
             error: null,
-            loading: true,
+            loading: false,
             sorting: 'newest'
         }
         const sorting = 'newest';
@@ -22,22 +23,21 @@ class Bookmark extends Component {
     getBookmarks() {
         let localBookmarks = this.state.localBookmarks;
         let idsString = localBookmarks.join(",");
+        this.setState({ loading: true });
         axios.get(
             configs.NEWS_API_ENDPOINT
             + 'search?ids='
             + idsString
-            + '&order-by='
-            + this.state.sorting
+            + '&order-by=' + this.state.sorting
             +'&show-fields=thumbnail%2CtrailText'
             +'&show-elements=image'
-            + '&api-key='
-            + configs.NEWS_API_KEY)
+            + '&api-key=' + configs.NEWS_API_KEY)
             .then(response => {
                 const data = response.data.response.results;
                 this.setState({loadedBookmarks: data, error: false, loading: false});           
             })
             .catch(error => {
-                this.setState({error: true});
+                this.setState({error: true });
             });
     }
 
@@ -46,7 +46,6 @@ class Bookmark extends Component {
         if (bookmarks) {
             this.setState({ localBookmarks: bookmarks }, () => {
                 this.getBookmarks();
-                // apply loading..
             });            
         }
     }
@@ -68,9 +67,7 @@ class Bookmark extends Component {
     }
 
     render () {
-
         let newsResults;
-
         if (!this.state.error && this.state.loadedBookmarks) {           
             newsResults = this.state.loadedBookmarks.map( (news, index) => {
                 return <NewsCard 
@@ -91,6 +88,7 @@ class Bookmark extends Component {
                 <div className={classes.bookmarkResult}>
                     {newsResults}
                 </div>
+                <Loader isLoading={this.state.loading} />
             </div>
         )
     }
