@@ -19,3 +19,16 @@
     grid-template-columns: auto auto auto;
     grid-gap: 30px;
 }
+
+@media (max-width: $ss-screen) {
+    .SearchResultsArea {
+        display: flex;
+        flex-direction: column;
+        flex-flow: row wrap;
+        justify-content: space-around;
+    }
+    a {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
