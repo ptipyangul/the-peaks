@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../../configs.json';
 import classes from './CategoryBased.module.scss';
-import NewsImageCard from "../../NewsImageCard/NewsImageCard";
+import Loader from "../../Loader/Loader";
+import NewsCard from "../../NewsCard/NewsCard";
 
 class categoryBasedSections extends Component {
 
@@ -10,11 +11,13 @@ class categoryBasedSections extends Component {
         super(props);
         this.state = {
             news: null,
-            error: true
+            error: true,
+            loading: false
         }
     }
 
     getNews(sectionName) {
+        this.setState( { loading: true });
         axios.get(
             configs.NEWS_API_ENDPOINT
             + '/search'
@@ -26,10 +29,10 @@ class categoryBasedSections extends Component {
             + configs.NEWS_API_KEY)
             .then(response => {
                 const news = response.data.response.results;
-                this.setState({news: news, error: false});
+                this.setState({news: news, error: false, loading: false});
             })
             .catch(error => {
-                this.setState({error: true});
+                this.setState({error: true, loading: false});
             });
     }
 
@@ -39,11 +42,11 @@ class categoryBasedSections extends Component {
 
     render () {
 
-        let newsResults = <p>loading...</p>;
+        let newsResults;
 
         if (!this.state.error && this.state.news) {           
             newsResults = this.state.news.map( (news, index) => {
-                return <NewsImageCard 
+                return <NewsCard 
                     key={news.id}
                     newsId = {news.id}
                     img={news.fields.thumbnail}
@@ -53,8 +56,11 @@ class categoryBasedSections extends Component {
             });
         }
         return (
-            <div className={classes.categoryContainer}>
-                {newsResults}
+            <div>
+                <div className={classes.categoryContainer}>
+                    {newsResults}                
+                </div>
+                <Loader isLoading={this.state.loading} />
             </div>
         )
     }

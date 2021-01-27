@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classes from '../NewsSorting/NewsSorting.module.scss';
 
 class NewsSorting extends Component {
 
@@ -11,7 +12,7 @@ class NewsSorting extends Component {
 
     render () {
         return (
-            <select name="articles-sorting" id="articles-sorting" onChange={this.props.changed}>
+            <select name="articles-sorting" id="articles-sorting" onChange={this.props.changed} className={classes.sortingSelect}>
                 <option value="newest">Newest First</option>
                 <option value="oldest">Oldest First</option>
             </select>  

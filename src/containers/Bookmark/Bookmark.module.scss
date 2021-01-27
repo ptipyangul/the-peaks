@@ -1,9 +1,9 @@
 @import '../../assets/variables.scss';
 
-.categoryContainer {
+.bookmarkContainer {
     display: table;
     width: 100%;
-    padding: 20px 0;
+    padding: 10px 0;
 }
 .HeadingDiv {
     display: table-cell;
@@ -15,7 +15,7 @@
     vertical-align: middle;
     text-align: right;
 }
-.SearchResultsArea {
+.bookmarkResult {
     display: grid;
     grid-template-columns: auto auto auto;
     grid-gap: 30px;
@@ -27,14 +27,14 @@
         display: table-row;
         text-align: left;
     }
-    .SearchResultsArea {
+    .bookmarkResult {
         display: flex;
         flex-direction: column;
         flex-flow: row wrap;
         justify-content: space-around;
-    }
-    a {
-        width: 100%;
-        margin-bottom: 10px;
+        a {
+            width: 100%;
+            margin-bottom: 10px;
+        }
     }
 }

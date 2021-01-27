@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../../configs.json';
 import classes from './TopStories.module.scss';
-
-import NewsImageCard from "../../NewsImageCard/NewsImageCard";
+import Loader from "../../Loader/Loader";
+import NewsCard from "../../NewsCard/NewsCard";
 
 class topStories extends Component {
     constructor(props) {
@@ -11,61 +11,89 @@ class topStories extends Component {
         this.state = {
             news: null,
             error: false,
-            sorting: 'newest'
+            sorting: 'newest',
+            loading: false
         }
     }
 
-    getNews(sorting) {
+    getNews() {
+        this.setState( { loading: true });
         axios.get(
             configs.NEWS_API_ENDPOINT
             + '/search'
             + '?order-by='
             + this.state.sorting
-            +'&show-fields=thumbnail%2CtrailText&page=1&page-size=8'
+            +'&show-fields=thumbnail%2CtrailText&page=1&page-size=8&show-section=true'
             + '&api-key='
             + configs.NEWS_API_KEY)
             .then(response => {
                 const news = response.data.response.results;
-                this.setState({news: news, error: false});
+                this.setState({news: news, error: false, loading: false});
             })
             .catch(error => {
-                this.setState({error: true});
+                this.setState({ error: true, loading: false });
             });
     }
 
     componentDidMount () {
-        this.getNews(this.state.sorting);
+        this.getNews();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.sorting !== this.props.sorting) {
             this.setState({sorting: this.props.sorting}, () => {
-                this.getNews(this.state.sorting);
+                this.getNews();
             })
         }
     }
 
     render () {
         
-        let topNewsResults = <p>Loading...</p>
+        let topNewsResults;
+
+        let firstRowResults;
+        let secondRowResults;
 
         if (!this.state.error && this.state.news) {
-            topNewsResults = this.state.news.map( (news, index) => {
-                return <NewsImageCard 
+            let allnews = [...this.state.news];
+            const firstHalf = allnews.splice(0, 5);
+            const secondHalf = allnews.splice(-3);
+            firstRowResults = firstHalf.map( (news, index) => {
+                return <NewsCard 
                     key={news.id}
                     newsId = {news.id}
                     img={news.fields.thumbnail}
                     title={news.webTitle}
-                    body={news.fields.trailText}
-                    index={index} />
+                    trailText={news.fields.trailText}
+                    index={index}
+                    linkClassName={classes['index'+ index]}/>                
             });
+            secondRowResults = secondHalf.map( (news, index) => {
+                return <NewsCard 
+                    key={news.id}
+                    newsId = {news.id}
+                    img={news.fields.thumbnail}
+                    title={news.webTitle}
+                    trailText={news.fields.trailText}
+                    index={index}
+                    linkClassName={classes['index'+ index]}/>                
+            });
+
+        }
+        if ( this.state.error && this.state.message && !this.state.loading) {
+            topNewsResults = <p>{this.state.message}</p>;
         }
         return (
-            <div className="topStories">
-                {topNewsResults}
+            <div>
+                <div className={classes.topStoriesFirstRow}>                
+                    {firstRowResults}
+                </div>
+                <div className={classes.topStoriesSecondRow}>
+                    {secondRowResults}
+                </div>
+                <Loader isLoading={this.state.loading} />
             </div>
         )
-        
     }
 }
 
