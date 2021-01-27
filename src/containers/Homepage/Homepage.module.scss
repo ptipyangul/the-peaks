@@ -39,9 +39,12 @@
         grid-template-rows: 1fr 1fr;
         gap: 0px 0px;
         grid-template-areas:
-          "h2 bookmarkCol"
+          "heading bookmarkCol"
           "sorting sorting";
-        .h2 { grid-area: h2; }
+        .heading { 
+            grid-area: heading;
+            width: 100% !important;
+        }
         .bookmarkCol { 
             grid-area: bookmarkCol;
             width: 100%;
