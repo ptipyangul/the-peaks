@@ -7,8 +7,8 @@ The Peaks website consists of Homepage, Category pages, Article pages, Bookmark 
 This is my first time implementing React project! Please let me know if you have any question or comments.
 
 ## Setup
-1. Add your API KEY in config.ini.json
-2. Change filename to config.json
+1. Add your API KEY on `config.ini.json` in ` ./src/`
+2. Copy and rename the file to config.json
 
 ## Usage
 ### Run application
