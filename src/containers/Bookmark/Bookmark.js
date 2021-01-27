@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { ClipLoader } from 'react-spinners';
 import configs from '../../configs.json';
-import appClasses from '../../App.module.scss';
+import layout from '../../layout.scss';
 import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
+import classes from './Bookmark.module.scss';
 
 class Bookmark extends Component {
     constructor(props) {
@@ -83,11 +83,12 @@ class Bookmark extends Component {
             });
         }
         return (
-            <div className={appClasses.wrapper}>
-                <div className="">
-                    <h1>All Bookmarks</h1>
-                    <ClipLoader loading={this.state.loading}/>
-                    <NewsSorting changed={this.handleSortingChanged}/>
+            <div className="wrapper">
+                <div className={classes.bookmarkContainer}>
+                    <div className={classes.HeadingDiv}><h1>All Bookmark</h1></div>           
+                    <div className={classes.newsSortingDiv}><NewsSorting changed={this.handleSortingChanged}/></div>
+                </div>
+                <div className={classes.bookmarkResult}>
                     {newsResults}
                 </div>
             </div>
