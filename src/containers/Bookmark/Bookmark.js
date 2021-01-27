@@ -71,17 +71,20 @@ class Bookmark extends Component {
 
     render () {
 
-        let newsResults;
+        let newsResults = <div>No Bookmark</div>;
+
         if (!this.state.error && this.state.loadedBookmarks) {           
-            newsResults = this.state.loadedBookmarks.map( (news, index) => {
-                return <NewsCard 
-                    key={news.id}
-                    img={news.fields.thumbnail}
-                    title={news.webTitle}
-                    body={news.fields.trailText}
-                    index={index}
-                    newsId={news.id} />
-            });
+            if (this.state.loadedBookmarks.length > 0 ) { 
+                newsResults = this.state.loadedBookmarks.map( (news, index) => {
+                    return <NewsCard 
+                        key={news.id}
+                        img={news.fields.thumbnail}
+                        title={news.webTitle}
+                        body={news.fields.trailText}
+                        index={index}
+                        newsId={news.id} />
+                });
+            }
         }
         return (
             <div className="wrapper">
