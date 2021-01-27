@@ -1,3 +1,5 @@
+@import '../../../assets/variables.scss';
+
 .topStories {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -18,7 +20,31 @@
 .index6 { grid-area: index6; justify-self: stretch;}
 .index7 { grid-area: index7; justify-self: stretch;}
 
+
 .index3 div,
 .index4 div  {
-    background-image: none !important;
+    background-position: -1000% -1000%;
+}
+
+
+@media (max-width: $ss-screen) {
+    .topStories {
+        display: flex;
+        flex-direction: column;
+        flex-flow: row wrap;
+        justify-content: space-around;
+        // Clear grid
+        grid-template-columns: none;
+        grid-template-rows: none;
+        gap: 0;
+        grid-template-areas: none;
+    }
+    a {
+        width: 40%;
+        margin: 10px;
+    }
+    .index3 div,
+    .index4 div  {
+        background-position: center;
+    }
 }

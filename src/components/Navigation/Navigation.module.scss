@@ -7,6 +7,8 @@
 .navBarContainer {
     display: grid;
     grid-template-columns: 60% auto;
+    min-width: $min-screen-width;
+    overflow: hidden;
 }
 
 .Logo { 
@@ -76,12 +78,12 @@
         img {
             width: 20px;
         }     
-        @media only screen and (max-width: $ss-screen) {
+        @media (max-width: $ss-screen) {
               display: block;
         }
     }
 
-    @media only screen and (max-width: $ss-screen) {
+    @media (max-width: $ss-screen) {
         ul {
             display: block;
             position: fixed;
@@ -141,7 +143,7 @@
       }
 }
 
-@media only screen and (max-width: $ss-screen) {
+@media (max-width: $ss-screen) {
     .navBar {
         height: 60px;
     }

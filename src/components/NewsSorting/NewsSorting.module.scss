@@ -1,3 +1,5 @@
+@import '../../assets/variables.scss';
+
 .sortingSelect {
     width: 250px;
     border: 0;
@@ -28,5 +30,11 @@
         5px 5px,
         0px 1.5em;
     background-repeat: no-repeat;
+
+    @media (max-width: $ss-screen) {
+        width: 160px;
+        padding: 10px;
+        line-height: 1em;
+    }
 }
 

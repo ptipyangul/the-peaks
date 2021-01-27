@@ -25,7 +25,7 @@ class homepageArea extends Component {
                 <div className="wrapper">
                     <div className={classes.homepageSections}>
                         <div className={classes.topStoriesHeader}>
-                            <h1>Top stories</h1>
+                            <h1 className={classes.heading}>Top stories</h1>
                             <div className={classes.bookmarkCol}>
                                <Link to="/bookmark"><div className="bookmarkBtn">VIEW BOOKMARK</div></Link>
                             </div>
