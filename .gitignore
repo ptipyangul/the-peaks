@@ -8,6 +8,8 @@
 
 .eslintcache
 
+configs.json
+
 # testing
 /coverage
 
