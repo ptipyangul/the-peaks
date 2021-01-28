@@ -7,6 +7,9 @@ import NewsSorting from '../../components/NewsSorting/NewsSorting';
 import Loader from "../../components/Loader/Loader";
 
 class Category extends Component {
+
+    _isMounted = false;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -109,12 +112,14 @@ class Category extends Component {
     }
 
     componentDidMount () {
+        this._isMounted = true;
         document.title = this.capitalize(this.state.categoryName) + ' | ' + configs.PAGE_TITLE;
         this.getNews();
         window.addEventListener('scroll', this.handleScroll);
     }
 
     componentWillUnmount() {
+        this._isMounted = false;
         window.removeEventListener('scroll', this.handleScroll);
     }
 

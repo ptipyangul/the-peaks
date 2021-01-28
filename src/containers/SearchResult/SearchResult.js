@@ -51,7 +51,6 @@ class SearchResult extends Component {
         if ( this.cancel ) {
             this.cancel.cancel();
         }
-
         this.cancel = axios.CancelToken.source();
 
         this.setState( { loading: true });
@@ -66,6 +65,7 @@ class SearchResult extends Component {
             ,{ cancelToken: this.cancel.token })
             .then(response => {
                 const data = [...searchResults, ...response.data.response.results];
+                if ( data.length  <= 0) this.setState({ message: 'No results' });
                 this.setState({ searchResults: data, 
                                 error: false,
                                 message: null,
@@ -76,8 +76,7 @@ class SearchResult extends Component {
             .catch( error => {
                 if (axios.isCancel(error)) {
                     this.setState({
-                        error: true,
-                        message: 'Something went wrong. Please try refreshing the page.'
+                        error: true
                     });
                 } else if ( error ) {
                     this.setState({
@@ -115,29 +114,36 @@ class SearchResult extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        /*if ( prevProps.location.search != this.props.location.search
-            && this.state.searchKey
-            && this.state.loading == false
-            && !this.state.error) {
-            this.getSearchResults();
-        }
-        if ( this.state.searchKey
-            && !this.state.error ) {
-                this.getSearchResults();
-        }*/
-    }
+        if ( prevProps.searchKey != this.props.searchKey ) {
+            if ( this.props.searchKey.length >= 1 ) {
+                this.setState({ searchKey: this.props.searchKey,
+                    error: false,
+                    searchResults: [],
+                    sorting: 'newest',
+                    page: 1,
+                    totalPage: null,
+                    scrolling: false
+                }, () => {
+                    this.getSearchResults();
+                });
+            } else {
+                if ( this.cancel ) {
+                    this.cancel.cancel();
+                }
+                this.cancel = axios.CancelToken.source();
+                this.setState({ searchKey: null,
+                    error: false,
+                    searchResults: [],
+                    sorting: 'newest',
+                    page: 1,
+                    totalPage: null,
+                    scrolling: false,
+                    loading: false,
+                    message: 'No results.'
+                });
+            }
 
-    handleSearchBoxChanged(event) {
-        this.setState({ searchKey: event.target.value,
-                        error: false,
-                        searchResults: [],
-                        sorting: 'newest',
-                        page: 1,
-                        totalPage: null,
-                        scrolling: false
-                    }, () => {
-            this.getSearchResults();
-        });
+        }
     }
 
     loadMore = () => {
@@ -150,8 +156,8 @@ class SearchResult extends Component {
     }
 
     render () {
-        let results;
 
+        let results;
         if (!this.state.error && this.state.searchResults) {
             results = this.state.searchResults.map( (news, index) => {
                 return <NewsCard 
@@ -169,11 +175,6 @@ class SearchResult extends Component {
 
         return (
             <div className="wrapper">
-                <input
-                type="text"
-                placeholder="Search"
-                onChange={event => this.handleSearchBoxChanged(event)}/> <br />
-
                 <div className={classes.searchContainer}>
                     <div className={classes.HeadingDiv}><h1>Search Result</h1></div>           
                     <div className={classes.newsSortingDiv}><NewsSorting changed={this.handleSortingChanged}/></div>

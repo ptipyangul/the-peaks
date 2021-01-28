@@ -10,19 +10,30 @@ import SearchResult from './containers/SearchResult/SearchResult';
 import Bookmark from './containers/Bookmark/Bookmark';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchKey: null
+    }
+  }
+
+  handleUpdateKey = (searchKey) => {
+    this.setState({ searchKey: searchKey });
+  }
+
   render () {
     return (
       <Router>
         <div className={classes.App}>
-            <Route path="/" component={Navigation} />
+            <Route path="/" name="navigation" render={props => <Navigation updateSearchKey={this.handleUpdateKey} {...props} />} />
+            <Switch>
+              <Route exact path="/" exact component={Homepage} />
+              <Route exact path="/category/:categoryName" name="category" component={Category} />
+              <Route path="/article/:articleID" name="article" component={Article} />
+              <Route exact path="/search" name="search" render={props => <SearchResult searchKey={this.state.searchKey} {...props} />} />
+              <Route exact path="/bookmark" name="bookmark" component={Bookmark} />
+            </Switch>
         </div>
-        <Switch>
-          <Route exact path="/" exact component={Homepage} />
-          <Route exact path="/category/:categoryName" name="category" component={Category} />
-          <Route path="/article/:articleID" name="article" component={Article} />
-          <Route exact path="/search" name="search" component={SearchResult} />
-          <Route exact path="/bookmark" name="bookmark" component={Bookmark} />
-        </Switch>
       </Router>
     );
   }
