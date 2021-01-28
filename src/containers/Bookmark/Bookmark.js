@@ -54,6 +54,8 @@ class Bookmark extends Component {
             this.setState({ localBookmarks: bookmarks }, () => {
                 this.getBookmarks();
             });            
+        } else {
+            this.setState({ message: 'No bookmark.'});
         }
     }
 

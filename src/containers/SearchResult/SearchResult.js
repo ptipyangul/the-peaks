@@ -89,6 +89,20 @@ class SearchResult extends Component {
             });
     }
 
+    handleSortingChanged = (event) => {
+        if (!this.state.error) {
+            this.setState({ sorting: event.target.value,
+                            error: false,
+                            searchResults: [],
+                            page: 1,
+                            totalPage: null,
+                            scrolling: false
+            }, () => {
+                this.getSearchResults();
+            } );
+        }
+    }
+
     handleScroll = (e) => {
         const { scrolling, totalPage, page, loading, error } = this.state;
         if (totalPage <= page) return;
