@@ -1,10 +1,8 @@
 # The Peaks
 
-This is the Frontend Developer Test project for Seven Peaks Software. This project was built from scratch.
-
 The Peaks website consists of Homepage, Category pages, Article pages, Bookmark and Search page.
 
-This is my first time implementing React project! Please let me know if you have any questions or comments.
+This is my first time implementing React project and it was built from scratch! Please let me know if you have any questions or comments.
 
 ## Setup
 1. Add your API KEY on `config.ini.json` in ` ./src/`
