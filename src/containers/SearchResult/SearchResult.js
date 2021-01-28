@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import configs from '../../configs.json';
 import classes from '../SearchResult/SearchResult.module.scss';
 import NewsCard from "../../components/NewsCard/NewsCard";
@@ -176,7 +177,10 @@ class SearchResult extends Component {
         return (
             <div className="wrapper">
                 <div className={classes.searchContainer}>
-                    <div className={classes.HeadingDiv}><h1>Search Result</h1></div>           
+                    <div className={classes.HeadingDiv}><h1>Search Result</h1></div>    
+                    <div className={classes.bookmarkCol}>
+                        <Link to="/bookmark"><div className="bookmarkBtn topStories">VIEW BOOKMARK</div></Link>
+                    </div>
                     <div className={classes.newsSortingDiv}><NewsSorting changed={this.handleSortingChanged}/></div>
                 </div>
                 <div className={classes.SearchResultsArea}>
