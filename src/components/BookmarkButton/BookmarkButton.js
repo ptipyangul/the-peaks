@@ -11,15 +11,12 @@ class BookmarkButton extends Component {
     }
 
     componentDidMount () {
-        this.checkAndUpdateBookmarks();
+        this.setState({ newsId: this.props.newsId}, () => {
+            this.checkAndUpdateBookmarks();
+        });
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.newsId && this.state.newsId == null) {
-            this.setState({ newsId: prevProps.newsId}, () => {
-                this.checkAndUpdateBookmarks();
-            });
-        }
+    componentDidUpdate() {
     }
 
     getKeyByValue(object, value) {
@@ -43,6 +40,7 @@ class BookmarkButton extends Component {
             let index = this.getKeyByValue(bookmarks, this.state.newsId);
             bookmarks.splice(index, 1);
         } else { // ADD
+            if (bookmarks === null) bookmarks = [];
             bookmarks = [...bookmarks, this.state.newsId]; 
         }
         localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
