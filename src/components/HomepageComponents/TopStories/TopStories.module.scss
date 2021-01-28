@@ -43,6 +43,10 @@
     grid-gap: 15px;
     justify-content: space-between;
     margin: 15px 0;
+    /* Hide trail text */
+    a:first-child > div > div > div > div {
+        display: none;
+    }
 }
 
 
@@ -88,5 +92,6 @@
             width: 100%;
             margin-bottom: 10px;
         }
+     
     }
 }
