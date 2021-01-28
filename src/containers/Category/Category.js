@@ -131,9 +131,9 @@ class Category extends Component {
             newsResults = this.state.searchResults.map( (news, index) => {
                 return <NewsCard 
                     key={news.id}
-                    img={news.fields.thumbnail}
+                    img={( news.fields && news.fields.thumbnail ) ? news.fields.thumbnail : ''}
                     title={news.webTitle}
-                    body={news.fields.trailText}
+                    body={( news.fields && news.fields.trailText ) ? news.fields.trailText : ''}
                     index={index}
                     newsId={news.id} />
             });
