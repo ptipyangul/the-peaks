@@ -17,7 +17,8 @@ class Bookmark extends Component {
             loadedBookmarks: null,
             error: null,
             loading: false,
-            sorting: 'newest'
+            sorting: 'newest',
+            message: ''
         }
     }
 
@@ -35,6 +36,9 @@ class Bookmark extends Component {
             + '&api-key=' + configs.NEWS_API_KEY)
             .then(response => {
                 const data = response.data.response.results;
+                if ( data.length <= 0 ) {
+                    this.setState({ message: 'No bookmark.' });
+                }
                 this.setState({loadedBookmarks: data, error: false, loading: false});           
             })
             .catch(error => {
@@ -71,7 +75,7 @@ class Bookmark extends Component {
 
     render () {
 
-        let newsResults = <div>No Bookmark</div>;
+        let newsResults = <div>{this.state.message}</div>;
 
         if (!this.state.error && this.state.loadedBookmarks) {           
             if (this.state.loadedBookmarks.length > 0 ) { 
