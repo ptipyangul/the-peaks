@@ -8,12 +8,21 @@
     display: table-cell;
     vertical-align: middle; 
     padding: 20px 0;
+    width: 60%;
 }
 .newsSortingDiv {
     display: table-cell;
     vertical-align: middle;
     text-align: right;
 }
+.bookmarkCol {
+    display: table-cell;
+    text-align: right;
+    width: 20%;
+    padding-right: 10px;
+    vertical-align: middle;
+}
+
 .SearchResultsArea {
     display: grid;
     grid-template-columns: auto auto auto;

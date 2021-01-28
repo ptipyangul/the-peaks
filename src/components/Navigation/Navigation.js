@@ -7,19 +7,25 @@ class Navigation extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            prevPage: null,
             redirectedToSearch: false
         }
+        //this.handleSearchBoxChanged = this.handleSearchBoxChanged.bind(this);
     }
 
     handleSearchBoxChanged (event) {
-        this.setState({ searchKey: event.target.value });
+        if (  event.target.value.length >=  0 ) {
+            this.props.updateSearchKey(event.target.value);
+            this.setState({ 
+                prevPage: this.props.location.pathname,
+                searchKey: event.target.value
+                }, () => {
+                    this.props.history.push('/search');
+            });
+        }
     }
 
     componentDidUpdate() {
-        /*if (!this.state.redirectedToSearch) {
-            this.setState({ redirectedToSearch: true });
-            this.props.history.push('/search');
-        }*/
     }
 
     handleHamburgerCheckBox = () => {
@@ -29,6 +35,7 @@ class Navigation extends Component {
             document.body.classList.remove(`${classes.noScroll}`);
         }
     }
+
     render () {
         return (
             <div className={classes.NavBar}>

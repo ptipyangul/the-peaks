@@ -28,8 +28,9 @@ class Article extends Component {
             + `&api-key=${configs.NEWS_API_KEY}`)
             .then(response => {
                 const content = response.data.response.results[0];
+                if (content.length <= 0) this.setState({ message: 'Content not found.' });
                 this.setState({content: content,
-                    message: null,
+                    message: '',
                     error: false,
                     loaded: true, 
                     loading: false });                
@@ -73,19 +74,23 @@ class Article extends Component {
             let pubDate = new Date(content.webPublicationDate);         
             let formatedDate = pubDate.toUTCString().replace(/,/,'').toUpperCase();
             articleContent = (
-            <div className={classes.articleContent}>
-                <p className={classes.pubDate}>{formatedDate}</p>
-                <h1 className={classes.title}>{content.webTitle}</h1>
-                <p className={classes.headline}>{content.fields.headline}</p>
-                <hr />
-                <div className={classes.content} dangerouslySetInnerHTML={{__html: content.fields.body}} />
-            </div>
+                <div>
+                    <BookmarkButton newsId={this.state.newsId} />
+                    <div className={classes.articleContent}>
+                        <p className={classes.pubDate}>{formatedDate}</p>
+                        <h1 className={classes.title}>{content.webTitle}</h1>
+                        <p className={classes.headline}>{content.fields.headline}</p>
+                        <hr />
+                        <div className={classes.content} dangerouslySetInnerHTML={{__html: content.fields.body}} />
+                    </div>
+                </div>
             );
+        } else {
+            articleContent = (<div>{this.state.message}</div>);
         }
         return (
             <div className={classes.articlePage}>
                 <div className="wrapper">
-                    <BookmarkButton newsId={this.state.newsId} />
                     {articleContent}
                     <Loader isLoading={this.state.loading} />
                 </div>
