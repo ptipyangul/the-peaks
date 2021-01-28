@@ -113,6 +113,7 @@
 }
 .Search { 
     text-align: right;
+    margin-top: 6px;
     input[type=text] {
         width: 95px;
         box-sizing: border-box;
@@ -135,6 +136,7 @@
         color: #FFF;
         width: 50%;
         background-position: 10px;
+        background-color: #1a237e;
         outline-width: 0;
       }
       input[type=text]:focus::placeholder {
