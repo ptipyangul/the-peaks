@@ -8,6 +8,7 @@ import Category from './containers/Category/Category';
 import Article from './containers/Article/Article';
 import SearchResult from './containers/SearchResult/SearchResult';
 import Bookmark from './containers/Bookmark/Bookmark';
+import NotFound from './containers/NotFound/NotFound';
 
 class App extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class App extends Component {
               <Route path="/article/:articleID" name="article" component={Article} />
               <Route exact path="/search" name="search" render={props => <SearchResult searchKey={this.state.searchKey} {...props} />} />
               <Route exact path="/bookmark" name="bookmark" component={Bookmark} />
+              <Route name="notfound" component={NotFound} />
             </Switch>
         </div>
       </Router>
