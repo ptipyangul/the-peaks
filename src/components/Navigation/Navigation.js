@@ -10,7 +10,6 @@ class Navigation extends Component {
             prevPage: null,
             redirectedToSearch: false
         }
-        //this.handleSearchBoxChanged = this.handleSearchBoxChanged.bind(this);
     }
 
     handleSearchBoxChanged (event) {
@@ -18,7 +17,7 @@ class Navigation extends Component {
             this.props.updateSearchKey(event.target.value);
             this.setState({ 
                 prevPage: this.props.location.pathname,
-                searchKey: event.target.value
+                searchKey: encodeURIComponent(event.target.value)
                 }, () => {
                     this.props.history.push('/search');
             });
@@ -60,7 +59,8 @@ class Navigation extends Component {
                             <input
                                 type="text"
                                 placeholder="Search all news"
-                                onKeyUp={event => this.handleSearchBoxChanged(event)}/>
+                                onKeyUp={event => this.handleSearchBoxChanged(event)}
+                                maxLength="50"/>
                         </div>
                     </div>
                 </div>

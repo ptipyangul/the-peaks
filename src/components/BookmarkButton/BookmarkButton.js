@@ -11,6 +11,7 @@ class BookmarkButton extends Component {
     }
 
     componentDidMount () {
+        this.checkAndUpdateBookmarks();
     }
 
     componentDidUpdate(prevProps) {
