@@ -32,7 +32,7 @@ class homepageArea extends Component {
                                 <a href="/category/sport">See all</a>
                             </div>
                         </div>
-                        <CategoryBasedSections sectionName="sport" />
+                        {/* <CategoryBasedSections sectionName="sport" /> */}
                     </div>
                     <div className={classes.homepageSections}>
                         <div className={classes.categoryBaseHeader}>
@@ -41,7 +41,7 @@ class homepageArea extends Component {
                                 <a href="/category/culture">See all</a>
                             </div>
                         </div>
-                        <CategoryBasedSections sectionName="culture" />
+                        {/* <CategoryBasedSections sectionName="culture" /> */}
                     </div>
                     <div className={classes.homepageSections}>
                         <div className={classes.categoryBaseHeader}>
@@ -50,7 +50,7 @@ class homepageArea extends Component {
                                 <a href="/category/lifestyle">See all</a>
                             </div>
                         </div>
-                        <CategoryBasedSections sectionName="lifeandstyle" />
+                        {/* <CategoryBasedSections sectionName="lifeandstyle" /> */}
                     </div>
                 </div>
             </div>

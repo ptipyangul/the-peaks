@@ -3,7 +3,7 @@ import axios from 'axios';
 import configs from '../../../configs.json';
 import classes from './TopStories.module.scss';
 import Loader from "../../Loader/Loader";
-import NewsCard from "../../NewsCard/NewsCard";
+import { Link } from 'react-router-dom';
 
 class topStories extends Component {
     constructor(props) {
@@ -11,8 +11,10 @@ class topStories extends Component {
         this.state = {
             news: null,
             error: false,
-            sorting: 'newest',
-            loading: false
+            loading: false,
+            hightlightNews: null,
+            rightColNews: null,
+            flashNews: null
         }
     }
 
@@ -21,14 +23,14 @@ class topStories extends Component {
         axios.get(
             configs.NEWS_API_ENDPOINT
             + '/search'
-            + '?order-by='
-            + this.state.sorting
-            +'&show-fields=thumbnail%2CtrailText&page=1&page-size=8&show-section=true'
+            +'?show-fields=thumbnail%2CtrailText&page=1&page-size=8&show-section=true'
             + '&api-key='
             + configs.NEWS_API_KEY)
             .then(response => {
                 const news = response.data.response.results;
-                this.setState({news: news, error: false, loading: false});
+                this.setState({news: news, error: false, loading: false}, () => {
+                    this.setUpNewsContent();
+                });
             })
             .catch(error => {
                 this.setState({ error: true, loading: false });
@@ -39,57 +41,63 @@ class topStories extends Component {
         this.getNews();
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.sorting !== this.props.sorting) {
-            this.setState({sorting: this.props.sorting}, () => {
-                this.getNews();
-            })
-        }
+    normalizeNewsData = (newsArray) => {
+        const array = newsArray.map( news => {
+            return {
+                img: news.fields.thumbnail,
+                trailText: news.fields.trailText,
+                title: news.webTitle,
+                newsId: news.id
+            };
+        });
+        return array;
+    }
+
+    setUpNewsContent = () => {
+
+        const highLightNewsData = this.normalizeNewsData([(this.state.news[0])])[0];
+        const highlightNewsContent = <Link to={`/article/${highLightNewsData.newsId}`}>
+                <div>
+                    <img src={highLightNewsData.img} alt={highLightNewsData.title} />
+                    <p>{highLightNewsData.title}</p>
+                    <p>{highLightNewsData.trailText}</p>
+                </div>
+            </Link>;
+        this.setState({ hightlightNews: highlightNewsContent });
+
+        const rightColNews = this.normalizeNewsData(this.state.news.slice(1,4));
+        const rightcolNewsContent = rightColNews.map( news => {
+            return (
+                <Link to={`/article/${news.newsId}`}>
+                    <div>
+                        <p>{news.title}</p>
+                    </div>
+                </Link>);
+        });
+        this.setState({ rightColNews: rightcolNewsContent });
+
+        const flashNews = this.normalizeNewsData(this.state.news.slice(5,8));
+        const flashNewsContent = flashNews.map( news => {
+            return (
+                <Link to={`/article/${news.newsId}`}>
+                    <div>
+                        <p>{news.title}</p>
+                    </div>
+                </Link>);
+        });
+        this.setState({ flashNews: flashNewsContent });
     }
 
     render () {
-        
-        let topNewsResults;
-
-        let firstRowResults;
-        let secondRowResults;
-
-        if (!this.state.error && this.state.news) {
-            let allnews = [...this.state.news];
-            const firstHalf = allnews.splice(0, 5);
-            const secondHalf = allnews.splice(-3);
-            firstRowResults = firstHalf.map( (news, index) => {
-                return <NewsCard 
-                    key={news.id}
-                    newsId = {news.id}
-                    img={news.fields.thumbnail}
-                    title={news.webTitle}
-                    trailText={news.fields.trailText}
-                    index={index}
-                    linkClassName={classes['index'+ index]}/>                
-            });
-            secondRowResults = secondHalf.map( (news, index) => {
-                return <NewsCard 
-                    key={news.id}
-                    newsId = {news.id}
-                    img={news.fields.thumbnail}
-                    title={news.webTitle}
-                    trailText={news.fields.trailText}
-                    index={index}
-                    linkClassName={classes['index'+ index]}/>                
-            });
-
-        }
-        if ( this.state.error && this.state.message && !this.state.loading) {
-            topNewsResults = <p>{this.state.message}</p>;
-        }
         return (
             <div>
-                <div className={classes.topStoriesFirstRow}>                
-                    {firstRowResults}
-                </div>
-                <div className={classes.topStoriesSecondRow}>
-                    {secondRowResults}
+                <div>
+                    HightLight:
+                    {this.state.hightlightNews}
+                    Right News:
+                    {this.state.rightColNews}
+                    Flash news:
+                    {this.state.flashNews}
                 </div>
                 <Loader isLoading={this.state.loading} />
             </div>
