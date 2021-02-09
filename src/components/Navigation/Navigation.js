@@ -40,7 +40,7 @@ class Navigation extends Component {
             <div className={classes.NavBar}>
                 <div className="wrapper">
                     <div className={classes.navBarContainer}>
-                        <div className={classes.Logo}><a href="/"><img src={logo} alt="The Peaks Logo" /></a></div>
+                        <div className={classes.Logo}><a href="/"><img src={logo} alt="Diff. News Logo" /></a></div>
                         <div className={classes.Nav}>
                             <nav>
                                 <input type="checkbox" id="hamburgerCheckBox" className={classes.checkBox} />
@@ -48,7 +48,6 @@ class Navigation extends Component {
                                     <img src={hamburgerIcon} alt="Hamburger icon" />
                                 </label>
                                 <ul>
-                                    <li className={classes.news}><a href="/">NEWS TODAY</a></li>
                                     <li className={classes.sport}><a href="/category/sport">SPORTS</a></li>
                                     <li className={classes.culture}><a href="/category/culture">CULTURE</a></li>
                                     <li className={classes.lifestyle}><a href="/category/lifestyle">LIFESTYLE</a></li>
@@ -62,6 +61,7 @@ class Navigation extends Component {
                                 onKeyUp={event => this.handleSearchBoxChanged(event)}
                                 maxLength="50"/>
                         </div>
+                        <a className={classes.Bookmark} href="/bookmark"><i class="fas fa-bookmark"></i></a>
                     </div>
                 </div>
             </div>
