@@ -23,13 +23,6 @@ class homepageArea extends Component {
             <div className={classes.homepage}>
                 <div className="wrapper">
                     <div className={classes.homepageSections}>
-                        <div className={classes.topStoriesHeader}>
-                            <h1 className={classes.heading}>Top stories</h1>
-                            <div className={classes.bookmarkCol}>
-                               <Link to="/bookmark"><div className="bookmarkBtn topStories">VIEW BOOKMARK</div></Link>
-                            </div>
-                            <div className={classes.topStoriesSorting}><NewsSorting changed={this.handleSortingChanged}/></div>
-                        </div>
                         <TopStories sorting={this.state.sorting}/>
                     </div>
                     <div className={classes.homepageSections}>
