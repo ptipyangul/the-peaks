@@ -3,9 +3,13 @@
 .homepage { 
     font-size: 15px;
 }
-
+.topSection {
+    margin-bottom: 10px;
+}
 .homepageSections {
     margin-bottom: 40px;
+    border-top: 1px solid #c0c0c0;
+    padding-top: 10px;
     .seeAll {
         a:link,
         a:visited {

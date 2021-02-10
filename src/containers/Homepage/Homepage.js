@@ -23,7 +23,7 @@ class homepageArea extends Component {
         return (
             <div className={classes.homepage}>
                 <Container>
-                    <Row className={classes.homepageSections}>
+                    <Row className={classes.topSection}>
                         <TopStories />
                     </Row>
                     <Row className={classes.homepageSections}>
