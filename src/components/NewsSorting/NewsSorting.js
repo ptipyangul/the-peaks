@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import classes from '../NewsSorting/NewsSorting.module.scss';
 
-class NewsSorting extends Component {
+import { Form } from 'react-bootstrap';
 
+class NewsSorting extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,10 +13,14 @@ class NewsSorting extends Component {
 
     render () {
         return (
-            <select name="articles-sorting" id="articles-sorting" onChange={this.props.changed} className={classes.sortingSelect}>
-                <option value="newest">Newest First</option>
-                <option value="oldest">Oldest First</option>
-            </select>  
+            <Form>
+            <Form.Group>
+                <Form.Control as="select" custom name="articles-sorting" onChange={this.props.changed} size="sm">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                </Form.Control>
+            </Form.Group>
+            </Form>
         )
     }
 }

@@ -95,7 +95,7 @@ class Category extends Component {
         const { totalPage, page, loading, error } = this.state;
         if (totalPage <= page) return;
         if ( loading || error ) return;
-        const lastElement = document.querySelector('div.' + `${classes.SearchResultsArea}` + ' > a:last-child');
+        const lastElement = document.querySelector('div.' + `${classes.SearchResultsArea}` + ' > .card:last-child');
         const lastElementOffset = lastElement.offsetTop + lastElement.clientHeight;
         const pageOffset = window.pageYOffset + window.innerHeight;
         let bottomOffset = 20;
@@ -135,7 +135,8 @@ class Category extends Component {
                     title={news.webTitle}
                     body={( news.fields && news.fields.trailText ) ? news.fields.trailText : ''}
                     index={index}
-                    newsId={news.id} />
+                    newsId={news.id}
+                    showImage={true} />
             });
         }
         if ( this.state.error && this.state.message ) {
