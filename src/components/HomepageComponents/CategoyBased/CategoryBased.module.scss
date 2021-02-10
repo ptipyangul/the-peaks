@@ -1,32 +1,6 @@
 @import '../../../assets/variables.scss';
 
-.categoryContainer {
-  display: flex;
-  a {
-    flex-grow: 1;
-  }
-  a + a {
-    margin-left: 20px;
-  }
+.leftColNews {
 }
-
-@media (max-width: $ss-screen) {
-  .categoryContainer {
-    display: flex;
-    flex-direction: column;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    align-content: flex-end;
-    align-items: flex-end;
-    a {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-    a:last-child{
-      flex-grow: 0;
-    }
-    a + a {
-      margin-left: 0;
-    }
-  }
+.rightColNews {
 }

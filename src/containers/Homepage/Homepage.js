@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import classes from './Homepage.module.scss';
 import TopStories from '../../components/HomepageComponents/TopStories/TopStories';
 import CategoryBasedSections from '../../components/HomepageComponents/CategoyBased/CategoryBased';
-import NewsSorting from '../../components/NewsSorting/NewsSorting';
 
-import Container from 'react-bootstrap/Container';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 class homepageArea extends Component {
 
@@ -24,36 +23,42 @@ class homepageArea extends Component {
         return (
             <div className={classes.homepage}>
                 <Container>
-                    <div className={classes.homepageSections}>
-                        <TopStories sorting={this.state.sorting}/>
-                    </div>
-                    <div className={classes.homepageSections}>
-                        <div className={classes.categoryBaseHeader}>
-                            <h2>Sports</h2>
-                            <div className={classes.categorySeeAllCol}>
-                                <a href="/category/sport">See all</a>
-                            </div>
-                        </div>
-                        {/* <CategoryBasedSections sectionName="sport" /> */}
-                    </div>
-                    <div className={classes.homepageSections}>
-                        <div className={classes.categoryBaseHeader}>
-                            <h2>Culture</h2>
-                            <div className={classes.categorySeeAllCol}>
-                                <a href="/category/culture">See all</a>
-                            </div>
-                        </div>
-                        {/* <CategoryBasedSections sectionName="culture" /> */}
-                    </div>
-                    <div className={classes.homepageSections}>
-                        <div className={classes.categoryBaseHeader}>
+                    <Row className={classes.homepageSections}>
+                        <TopStories />
+                    </Row>
+                    <Row className={classes.homepageSections}>
+                        <Row className={classes.categoryBaseHeader}>
+                            <Col><h2>Sports</h2></Col>
+                            <Col className={classes.categorySeeAllCol}>
+                                <Button variant="outline-primary" size="sm" href="/category/sport">See all</Button>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <CategoryBasedSections sectionName="sport" />
+                        </Row>
+                    </Row>
+                    <Row className={classes.homepageSections}>
+                        <Row className={classes.categoryBaseHeader}>
+                            <Col><h2>Culture</h2></Col>
+                            <Col className={classes.categorySeeAllCol}>
+                                <Button variant="outline-primary" size="sm" href="/category/culture">See all</Button>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <CategoryBasedSections sectionName="culture" />
+                        </Row>
+                    </Row>
+                    <Row className={classes.homepageSections}>
+                        <Row className={classes.categoryBaseHeader}>
                             <h2>Lifestyle</h2>
-                            <div className={classes.categorySeeAllCol}>
-                                <a href="/category/lifestyle">See all</a>
-                            </div>
-                        </div>
-                        {/* <CategoryBasedSections sectionName="lifeandstyle" /> */}
-                    </div>
+                            <Col className={classes.categorySeeAllCol}>
+                                <Button variant="outline-primary" size="sm" href="/category/lifestyle">See all</Button>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <CategoryBasedSections sectionName="lifeandstyle" />
+                        </Row>                        
+                    </Row>
                 </Container>
             </div>
         );

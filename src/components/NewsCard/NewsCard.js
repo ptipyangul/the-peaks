@@ -4,24 +4,21 @@ import { Link } from 'react-router-dom';
 
 import noThumbnailImg from '../../assets/no-thumb.jpg';
 
+import { Card } from 'react-bootstrap';
+
 class NewsCard extends Component {
     render () {
         if (this.props.title) {
-            let newsImageCardClassName = classes.newsCard + ' index' + this.props.index;
             let newsImageURL = (this.props.img) ? this.props.img : noThumbnailImg;
-            let trailText = (this.props.index === 0) ? this.props.trailText : null;
             return (
-                <Link to={`/article/${this.props.newsId}`} className={classes.newCardLink}>                    
-                    <div className={classes.newsCard}>
-                        <img src={newsImageURL} alt={this.props.title} />
-                        <div className={classes.inner}>
-                            <div className={classes.newsTitle}>
-                                <p>{this.props.title}</p>
-                                <div className={classes.trailText}>{trailText}</div>
-                            </div>
-                        </div>
-                    </div>
-                </Link>
+                <Card className={classes.newsCard}>     
+                    <Link to={`/article/${this.props.newsId}`} className={classes.newCardLink}> 
+                        {this.props.showImage ? (<Card.Img variant="top" src={newsImageURL} alt={this.props.title}/>): ''}                        
+                        <Card.Body className={classes.cardBody}>
+                            <Card.Title className={classes.cardTitle}>{this.props.title}</Card.Title>     
+                        </Card.Body>
+                    </Link>
+                </Card>
             );
         }
         return null;

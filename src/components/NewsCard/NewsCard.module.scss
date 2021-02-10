@@ -1,5 +1,20 @@
 @import '../../assets/variables.scss';
 
-.newCardLink {
-    display: block;
+.newsCard {
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    a:hover {
+        color: #833bb6;
+        text-decoration: none;
+    }
+
+    .cardBody {
+        padding: 0;
+    }
+    .cardTitle {
+        font-size: 15px;
+        color: #000;
+        margin-top: 10px;
+    }
 }

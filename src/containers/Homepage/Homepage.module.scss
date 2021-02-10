@@ -21,20 +21,10 @@
 }
 
 .categoryBaseHeader {
-    display: table;
-    width: 100%;
-    padding: 20px 0;
     h2 {
-        width: 60%;
-        display: table-cell;
+        font-size: 18px;
     }
     .categorySeeAllCol {
-        width: 100%;
-        display: table-cell;
         text-align: right;
-        a:link,
-        a:visited {
-            color: #2196f3;
-        }
     }
  }

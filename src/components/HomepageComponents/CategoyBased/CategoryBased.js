@@ -5,8 +5,9 @@ import classes from './CategoryBased.module.scss';
 import Loader from "../../Loader/Loader";
 import NewsCard from "../../NewsCard/NewsCard";
 
-class categoryBasedSections extends Component {
+import { Row, Col, CardDeck } from 'react-bootstrap';
 
+class categoryBasedSections extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,7 +25,7 @@ class categoryBasedSections extends Component {
             + '?order-by=newest'
             + '&section='
             + sectionName
-            +'&show-fields=thumbnail%2CtrailText&page=1&page-size=3'
+            +'&show-fields=thumbnail&page=1&page-size=6'
             + '&api-key='
             + configs.NEWS_API_KEY)
             .then(response => {
@@ -41,27 +42,44 @@ class categoryBasedSections extends Component {
     }
 
     render () {
-
-        let newsResults;
-
-        if (!this.state.error && this.state.news) {           
-            newsResults = this.state.news.map( (news, index) => {
+        let leftColNews, rightColNews;
+        if (!this.state.error && this.state.news) { 
+            // News items in card deck    
+            let newsInCards = this.state.news.slice(0,3);      
+            leftColNews = newsInCards.map( (news, index) => {
                 return <NewsCard 
                     key={news.id}
                     newsId = {news.id}
                     img={news.fields.thumbnail}
                     title={news.webTitle}
                     body={news.fields.trailText}
-                    index={index} />
+                    index={index}
+                    showImage={true} />
+            });
+            // News items in right col
+            let newsInRightCol = this.state.news.slice(3,6);
+            rightColNews = newsInRightCol.map( (news, index) => {
+                return <NewsCard 
+                    key={news.id}
+                    newsId = {news.id}
+                    img={news.fields.thumbnail}
+                    title={news.webTitle}
+                    body={news.fields.trailText}
+                    index={index}
+                    showImage={false} />
             });
         }
         return (
-            <div>
-                <div className={classes.categoryContainer}>
-                    {newsResults}                
-                </div>
-                <Loader isLoading={this.state.loading} />
-            </div>
+            <Row>
+                <Col sm={9}>
+                    <CardDeck>
+                        {leftColNews}                
+                    </CardDeck>
+                </Col>
+                <Col className={classes.rightColNews} sm={3}>
+                    {rightColNews}
+                </Col>
+            </Row>
         )
     }
 }

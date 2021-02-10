@@ -57,7 +57,7 @@ class topStories extends Component {
     setUpNewsContent = () => {
 
         const highLightNewsData = this.normalizeNewsData([(this.state.news[0])])[0];
-        const highlightNewsContent = <Link to={`/article/${highLightNewsData.newsId}`}> 
+        const highlightNewsContent = <Link to={`/article/${highLightNewsData.newsId}`} key={highLightNewsData.id}> 
                 <Row>
                     <Col sm={6}><img src={highLightNewsData.img} alt={highLightNewsData.title} /></Col> 
                     <Col sm={6}>
@@ -74,7 +74,7 @@ class topStories extends Component {
         const rightColNews = this.normalizeNewsData(this.state.news.slice(1,4));
         const rightcolNewsContent = rightColNews.map( news => {
             return (
-                <Link to={`/article/${news.newsId}`}>
+                <Link to={`/article/${news.newsId}`} key={news.id}>
                     <div>
                         <p>{news.title}</p>
                     </div>
@@ -85,7 +85,7 @@ class topStories extends Component {
         const flashNews = this.normalizeNewsData(this.state.news.slice(5,8));
         const flashNewsContent = flashNews.map( news => {
             return (
-                <Link to={`/article/${news.newsId}`}>
+                <Link to={`/article/${news.newsId}`} key={news.id}>
                     <span>{news.title}</span>
                 </Link>);
         });
