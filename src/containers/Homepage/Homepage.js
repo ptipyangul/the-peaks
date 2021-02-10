@@ -5,6 +5,8 @@ import TopStories from '../../components/HomepageComponents/TopStories/TopStorie
 import CategoryBasedSections from '../../components/HomepageComponents/CategoyBased/CategoryBased';
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
 
+import Container from 'react-bootstrap/Container';
+
 class homepageArea extends Component {
 
     constructor(props) {
@@ -21,7 +23,7 @@ class homepageArea extends Component {
     render () {
         return (
             <div className={classes.homepage}>
-                <div className="wrapper">
+                <Container>
                     <div className={classes.homepageSections}>
                         <TopStories sorting={this.state.sorting}/>
                     </div>
@@ -52,7 +54,7 @@ class homepageArea extends Component {
                         </div>
                         {/* <CategoryBasedSections sectionName="lifeandstyle" /> */}
                     </div>
-                </div>
+                </Container>
             </div>
         );
     }

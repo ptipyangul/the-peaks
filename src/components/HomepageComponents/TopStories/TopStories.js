@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../../configs.json';
 import classes from './TopStories.module.scss';
-import Loader from "../../Loader/Loader";
 import { Link } from 'react-router-dom';
+
+import { Container, Row, Col, Badge } from 'react-bootstrap';
 
 class topStories extends Component {
     constructor(props) {
@@ -56,12 +57,17 @@ class topStories extends Component {
     setUpNewsContent = () => {
 
         const highLightNewsData = this.normalizeNewsData([(this.state.news[0])])[0];
-        const highlightNewsContent = <Link to={`/article/${highLightNewsData.newsId}`}>
-                <div>
-                    <img src={highLightNewsData.img} alt={highLightNewsData.title} />
-                    <p>{highLightNewsData.title}</p>
-                    <p>{highLightNewsData.trailText}</p>
-                </div>
+        const highlightNewsContent = <Link to={`/article/${highLightNewsData.newsId}`}> 
+                <Row>
+                    <Col sm={6}><img src={highLightNewsData.img} alt={highLightNewsData.title} /></Col> 
+                    <Col sm={6}>
+                        <div className={classes.highlightContent}>
+                            <Badge pill variant="success">LATEST</Badge>
+                            <p className={classes.title}>{highLightNewsData.title}</p>
+                            <p className={classes.trailText}>{highLightNewsData.trailText}</p>
+                        </div>
+                    </Col>
+                </Row>
             </Link>;
         this.setState({ hightlightNews: highlightNewsContent });
 
@@ -80,9 +86,7 @@ class topStories extends Component {
         const flashNewsContent = flashNews.map( news => {
             return (
                 <Link to={`/article/${news.newsId}`}>
-                    <div>
-                        <p>{news.title}</p>
-                    </div>
+                    <span>{news.title}</span>
                 </Link>);
         });
         this.setState({ flashNews: flashNewsContent });
@@ -90,17 +94,21 @@ class topStories extends Component {
 
     render () {
         return (
-            <div>
-                <div>
-                    HightLight:
-                    {this.state.hightlightNews}
-                    Right News:
-                    {this.state.rightColNews}
-                    Flash news:
-                    {this.state.flashNews}
-                </div>
-                <Loader isLoading={this.state.loading} />
-            </div>
+            <Row>
+                <Col sm={9}>
+                    <div className={classes.highlight}>{this.state.hightlightNews}</div>
+                    <div className={classes.flashnews}>
+                        <div className={classes.track}>
+                            <div className={classes.content}>
+                                {this.state.flashNews}
+                            </div>
+                        </div>
+                    </div>
+                </Col>
+                <Col sm={3}>
+                    <div className={classes.rightcol}>{this.state.rightColNews}</div>
+                </Col>
+            </Row>
         )
     }
 }
