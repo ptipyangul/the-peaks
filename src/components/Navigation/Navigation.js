@@ -3,6 +3,8 @@ import classes from './Navigation.module.scss';
 import logo from '../../assets/logo.png';
 import hamburgerIcon from '../../assets/hamburger.png';
 
+import { Container, Row, Col, Nav } from 'react-bootstrap';
+
 class Navigation extends Component {
     constructor(props) {
         super(props);
@@ -37,34 +39,35 @@ class Navigation extends Component {
 
     render () {
         return (
-            <div className={classes.NavBar}>
-                <div className="wrapper">
-                    <div className={classes.navBarContainer}>
+            <Container>
+                <Row>
+                    <Col sm={2} className={classes.LogoCol} >
                         <div className={classes.Logo}><a href="/"><img src={logo} alt="Diff. News Logo" /></a></div>
-                        <div className={classes.Nav}>
-                            <nav>
-                                <input type="checkbox" id="hamburgerCheckBox" className={classes.checkBox} />
-                                <label htmlFor="hamburgerCheckBox" className={classes.checkBtn} onClick={this.handleHamburgerCheckBox}>
-                                    <img src={hamburgerIcon} alt="Hamburger icon" />
-                                </label>
-                                <ul>
-                                    <li className={classes.sport}><a href="/category/sport">SPORTS</a></li>
-                                    <li className={classes.culture}><a href="/category/culture">CULTURE</a></li>
-                                    <li className={classes.lifestyle}><a href="/category/lifestyle">LIFESTYLE</a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div className={classes.Search}>
-                            <input
-                                type="text"
-                                placeholder="Search all news"
-                                onKeyUp={event => this.handleSearchBoxChanged(event)}
-                                maxLength="50"/>
-                        </div>
+                    </Col>
+                    <Col sm={7} className={classes.NavCol}>
+                        <input type="checkbox" id="hamburgerCheckBox" className={classes.checkBox} />
+                        <label htmlFor="hamburgerCheckBox" className={classes.checkBtn} onClick={this.handleHamburgerCheckBox}>
+                            <img src={hamburgerIcon} alt="Hamburger icon" />
+                        </label>
+                        <Nav fill className="justify-content-center">
+                            <Nav.Item><Nav.Link href="/category/sport">SPORTS</Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link href="/category/culture">CULTURE</Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link href="/category/lifestyle">LIFESTYLE</Nav.Link></Nav.Item>
+                        </Nav>
+                    </Col>
+                    <Col sm={2} className={`${classes.SearchCol} text-right`}>
+                        <input
+                            type="text"
+                            placeholder="Search all news"
+                            onKeyUp={event => this.handleSearchBoxChanged(event)}
+                            maxLength="50"/>
+                    </Col>
+                    <Col sm={1} className={`${classes.BookmarkCol} text-right`}>
                         <a className={classes.Bookmark} href="/bookmark"><i class="fas fa-bookmark"></i></a>
-                    </div>
-                </div>
-            </div>
+                    </Col>                    
+                </Row>
+
+            </Container>
         )
     }
 }

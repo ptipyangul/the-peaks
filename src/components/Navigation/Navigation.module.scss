@@ -4,41 +4,42 @@
 // }
 
 .navBarContainer {
-    display: grid;
-    grid-template-columns: 110px 3.5fr 1fr 15px;
-    min-width: $min-screen-width;
-    overflow: hidden;
+    // display: grid;
+    // grid-template-columns: 110px 3.5fr 1fr 15px;
+    // min-width: $min-screen-width;
+    // overflow: hidden;
 }
 
-.Logo { 
+.LogoCol { 
     img {
         max-width: 110px;
         margin: 10px 0;
     }
 }
-.Nav {
+.NavCol {
     line-height: $menu-height;
-    font-family: 'Alike', serif;
-    ul {
-        display: flex;
-        padding: 0;
-        margin: 0;
-        align-items: stretch
-    }
-    li {
-        flex: 1;
-        margin: 0;
-        list-style: none;
-        text-align: right;
-    }
-    a:link,
-    a:visited {
-        display: block;
-        color: #000000;
-        font-size: 14px;
-        font-weight: 600;
-        text-decoration: none;
-    }
+    // line-height: $menu-height;
+    // font-family: 'Alike', serif;
+    // ul {
+    //     display: flex;
+    //     padding: 0;
+    //     margin: 0;
+    //     align-items: stretch
+    // }
+    // li {
+    //     flex: 1;
+    //     margin: 0;
+    //     list-style: none;
+    //     text-align: right;
+    // }
+    // a:link,
+    // a:visited {
+    //     display: block;
+    //     color: #000000;
+    //     font-size: 14px;
+    //     font-weight: 600;
+    //     text-decoration: none;
+    // }
 
     // Hamburger
     .checkBox {
@@ -84,9 +85,9 @@
     }
 
 }
-.Search { 
-    text-align: right;
+.SearchCol { 
     line-height: $menu-height;
+    text-align: right;
     input[type=text] {
         width: 95px;
         box-sizing: border-box;
@@ -97,7 +98,7 @@
         background-repeat: no-repeat;
         background-size: 20px;
         background-image: url('../../assets/search_24px.png');
-        padding: 12px 20px 12px 40px;
+        padding: 0px 0px 0px 40px;
         transition: width 0.4s ease-in-out;
         color: transparent;
       }
@@ -117,33 +118,33 @@
 }
 
 @media (max-width: $ss-screen) {
-    .navBar {
-        height: 60px;
-    }
-    .navBarContainer {
-        grid-template-columns: (100%/3) (100%/3) (100%/3);
-    }
-    .Logo {
-        grid-column: auto;
-        padding-left: 15px;
-    }
-    .Search {
-        text-align: right;
-        position: relative;
-        input {
-            position: absolute;
-            right: 0;
-            top: 5px;
-        }
-        input:focus {
-            width: 100% !important;
-        }
-    }
-    label {
-        position: absolute;
-        left: 10px;
-        top: -3px;
-    }
+    // .navBar {
+    //     height: 60px;
+    // }
+    // .navBarContainer {
+    //     grid-template-columns: (100%/3) (100%/3) (100%/3);
+    // }
+    // .Logo {
+    //     grid-column: auto;
+    //     padding-left: 15px;
+    // }
+    // .Search {
+    //     text-align: right;
+    //     position: relative;
+    //     input {
+    //         position: absolute;
+    //         right: 0;
+    //         top: 5px;
+    //     }
+    //     input:focus {
+    //         width: 100% !important;
+    //     }
+    // }
+    // label {
+    //     position: absolute;
+    //     left: 10px;
+    //     top: -3px;
+    // }
 }
 
 .noScroll {
@@ -151,7 +152,7 @@
     overflow: hidden
 }
 
-.Bookmark {
+.BookmarkCol {
     line-height: $menu-height;
     i {
         color: #833bb6;
