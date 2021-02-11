@@ -75,13 +75,12 @@ class categoryBasedSections extends Component {
         } else {
             return (
                 <Row>
-                    
-                    <Col sm={9}>
+                    <Col md={12} lg={9}>
                         <CardDeck>
                             {leftColNews}                
                         </CardDeck>
                     </Col>
-                    <Col className="rightColNews" sm={3}>
+                    <Col lg={3} className="rightColNews d-none d-md-none d-lg-block">
                         {rightColNews}
                     </Col>
                 </Row>
