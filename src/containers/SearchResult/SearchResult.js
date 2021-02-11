@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import configs from '../../configs.json';
-import classes from '../SearchResult/SearchResult.module.scss';
+import '../SearchResult/SearchResult.scss';
 import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
 import Loader from "../../components/Loader/Loader";
+import { Container, Row, Col } from 'react-bootstrap';
 
 class SearchResult extends Component {
 
@@ -66,7 +67,7 @@ class SearchResult extends Component {
             ,{ cancelToken: this.cancel.token })
             .then(response => {
                 const data = [...searchResults, ...response.data.response.results];
-                if ( data.length  <= 0) this.setState({ message: 'No results' });
+                if ( data.length  <= 0) this.setState({ message: 'No results' });                
                 this.setState({ searchResults: data, 
                                 error: false,
                                 message: null,
@@ -107,7 +108,7 @@ class SearchResult extends Component {
         const { scrolling, totalPage, page, loading, error } = this.state;
         if (totalPage <= page) return;
         if (scrolling || loading || error ) return;
-        const lastElement = document.querySelector('div.' + `${classes.SearchResultsArea}` + ' > a:last-child');
+        const lastElement = document.querySelector('.SearchResultsArea a:last-child');
         const lastElementOffset = lastElement.offsetTop + lastElement.clientHeight;
         const pageOffset = window.pageYOffset + window.innerHeight;
         let bottomOffset = 20;
@@ -175,34 +176,38 @@ class SearchResult extends Component {
         let results;
         if (!this.state.error && this.state.searchResults) {
             results = this.state.searchResults.map( (news, index) => {
-                return <NewsCard 
-                    key={news.id}
-                    newsId = {news.id}
-                    img={news.fields.thumbnail}
-                    title={news.webTitle}
-                    body={news.fields.trailText}
-                    index={index} />
+                return <Col sm={4}>
+                        <NewsCard 
+                            key={news.id}
+                            newsId = {news.id}
+                            img={news.fields.thumbnail}
+                            title={news.webTitle}
+                            body={news.fields.trailText}
+                            index={index}
+                            showImage={true} />
+                        </Col>
             });
         }
         if ( this.state.error && this.state.message && !this.state.loading) {
             results = <p>{this.state.message}</p>;
         }
 
-        return (
-            <div className="wrapper">
-                <div className={classes.searchContainer}>
-                    <div className={classes.HeadingDiv}><h1>Search Result</h1></div>    
-                    <div className={classes.bookmarkCol}>
-                        <Link to="/bookmark"><div className="bookmarkBtn topStories">VIEW BOOKMARK</div></Link>
-                    </div>
-                    <div className={classes.newsSortingDiv}><NewsSorting changed={this.handleSortingChanged}/></div>
-                </div>
-                <div className={classes.SearchResultsArea}>
-                    {results}
-                </div>
-                <Loader isLoading={this.state.loading} />
-            </div>
-        );
+        if (this.state.loading) {
+            return <Loader isLoading={this.state.loading} />
+        } else {
+            return (
+                <Container className="searchPageContainer">
+                    <Row className="PageHeaderRow align-items-center">
+                        <Col sm={10}><h1>Search Result</h1></Col>           
+                        <Col sm={2}><NewsSorting changed={this.handleSortingChanged}/></Col>
+                    </Row>
+                    <Row className="SearchResultsArea">
+                        {results}
+                    </Row>
+                              
+                </Container>
+            );
+        }
     }
 }
 

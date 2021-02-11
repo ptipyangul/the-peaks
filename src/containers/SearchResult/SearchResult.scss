@@ -1,0 +1,5 @@
+@import '../../assets/variables.scss';
+
+.searchPageContainer {
+    @include pageContentMargin;
+}

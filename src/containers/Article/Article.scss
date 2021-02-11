@@ -1,9 +1,10 @@
 @import "bootstrap/scss/_functions";
 @import "bootstrap/scss/_variables";
 @import "bootstrap/scss/mixins/_breakpoints";
+@import '../../assets/variables.scss';
 
 .articlePage {
-    margin-top: 20px;
+    @include pageContentMargin;
     .articleContent {
         .title {
             font-size: 34px;
