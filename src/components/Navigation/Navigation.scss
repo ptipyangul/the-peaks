@@ -71,25 +71,22 @@
                 width: 100px;
                 box-sizing: border-box;
                 border: none;
-                font-size: 16px;
+                font-size: 15px;
                 background-color: transparent;
                 background-position: right;
                 background-repeat: no-repeat;
                 background-size: 20px;
                 background-image: url('../../assets/search_24px.png');
-                padding: 0px 0px 0px 40px;
+                padding: 10px 0px 10px 35px;
                 color: transparent;
             }
             input[type=text]::placeholder {
                 color: transparent;
             }
             input[type=text]:focus {
+                width: 100%;
                 color: #000;
-                position: absolute;
-                left: -150px;
                 background-color: #fff;
-                top: -15px;
-                width: 300px;
                 background-position: 10px;
                 outline-width: 0;
                 box-shadow: 0 0 10px -3px;
