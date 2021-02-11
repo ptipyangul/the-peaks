@@ -1,0 +1,17 @@
+@import '../../assets/variables.scss';
+
+.SearchResultsArea {
+    div[class^="col-"] {
+        margin-bottom: 40px;
+    }
+}
+
+// @media (max-width: $ss-screen) {
+//     .HeadingDiv,
+//     .newsSortingDiv {
+//     }
+//     .SearchResultsArea {
+//     }
+//     a {
+//     }
+// }
