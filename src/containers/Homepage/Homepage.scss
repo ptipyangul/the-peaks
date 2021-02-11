@@ -1,0 +1,37 @@
+@import '../../assets/variables.scss';
+
+.HomepagePage {
+    .topSection {
+        margin-bottom: 10px;
+    }
+    .categoryBaseHeader {
+        h2 {
+            font-size: 18px;
+        }
+        .categorySeeAllCol {
+            text-align: right;
+        }
+    }
+    .homepageSections {
+        margin-bottom: 40px;
+        border-top: 1px solid #c0c0c0;
+        padding-top: 10px;
+        .seeAll {
+            a:link,
+            a:visited {
+                color: #000;
+            }
+        }
+    }
+}
+
+// .homepage { 
+//     font-size: 15px;
+// }
+
+// .topStoriesHeader {
+//     display: table;
+//     width: 100%;
+//     padding: 20px 0;
+// }
+

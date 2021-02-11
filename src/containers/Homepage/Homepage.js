@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import classes from './Homepage.module.scss';
+import './Homepage.scss';
 import TopStories from '../../components/HomepageComponents/TopStories/TopStories';
 import CategoryBasedSections from '../../components/HomepageComponents/CategoyBased/CategoryBased';
 
@@ -21,15 +21,15 @@ class homepageArea extends Component {
 
     render () {
         return (
-            <div className={classes.homepage}>
+            <div className="HomepagePage">
                 <Container>
-                    <Row className={classes.topSection}>
+                    <Row className="topSection">
                         <TopStories />
                     </Row>
-                    <Row className={classes.homepageSections}>
-                        <Row className={classes.categoryBaseHeader}>
+                    <Row className="homepageSections">
+                        <Row className="categoryBaseHeader">
                             <Col><h2>Sports</h2></Col>
-                            <Col className={classes.categorySeeAllCol}>
+                            <Col>
                                 <Button variant="outline-primary" size="sm" href="/category/sport">See all</Button>
                             </Col>
                         </Row>
@@ -37,10 +37,10 @@ class homepageArea extends Component {
                             <CategoryBasedSections sectionName="sport" />
                         </Row>
                     </Row>
-                    <Row className={classes.homepageSections}>
-                        <Row className={classes.categoryBaseHeader}>
+                    <Row className="homepageSections">
+                        <Row className="categoryBaseHeader">
                             <Col><h2>Culture</h2></Col>
-                            <Col className={classes.categorySeeAllCol}>
+                            <Col>
                                 <Button variant="outline-primary" size="sm" href="/category/culture">See all</Button>
                             </Col>
                         </Row>
@@ -48,10 +48,10 @@ class homepageArea extends Component {
                             <CategoryBasedSections sectionName="culture" />
                         </Row>
                     </Row>
-                    <Row className={classes.homepageSections}>
-                        <Row className={classes.categoryBaseHeader}>
+                    <Row className="homepageSections">
+                        <Row className="categoryBaseHeader">
                             <h2>Lifestyle</h2>
-                            <Col className={classes.categorySeeAllCol}>
+                            <Col>
                                 <Button variant="outline-primary" size="sm" href="/category/lifestyle">See all</Button>
                             </Col>
                         </Row>
