@@ -51,8 +51,11 @@ class Navigation extends Component {
                         </label>
                         <Nav fill className="justify-content-center">
                             <Nav.Item><Nav.Link href="/category/sport">SPORTS</Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link href="/category/world">WORLD</Nav.Link></Nav.Item>
                             <Nav.Item><Nav.Link href="/category/culture">CULTURE</Nav.Link></Nav.Item>
                             <Nav.Item><Nav.Link href="/category/lifestyle">LIFESTYLE</Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link href="/category/technology">TECH</Nav.Link></Nav.Item>
+                            <Nav.Item><Nav.Link href="/category/travel">TRAVEL</Nav.Link></Nav.Item>
                         </Nav>
                     </Col>
                     <Col sm={2} className={`${classes.SearchCol} text-right`}>
