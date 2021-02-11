@@ -1,0 +1,12 @@
+@import '../../../assets/variables.scss';
+
+.leftColNews {
+}
+.rightColNews {
+    .newsCard {
+        border-bottom: 1px solid #ccc !important;
+    }
+    .newsCard:last-child {
+        border-bottom: 0 !important;
+    }
+}

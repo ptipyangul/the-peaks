@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import classes from './Loader.module.scss';
+import classes from './Loader.scss';
+
+import Spinner from 'react-bootstrap/Spinner';
 
 class Loader extends Component {
 
-    state = { isLoading: false };
+    state = { isLoading: true };
 
     componentDidUpdate(prevProps) {
         if ( prevProps.isLoading !== this.props.isLoading ) {
@@ -12,9 +14,9 @@ class Loader extends Component {
     }
 
     render () {
-        let Loader = (this.state.isLoading) ? <div className={classes.Loader}></div> : <div className={`${classes.Loader} ${classes.Hide}`}></div>;
+        let Loader = (this.state.isLoading) ? <div><Spinner animation="border" variant="primary" /></div>: '';
         return(
-            <div className={classes.LoaderContainer}>{Loader}</div>
+            <div className="LoaderContainer">{Loader}</div>
         );
     }
 }

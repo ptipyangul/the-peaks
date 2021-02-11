@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../../configs.json';
-import classes from './TopStories.module.scss';
+import './TopStories.scss';
 import { Link } from 'react-router-dom';
 
 import { Container, Row, Col, Badge } from 'react-bootstrap';
@@ -58,13 +58,13 @@ class topStories extends Component {
 
         const highLightNewsData = this.normalizeNewsData([(this.state.news[0])])[0];
         const highlightNewsContent = <Link to={`/article/${highLightNewsData.newsId}`} key={highLightNewsData.id}> 
-                <Row>
+                <Row className="align-items-center">
                     <Col sm={6}><img src={highLightNewsData.img} alt={highLightNewsData.title} /></Col> 
                     <Col sm={6}>
-                        <div className={classes.highlightContent}>
+                        <div className="highlightContent">
                             <Badge pill variant="success">LATEST</Badge>
-                            <p className={classes.title}>{highLightNewsData.title}</p>
-                            <p className={classes.trailText}>{highLightNewsData.trailText}</p>
+                            <p className="title">{highLightNewsData.title}</p>
+                            <p className="trailText">{highLightNewsData.trailText}</p>
                         </div>
                     </Col>
                 </Row>
@@ -94,19 +94,19 @@ class topStories extends Component {
 
     render () {
         return (
-            <Row>
+            <Row className="TopStoriesSection align-items-center">
                 <Col sm={9}>
-                    <div className={classes.highlight}>{this.state.hightlightNews}</div>
-                    <div className={classes.flashnews}>
-                        <div className={classes.track}>
-                            <div className={classes.content}>
+                    <div className="highlight">{this.state.hightlightNews}</div>
+                    <div className="flashnews">
+                        <div className="track">
+                            <div className="content">
                                 {this.state.flashNews}
                             </div>
                         </div>
                     </div>
                 </Col>
-                <Col sm={3}>
-                    <div className={classes.rightcol}>{this.state.rightColNews}</div>
+                <Col sm={3} className="rightcol">
+                    {this.state.rightColNews}
                 </Col>
             </Row>
         )

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../../configs.json';
-import classes from './CategoryBased.module.scss';
+import './CategoryBased.scss';
 import Loader from "../../Loader/Loader";
 import NewsCard from "../../NewsCard/NewsCard";
 
@@ -71,12 +71,13 @@ class categoryBasedSections extends Component {
         }
         return (
             <Row>
+                <Loader isLoading={this.state.loading} />
                 <Col sm={9}>
                     <CardDeck>
                         {leftColNews}                
                     </CardDeck>
                 </Col>
-                <Col className={classes.rightColNews} sm={3}>
+                <Col className="rightColNews" sm={3}>
                     {rightColNews}
                 </Col>
             </Row>

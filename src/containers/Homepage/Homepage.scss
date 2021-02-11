@@ -5,6 +5,7 @@
         margin-bottom: 10px;
     }
     .categoryBaseHeader {
+        padding: 15px 0;
         h2 {
             font-size: 18px;
         }
@@ -15,23 +16,5 @@
     .homepageSections {
         margin-bottom: 40px;
         border-top: 1px solid #c0c0c0;
-        padding-top: 10px;
-        .seeAll {
-            a:link,
-            a:visited {
-                color: #000;
-            }
-        }
     }
 }
-
-// .homepage { 
-//     font-size: 15px;
-// }
-
-// .topStoriesHeader {
-//     display: table;
-//     width: 100%;
-//     padding: 20px 0;
-// }
-

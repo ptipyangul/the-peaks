@@ -1,0 +1,74 @@
+@import '../../../assets/variables.scss';
+
+.TopStoriesSection {
+    .highlight a {
+        img {
+            width: 100%;
+        }
+        .highlightContent { 
+            .title {
+                font-size: 25px;
+                line-height: 28px;
+            }
+            .trailText {
+                font-size: 14px;
+                color: #000;
+            }
+        }; 
+    }
+    .highlight a:link,
+    .highlight a:visited {
+        text-decoration: none;
+    }
+    
+    .rightcol {
+        a {
+            display: block;
+            font-size: 15px;
+            text-decoration: underline;
+            line-height: 1.2em;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        a:last-child {
+            border-bottom: 0;
+        }
+    }
+    
+    .flashnews {
+        margin-top: 10px;
+        position: relative;
+        overflow: hidden;
+        background-color: #2d2c5d;
+        border-radius: 10px;
+        height: 30px;
+        a:link,
+        a:visited {
+            color: #fff;
+            span {
+                font-size: 13px;
+                margin-right: 20px;
+            }
+        }
+        .marquee {
+            position: relative;
+            width: 100vw;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+          
+        .track {
+            position: absolute;
+            white-space: nowrap;
+            will-change: transform;
+            line-height: 30px;
+            animation: marquee 32s linear infinite;
+        }
+        
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+    }
+}
+
