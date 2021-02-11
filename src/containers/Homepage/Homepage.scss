@@ -1,6 +1,7 @@
 @import '../../assets/variables.scss';
 
 .HomepagePage {
+    @include pageContentMargin;
     .topSection {
         margin-bottom: 10px;
     }

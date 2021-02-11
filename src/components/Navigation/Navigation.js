@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classes from './Navigation.module.scss';
+import './Navigation.scss';
 import logo from '../../assets/logo.png';
 import hamburgerIcon from '../../assets/hamburger.png';
 
@@ -30,23 +30,23 @@ class Navigation extends Component {
     }
 
     handleHamburgerCheckBox = () => {
-        if (!document.body.classList.contains(`${classes.noScroll}`)) {
-            document.body.classList.add(`${classes.noScroll}`);
+        if (!document.body.classList.contains("noScroll")) {
+            document.body.classList.add("noScroll");
         } else {
-            document.body.classList.remove(`${classes.noScroll}`);
+            document.body.classList.remove("noScroll");
         }
     }
 
     render () {
         return (
-            <Container>
-                <Row>
-                    <Col sm={2} className={classes.LogoCol} >
-                        <div className={classes.Logo}><a href="/"><img src={logo} alt="Diff. News Logo" /></a></div>
+            <Container className="NavigationContainer">
+                <Row className="d-flex align-items-center">
+                    <Col sm={2} className="LogoCol">
+                        <div className="Logo"><a href="/"><img src={logo} alt="Diff. News Logo" /></a></div>
                     </Col>
-                    <Col sm={7} className={classes.NavCol}>
-                        <input type="checkbox" id="hamburgerCheckBox" className={classes.checkBox} />
-                        <label htmlFor="hamburgerCheckBox" className={classes.checkBtn} onClick={this.handleHamburgerCheckBox}>
+                    <Col sm={7} className="NavCol">
+                        <input type="checkbox" id="hamburgerCheckBox" className="checkBox" />
+                        <label htmlFor="hamburgerCheckBox" className="checkBtn" onClick={this.handleHamburgerCheckBox}>
                             <img src={hamburgerIcon} alt="Hamburger icon" />
                         </label>
                         <Nav fill className="justify-content-center">
@@ -58,18 +58,17 @@ class Navigation extends Component {
                             <Nav.Item><Nav.Link href="/category/travel">TRAVEL</Nav.Link></Nav.Item>
                         </Nav>
                     </Col>
-                    <Col sm={2} className={`${classes.SearchCol} text-right`}>
+                    <Col sm={2} className="SearchCol text-right">
                         <input
                             type="text"
                             placeholder="Search all news"
                             onKeyUp={event => this.handleSearchBoxChanged(event)}
                             maxLength="50"/>
                     </Col>
-                    <Col sm={1} className={`${classes.BookmarkCol} text-right`}>
-                        <a className={classes.Bookmark} href="/bookmark"><i class="fas fa-bookmark"></i></a>
+                    <Col sm={1} className="BookmarkCol text-right">
+                        <a className="Bookmark" href="/bookmark"><i class="fas fa-bookmark"></i></a>
                     </Col>                    
                 </Row>
-
             </Container>
         )
     }

@@ -147,7 +147,7 @@ class Category extends Component {
             newsResults = <p>{this.state.message}</p>;
         }
         return (
-            <Container>
+            <Container className="CategoryContainer">
                 <Row className="PageHeaderRow align-items-center">
                     <Col sm={10}><h1>{this.capitalize(this.state.categoryName)}</h1></Col>           
                     <Col sm={2}><NewsSorting changed={this.handleSortingChanged}/></Col>
