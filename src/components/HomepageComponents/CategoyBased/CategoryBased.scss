@@ -1,5 +1,15 @@
 @import '../../../assets/variables.scss';
 
+.categoryBaseHeader {
+    .btn {
+        color: #fd494f !important;
+        border: 1px solid #fd494f;
+    }
+    .btn:hover {
+        color: #FFF !important;
+        background-color: #fd494f;
+    }
+}
 .leftColNews {
 }
 .rightColNews {
