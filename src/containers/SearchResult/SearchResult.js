@@ -108,7 +108,7 @@ class SearchResult extends Component {
         const { scrolling, totalPage, page, loading, error } = this.state;
         if (totalPage <= page) return;
         if (scrolling || loading || error ) return;
-        const lastElement = document.querySelector('.SearchResultsArea a:last-child');
+        const lastElement = document.querySelector('.card:last-child');
         const lastElementOffset = lastElement.offsetTop + lastElement.clientHeight;
         const pageOffset = window.pageYOffset + window.innerHeight;
         let bottomOffset = 20;
@@ -192,22 +192,18 @@ class SearchResult extends Component {
             results = <p>{this.state.message}</p>;
         }
 
-        if (this.state.loading) {
-            return <Loader isLoading={this.state.loading} />
-        } else {
-            return (
-                <Container className="searchPageContainer">
-                    <Row className="PageHeaderRow align-items-center">
-                        <Col sm={10}><h1>Search Result</h1></Col>           
-                        <Col sm={2}><NewsSorting changed={this.handleSortingChanged}/></Col>
-                    </Row>
-                    <Row className="SearchResultsArea">
-                        {results}
-                    </Row>
-                              
-                </Container>
-            );
-        }
+        return (
+            <Container className="searchPageContainer">
+                <Row className="PageHeaderRow align-items-center">
+                    <Col sm={10}><h1>Search Result</h1></Col>           
+                    <Col sm={2}><NewsSorting changed={this.handleSortingChanged}/></Col>
+                </Row>
+                <Row className="SearchResultsArea">
+                    {results}
+                </Row>
+                <Loader isLoading={this.state.loading} />
+            </Container>            
+        );
     }
 }
 
