@@ -64,7 +64,7 @@ class Navigation extends Component {
                 <div className="NavSmallScreen d-block d-lg-none d-xl-none d-xxl-none">
                     <Accordion>
                         <Row className="d-flex align-items-center">
-                            <Col xs={3}>
+                            <Col xs={3} className="hamburburMenu">
                                 <Accordion.Toggle as={Button} variant="primary" size="sm" eventKey="0">
                                     <i class="fas fa-bars"></i>
                                 </Accordion.Toggle>
@@ -89,6 +89,7 @@ class Navigation extends Component {
                                         <Nav.Item><Nav.Link href="/category/lifestyle">LIFESTYLE</Nav.Link></Nav.Item>
                                         <Nav.Item><Nav.Link href="/category/technology">TECH</Nav.Link></Nav.Item>
                                         <Nav.Item><Nav.Link href="/category/travel">TRAVEL</Nav.Link></Nav.Item>
+                                        <Nav.Item><Nav.Link href="/bookmark">My Bookmark</Nav.Link></Nav.Item>
                                     </Nav>
                                 </Accordion.Collapse>
                                 <Accordion.Collapse eventKey="1">

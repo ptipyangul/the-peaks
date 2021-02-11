@@ -176,7 +176,7 @@ class SearchResult extends Component {
         let results;
         if (!this.state.error && this.state.searchResults) {
             results = this.state.searchResults.map( (news, index) => {
-                return <Col sm={4}>
+                return <Col lg={4} md={6} xs={12}>
                         <NewsCard 
                             key={news.id}
                             newsId = {news.id}

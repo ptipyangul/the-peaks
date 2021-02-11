@@ -3,8 +3,9 @@ import axios from 'axios';
 import configs from '../../../configs.json';
 import './TopStories.scss';
 import { Link } from 'react-router-dom';
+import NewsCard from "../../NewsCard/NewsCard";
 
-import { Container, Row, Col, Badge } from 'react-bootstrap';
+import { Row, Col, Badge } from 'react-bootstrap';
 import Loader from '../../Loader/Loader';
 
 class topStories extends Component {
@@ -16,7 +17,8 @@ class topStories extends Component {
             loading: false,
             hightlightNews: null,
             rightColNews: null,
-            flashNews: null
+            flashNews: null,
+            mdMoreNewsContent: null
         }
     }
 
@@ -83,6 +85,18 @@ class topStories extends Component {
         });
         this.setState({ rightColNews: rightcolNewsContent });
 
+        const mdMoreNews = rightColNews.map( news => {
+            return <Col md={4}>
+                <NewsCard 
+                    key={news.id}
+                    newsId = {news.newsId}
+                    img={news.img}
+                    title={news.title}
+                    showImage={true} />
+                </Col>
+        });
+        this.setState({ mdMoreNewsContent: mdMoreNews });
+
         const flashNews = this.normalizeNewsData(this.state.news.slice(5,8));
         const flashNewsContent = flashNews.map( news => {
             return (
@@ -98,11 +112,15 @@ class topStories extends Component {
             return <Loader isLoading={this.state.loading} />
         } else {
             return (
-                <Row className="TopStoriesSection align-items-center">
-                    
-                    <Col sm={9}>
+                <Row className="TopStoriesSection align-items-center ="> 
+                    <Col md={12} lg={9}>
                         <div className="highlight">{this.state.hightlightNews}</div>
-                        <div className="flashnews">
+                        <div className="mdMoreNews d-lg-none d-xl-none">
+                            <Row>
+                                {this.state.mdMoreNewsContent}
+                            </Row>
+                        </div>
+                        <div className="flashnews d-none d-lg-block d-xl-none">
                             <div className="track">
                                 <div className="content">
                                     {this.state.flashNews}
@@ -110,7 +128,7 @@ class topStories extends Component {
                             </div>
                         </div>
                     </Col>
-                    <Col sm={3} className="rightcol">
+                    <Col sm={3} className="rightcol d-none d-lg-block d-xl-none">
                         {this.state.rightColNews}
                     </Col>
                 </Row>

@@ -117,11 +117,24 @@
                 width: 65px;
             }
         }
+        .hamburburMenu {
+            Button {
+                background-color: #833bb6;
+            }
+        }
         .nav-link {
             padding-left: 0;
         }
         .SearchInput {
             width: 100%;
+        }
+        .SearchCol {
+            Button {
+                border: 0;
+                i {
+                    color: #833bb6;
+                }
+            }
         }
     }
 }

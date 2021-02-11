@@ -131,7 +131,7 @@ class Category extends Component {
 
         if ( !this.state.error && this.state.searchResults ) {           
             newsResults = this.state.searchResults.map( (news, index) => {
-                return <Col sm={4}>
+                return <Col lg={4} md={6} xs={12}>
                         <NewsCard 
                         key={news.id}
                         img={( news.fields && news.fields.thumbnail ) ? news.fields.thumbnail : ''}
