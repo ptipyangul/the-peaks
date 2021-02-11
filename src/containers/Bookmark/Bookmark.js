@@ -4,7 +4,8 @@ import configs from '../../configs.json';
 import Loader from "../../components/Loader/Loader";
 import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
-import classes from './Bookmark.module.scss';
+import './Bookmark.scss';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class Bookmark extends Component {
 
@@ -82,27 +83,31 @@ class Bookmark extends Component {
         if (!this.state.error && this.state.loadedBookmarks) {           
             if (this.state.loadedBookmarks.length > 0 ) { 
                 newsResults = this.state.loadedBookmarks.map( (news, index) => {
-                    return <NewsCard 
-                        key={news.id}
-                        img={news.fields.thumbnail}
-                        title={news.webTitle}
-                        body={news.fields.trailText}
-                        index={index}
-                        newsId={news.id} />
+                    return <Col sm={4}>
+                            <NewsCard 
+                            key={news.id}
+                            img={news.fields.thumbnail}
+                            title={news.webTitle}
+                            body={news.fields.trailText}
+                            index={index}
+                            newsId={news.id}
+                            showImage={true} />
+                        </Col>
                 });
             }
         }
+
         return (
-            <div className="wrapper">
-                <div className={classes.bookmarkContainer}>
-                    <div className={classes.HeadingDiv}><h1>All Bookmark</h1></div>           
-                    <div className={classes.newsSortingDiv}><NewsSorting changed={this.handleSortingChanged}/></div>
-                </div>
-                <div className={classes.bookmarkResult}>
+            <Container>
+                <Row className="PageHeaderRow align-items-center">
+                    <Col sm={10}><h1>Bookmark</h1></Col>           
+                    <Col sm={2}><NewsSorting changed={this.handleSortingChanged}/></Col>
+                </Row>
+                <Row className="SearchResultsArea">
                     {newsResults}
-                </div>
+                </Row>
                 <Loader isLoading={this.state.loading} />
-            </div>
+            </Container>
         )
     }
 }

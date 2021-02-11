@@ -5,6 +5,7 @@ import './TopStories.scss';
 import { Link } from 'react-router-dom';
 
 import { Container, Row, Col, Badge } from 'react-bootstrap';
+import Loader from '../../Loader/Loader';
 
 class topStories extends Component {
     constructor(props) {
@@ -93,23 +94,28 @@ class topStories extends Component {
     }
 
     render () {
-        return (
-            <Row className="TopStoriesSection align-items-center">
-                <Col sm={9}>
-                    <div className="highlight">{this.state.hightlightNews}</div>
-                    <div className="flashnews">
-                        <div className="track">
-                            <div className="content">
-                                {this.state.flashNews}
+        if (this.state.loading) {
+            return <Loader isLoading={this.state.loading} />
+        } else {
+            return (
+                <Row className="TopStoriesSection align-items-center">
+                    
+                    <Col sm={9}>
+                        <div className="highlight">{this.state.hightlightNews}</div>
+                        <div className="flashnews">
+                            <div className="track">
+                                <div className="content">
+                                    {this.state.flashNews}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Col>
-                <Col sm={3} className="rightcol">
-                    {this.state.rightColNews}
-                </Col>
-            </Row>
-        )
+                    </Col>
+                    <Col sm={3} className="rightcol">
+                        {this.state.rightColNews}
+                    </Col>
+                </Row>
+            )
+        }
     }
 }
 

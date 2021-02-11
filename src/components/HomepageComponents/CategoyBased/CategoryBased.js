@@ -69,19 +69,24 @@ class categoryBasedSections extends Component {
                     showImage={false} />
             });
         }
-        return (
-            <Row>
-                <Loader isLoading={this.state.loading} />
-                <Col sm={9}>
-                    <CardDeck>
-                        {leftColNews}                
-                    </CardDeck>
-                </Col>
-                <Col className="rightColNews" sm={3}>
-                    {rightColNews}
-                </Col>
-            </Row>
-        )
+
+        if (this.state.loading) {
+            return <Loader isLoading={this.state.loading} />
+        } else {
+            return (
+                <Row>
+                    
+                    <Col sm={9}>
+                        <CardDeck>
+                            {leftColNews}                
+                        </CardDeck>
+                    </Col>
+                    <Col className="rightColNews" sm={3}>
+                        {rightColNews}
+                    </Col>
+                </Row>
+            )
+        }
     }
 }
 

@@ -22,7 +22,7 @@ class homepageArea extends Component {
             <div className="HomepagePage">
                 <Container>
                     <div className="topSection">
-                        {/* <TopStories /> */}
+                        <TopStories />
                     </div>
                     <div className="homepageSections">
                         <Row className="categoryBaseHeader">
@@ -42,7 +42,7 @@ class homepageArea extends Component {
                         </Row>
                         <Row className="categoryBaseItems">
                             <Col sm={12}>
-                                {/* <CategoryBasedSections sectionName="culture" /> */}
+                                <CategoryBasedSections sectionName="culture" />
                             </Col>                            
                         </Row>
                     </div>
@@ -53,7 +53,7 @@ class homepageArea extends Component {
                         </Row>
                         <Row className="categoryBaseItems">
                             <Col sm={12}>
-                                {/* <CategoryBasedSections sectionName="lifeandstyle" /> */}
+                                <CategoryBasedSections sectionName="lifeandstyle" />
                             </Col>                            
                         </Row>
                     </div>
