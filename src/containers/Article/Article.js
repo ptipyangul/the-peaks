@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import configs from '../../configs.json';
-import classes from '../Article/Article.module.scss';
+import './Article.scss';
 import BookmarkButton from '../../components/BookmarkButton/BookmarkButton';
 import Loader from "../../components/Loader/Loader";
+import { Container } from 'react-bootstrap';
 
 class Article extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class Article extends Component {
             configs.NEWS_API_ENDPOINT
             + 'search?ids='
             + this.state.newsId
-            + '&show-fields=body%2Cheadline%2Cbody'
+            + '&show-fields=body%2Cheadline%2Cbody%2Cthumbnail'
             + '&show-elements=image'
             + `&api-key=${configs.NEWS_API_KEY}`)
             .then(response => {
@@ -70,31 +71,32 @@ class Article extends Component {
 
         // Error checking
         if (!this.state.error && this.state.content) {
-            let content = this.state.content;
-            let pubDate = new Date(content.webPublicationDate);         
-            let formatedDate = pubDate.toUTCString().replace(/,/,'').toUpperCase();
+            const content = this.state.content;
+            const pubDate = new Date(content.webPublicationDate);         
+            const formatedDate = pubDate.toUTCString().replace(/,/,'').toUpperCase();
+            console.log(content);
             articleContent = (
                 <div>
                     <BookmarkButton newsId={this.state.newsId} />
-                    <div className={classes.articleContent}>
-                        <p className={classes.pubDate}>{formatedDate}</p>
-                        <h1 className={classes.title}>{content.webTitle}</h1>
-                        <p className={classes.headline}>{content.fields.headline}</p>
+                    <div className="articleContent">                        
+                        <p className="pubDate">{formatedDate}</p>
+                        <h1 className="title">{content.webTitle}</h1>
+                        <p className="headline">{content.fields.headline}</p>
                         <hr />
-                        <div className={classes.content} dangerouslySetInnerHTML={{__html: content.fields.body}} />
+                        <img src={content.fields.thumbnail} class="thumbnail float-right"></img>
+                        <div className="content" dangerouslySetInnerHTML={{__html: content.fields.body}} />
                     </div>
                 </div>
             );
         } else {
             articleContent = (<div>{this.state.message}</div>);
         }
+
         return (
-            <div className={classes.articlePage}>
-                <div className="wrapper">
-                    {articleContent}
-                    <Loader isLoading={this.state.loading} />
-                </div>
-            </div>
+            <Container className="articlePage">
+                {articleContent}
+                <Loader isLoading={this.state.loading} />
+            </Container>
         );
     }
 }

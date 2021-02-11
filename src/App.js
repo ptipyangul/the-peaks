@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import classes from './App.module.scss';
-import layoutClasses from './assets/layout.scss';
+import './App.scss';
 import Navigation from "./components/Navigation/Navigation";
 import Homepage from './containers/Homepage/Homepage';
 import Category from './containers/Category/Category';
@@ -25,7 +24,7 @@ class App extends Component {
   render () {
     return (
       <Router>
-        <div className={classes.App}>
+        <div className="App">
             <Route path="/" name="navigation" render={props => <Navigation updateSearchKey={this.handleUpdateKey} {...props} />} />
             <Switch>
               <Route exact path="/" exact component={Homepage} />
