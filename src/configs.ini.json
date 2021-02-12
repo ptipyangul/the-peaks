@@ -2,5 +2,5 @@
     "NEWS_API_ENDPOINT": "https://content.guardianapis.com/",
     "NEWS_API_KEY": "",
     "LOAD_PER_PAGE": 9,
-    "PAGE_TITLE": "The Peaks"
+    "PAGE_TITLE": "Diff. News"
 }
