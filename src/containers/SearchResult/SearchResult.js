@@ -5,12 +5,14 @@ import configs from '../../configs.json';
 import '../SearchResult/SearchResult.scss';
 import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
+import { GetNewsContext } from '../../context/fetchNews';
 import Loader from "../../components/Loader/Loader";
 import { Container, Row, Col } from 'react-bootstrap';
 
 class SearchResult extends Component {
 
     pageTitle = 'Search Result';
+    static contextType = GetNewsContext;
 
     constructor(props) {
         super(props);
@@ -50,44 +52,37 @@ class SearchResult extends Component {
     getSearchResults() {
         const { searchKey, perPage, page, searchResults, sorting } = this.state;
 
-        if ( this.cancel ) {
-            this.cancel.cancel();
-        }
+        if ( this.cancel ) this.cancel.cancel();
         this.cancel = axios.CancelToken.source();
 
+        const qs = `search?q=${searchKey}`
+                    + `&order-by=${sorting}`
+                    + `&show-fields=thumbnail%2CtrailText&page=${page}&page-size=${perPage}`;
+        const responseFunc = (response) => {
+            const data = [...searchResults, ...response.data.response.results];
+            if ( data.length  <= 0) this.setState({ message: 'No results' });                
+            this.setState({ searchResults: data, 
+                            error: false,
+                            message: null,
+                            loading: false,
+                            scrolling: false,
+                            totalPage: response.data.response.pages });
+        };
+        const errorFunc = (error) => {
+            if (axios.isCancel(error)) {
+                this.setState({
+                    error: true
+                });
+            } else if ( error ) {
+                this.setState({
+                    error: true,
+                    loading: false,
+                    message: 'Something went wrong. Please try refreshing the page.'              
+                });
+            }
+        }
         this.setState( { loading: true });
-
-        axios.get(
-            configs.NEWS_API_ENDPOINT
-            + 'search'
-            + `?q=${searchKey}`
-            + `&order-by=${sorting}`
-            + `&show-fields=thumbnail%2CtrailText&page=${page}&page-size=${perPage}`
-            + `&api-key=${configs.NEWS_API_KEY}`
-            ,{ cancelToken: this.cancel.token })
-            .then(response => {
-                const data = [...searchResults, ...response.data.response.results];
-                if ( data.length  <= 0) this.setState({ message: 'No results' });                
-                this.setState({ searchResults: data, 
-                                error: false,
-                                message: null,
-                                loading: false,
-                                scrolling: false,
-                                totalPage: response.data.response.pages });
-            })
-            .catch( error => {
-                if (axios.isCancel(error)) {
-                    this.setState({
-                        error: true
-                    });
-                } else if ( error ) {
-                    this.setState({
-                        error: true,
-                        loading: false,
-                        message: 'Something went wrong. Please try refreshing the page.'              
-                    });
-                }
-            });
+        this.context.fetchNews(qs, responseFunc, errorFunc, this.cancel);
     }
 
     handleSortingChanged = (event) => {
@@ -124,6 +119,7 @@ class SearchResult extends Component {
             }
         }
         window.addEventListener('scroll', this.handleScroll);
+        const getNewsContext = this.context;
     }
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);

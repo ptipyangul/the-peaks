@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import configs from '../../configs.json';
 import Loader from "../../components/Loader/Loader";
 import NewsCard from "../../components/NewsCard/NewsCard";
@@ -22,6 +23,7 @@ class Bookmark extends Component {
             sorting: 'newest',
             message: ''
         }
+        this.cancel = null;
     }
 
     getBookmarks() {
@@ -29,6 +31,9 @@ class Bookmark extends Component {
         let idsString = null;
         if (localBookmarks)
             idsString = localBookmarks.join(",");
+
+        if ( this.cancel ) this.cancel.cancel();
+        this.cancel = axios.CancelToken.source();
         
         const qs = `search?ids=${idsString}`
                 + `&order-by=${this.state.sorting}`
@@ -47,7 +52,7 @@ class Bookmark extends Component {
         }
 
         this.setState({ loading: true });
-        this.context.fetchNews(qs, responseFunc, errorFunc)
+        this.context.fetchNews(qs, responseFunc, errorFunc, this.cancel)
     }
 
     componentDidMount () {

@@ -68,6 +68,12 @@ class Category extends Component {
         const { categoryName, perPage, page, searchResults, sorting } = this.state;
         const sectionNameParam = (categoryName === 'lifestyle') ? 'lifeandstyle' : categoryName;
 
+        if ( this.cancel ) this.cancel.cancel();
+        this.cancel = axios.CancelToken.source();
+
+        const qs = `search?section=${sectionNameParam}`
+                + `&order-by=${sorting}`
+                + `&show-fields=thumbnail%2CtrailText&page=${page}&page-size=${perPage}`;
         const responseFunc = (response) => {
             const data = [...searchResults, ...response.data.response.results];
             this.setState({ searchResults: data, 
@@ -86,12 +92,9 @@ class Category extends Component {
                 })
             }
         };
-        const qs = `search?section=${sectionNameParam}`
-                + `&order-by=${sorting}`
-                + `&show-fields=thumbnail%2CtrailText&page=${page}&page-size=${perPage}`;
 
         this.setState( { loading: true });
-        this.context.fetchNews(qs, responseFunc, errorFunc)
+        this.context.fetchNews(qs, responseFunc, errorFunc, this.cancel)
     }
 
     handleScroll () {

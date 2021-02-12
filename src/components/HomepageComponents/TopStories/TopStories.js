@@ -4,11 +4,14 @@ import configs from '../../../configs.json';
 import './TopStories.scss';
 import { Link } from 'react-router-dom';
 import NewsCard from "../../NewsCard/NewsCard";
+import { GetNewsContext } from '../../../context/fetchNews';
 
 import { Row, Col, Badge } from 'react-bootstrap';
 import Loader from '../../Loader/Loader';
 
 class topStories extends Component {
+    static contextType = GetNewsContext;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -20,29 +23,31 @@ class topStories extends Component {
             flashNews: null,
             mdMoreNewsContent: null
         }
+        this.cancel = null;
     }
 
     getNews() {
-        this.setState( { loading: true });
-        axios.get(
-            configs.NEWS_API_ENDPOINT
-            + '/search'
-            +'?show-fields=thumbnail%2CtrailText&page=1&page-size=8&show-section=true'
-            + '&api-key='
-            + configs.NEWS_API_KEY)
-            .then(response => {
-                const news = response.data.response.results;
-                this.setState({news: news, error: false, loading: false}, () => {
-                    this.setUpNewsContent();
-                });
-            })
-            .catch(error => {
-                this.setState({ error: true, loading: false });
+        if ( this.cancel ) this.cancel.cancel();
+        this.cancel = axios.CancelToken.source();
+
+        const qs = 'search?show-fields=thumbnail%2CtrailText&page=1&page-size=8&show-section=true';
+        const responseFunc = (response) => {
+            const news = response.data.response.results;
+            this.setState({news: news, error: false, loading: false}, () => {
+                this.setUpNewsContent();
             });
+        }
+        const errorFunc = (error) => {
+            this.setState({ error: true, loading: false });
+        }
+
+        this.setState( { loading: true });
+        this.context.fetchNews(qs, responseFunc, errorFunc, this.cancel);
     }
 
     componentDidMount () {
         this.getNews();
+        const getNewsContext = this.context;
     }
 
     normalizeNewsData = (newsArray) => {
@@ -57,8 +62,9 @@ class topStories extends Component {
         return array;
     }
 
+    // Create new content
     setUpNewsContent = () => {
-
+        // Hightlight news
         const highLightNewsData = this.normalizeNewsData([(this.state.news[0])])[0];
         const highlightNewsContent = <Link to={`/article/${highLightNewsData.newsId}`} key={highLightNewsData.id}> 
                 <Row className="align-items-center">
@@ -74,6 +80,7 @@ class topStories extends Component {
             </Link>;
         this.setState({ hightlightNews: highlightNewsContent });
 
+        // Right columns news
         const rightColNews = this.normalizeNewsData(this.state.news.slice(1,4));
         const rightcolNewsContent = rightColNews.map( news => {
             return (
@@ -85,6 +92,7 @@ class topStories extends Component {
         });
         this.setState({ rightColNews: rightcolNewsContent });
 
+        // More news for smaller screen
         const mdMoreNews = rightColNews.map( news => {
             return <Col md={4}>
                 <NewsCard 
@@ -97,6 +105,7 @@ class topStories extends Component {
         });
         this.setState({ mdMoreNewsContent: mdMoreNews });
 
+        // Flash news
         const flashNews = this.normalizeNewsData(this.state.news.slice(5,8));
         const flashNewsContent = flashNews.map( news => {
             return (
