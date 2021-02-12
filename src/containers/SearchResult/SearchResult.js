@@ -113,7 +113,7 @@ class SearchResult extends Component {
     componentDidMount() {
         document.title = this.pageTitle + ' | ' + configs.PAGE_TITLE;
         window.addEventListener('scroll', this.handleScroll);
-        if ( this.state.searchKey != this.props.searchKey && this.props.searchKey ) {
+        if ( this.state.searchKey !== this.props.searchKey && this.props.searchKey ) {
             this.setState({ searchKey: this.props.searchKey,
                 error: false,
                 searchResults: [],
