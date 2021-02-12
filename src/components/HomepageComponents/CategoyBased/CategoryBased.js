@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { GetNewsContext } from '../../../context/fetchNews';
-import configs from '../../../configs.json';
 import './CategoryBased.scss';
 import Loader from "../../Loader/Loader";
 import NewsCard from "../../NewsCard/NewsCard";
@@ -42,7 +41,6 @@ class categoryBasedSections extends Component {
 
     componentDidMount () {
         this.getNews(this.props.sectionName);
-        const getNewsContext = this.context;
     }
 
     render () {

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './Navigation.scss';
 import logo from '../../assets/logo.png';
-import hamburgerIcon from '../../assets/hamburger.png';
 
-import { Container, Row, Col, Nav, Accordion, Card, Button, useAccordionToggle } from 'react-bootstrap';
+import { Container, Row, Col, Nav, Accordion, Button } from 'react-bootstrap';
 
 class Navigation extends Component {
     constructor(props) {

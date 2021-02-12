@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import classes from '../NewsSorting/NewsSorting.module.scss';
-
 import { Form } from 'react-bootstrap';
 
 class NewsSorting extends Component {

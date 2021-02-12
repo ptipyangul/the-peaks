@@ -80,7 +80,6 @@ class Article extends Component {
             const content = this.state.content;
             const pubDate = new Date(content.webPublicationDate);         
             const formatedDate = pubDate.toUTCString().replace(/,/,'').toUpperCase();
-            console.log(content);
             articleContent = (
                 <div>
                     <BookmarkButton newsId={this.state.newsId} />
@@ -89,7 +88,7 @@ class Article extends Component {
                         <h1 className="title">{content.webTitle}</h1>
                         <p className="headline">{content.fields.headline}</p>
                         <hr />
-                        <img src={content.fields.thumbnail} class="thumbnail float-right"></img>
+                        <img src={content.fields.thumbnail} class="thumbnail float-right" alt={content.webTitle}></img>
                         <div className="content" dangerouslySetInnerHTML={{__html: content.fields.body}} />
                     </div>
                 </div>

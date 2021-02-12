@@ -66,7 +66,6 @@ class Bookmark extends Component {
         } else {
             this.setState({ message: 'No bookmark.'});
         }
-        const getNewsContext = this.context;
     }
 
     componentDidUpdate(prevProps) {

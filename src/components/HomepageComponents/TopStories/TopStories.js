@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import configs from '../../../configs.json';
 import './TopStories.scss';
 import { Link } from 'react-router-dom';
 import NewsCard from "../../NewsCard/NewsCard";
@@ -47,7 +46,6 @@ class topStories extends Component {
 
     componentDidMount () {
         this.getNews();
-        const getNewsContext = this.context;
     }
 
     normalizeNewsData = (newsArray) => {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import './Homepage.scss';
 import TopStories from '../../components/HomepageComponents/TopStories/TopStories';
 import CategoryBasedSections from '../../components/HomepageComponents/CategoyBased/CategoryBased';

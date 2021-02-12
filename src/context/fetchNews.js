@@ -1,12 +1,10 @@
-import React, { useState, useReducer, useContext } from 'react';
+import React from 'react';
 import axios from 'axios';
 import configs from '../configs.json';
 
 export const GetNewsContext = React.createContext();
 
 export const GetNewsContextProvider = ({ children }) => {
-    const [ cancelState, setCancelState ] = useState([null]);
-
     const fetchNews = (qs, responseFun, errorFunc, cancel) => {
 
         const url = `${configs.NEWS_API_ENDPOINT}${qs}&api-key=${configs.NEWS_API_KEY}`

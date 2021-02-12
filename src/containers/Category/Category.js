@@ -41,8 +41,6 @@ class Category extends Component {
         document.title = this.capitalize(this.state.categoryName) + ' | ' + configs.PAGE_TITLE;
         this.getNews();
         window.addEventListener('scroll', this.handleScroll);
-        
-        const getNewsContext = this.context;
     }
 
     capitalize = (s) => {

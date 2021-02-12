@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import configs from '../../configs.json';
 import '../SearchResult/SearchResult.scss';
 import NewsCard from "../../components/NewsCard/NewsCard";
@@ -119,14 +118,13 @@ class SearchResult extends Component {
             }
         }
         window.addEventListener('scroll', this.handleScroll);
-        const getNewsContext = this.context;
     }
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
     }
 
     componentDidUpdate(prevProps) {
-        if ( prevProps.searchKey != this.props.searchKey ) {
+        if ( prevProps.searchKey !== this.props.searchKey ) {
             if ( this.props.searchKey.length >= 1 ) {
                 this.setState({ searchKey: this.props.searchKey,
                     error: false,
