@@ -15,12 +15,10 @@ export const GetNewsContextProvider = ({ children }) => {
             .then(response => responseFun(response))
             .catch(error => errorFunc(error));
     }
-
     return (
         <GetNewsContext.Provider
             value={{ fetchNews }}>
             {children}
         </GetNewsContext.Provider>
     );
-
 }

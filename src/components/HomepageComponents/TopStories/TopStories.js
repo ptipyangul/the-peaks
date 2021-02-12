@@ -62,14 +62,14 @@ class topStories extends Component {
         return array;
     }
 
-    // Create new content
+    // Create news content
     setUpNewsContent = () => {
         // Hightlight news
         const highLightNewsData = this.normalizeNewsData([(this.state.news[0])])[0];
         const highlightNewsContent = <Link to={`/article/${highLightNewsData.newsId}`} key={highLightNewsData.id}> 
                 <Row className="align-items-center">
-                    <Col sm={6}><img src={highLightNewsData.img} alt={highLightNewsData.title} /></Col> 
-                    <Col sm={6}>
+                    <Col md={6}><img src={highLightNewsData.img} alt={highLightNewsData.title} /></Col> 
+                    <Col md={6}>
                         <div className="highlightContent">
                             <Badge pill variant="success">LATEST</Badge>
                             <p className="title">{highLightNewsData.title}</p>

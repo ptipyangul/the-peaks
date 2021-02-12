@@ -20,9 +20,14 @@ class Article extends Component {
             loaded: false,
             message: ''
         }
+        this.cancel = null;
     }
 
     getArticle() {      
+
+        if ( this.cancel ) this.cancel.cancel();
+        this.cancel = axios.CancelToken.source();
+
         const responseFun = (response) => {
             const content = response.data.response.results[0];
             if (content.length <= 0) this.setState({ message: 'Content not found.' });
@@ -45,7 +50,7 @@ class Article extends Component {
             + `&show-fields=body%2Cheadline%2Cbody%2Cthumbnail`;
         
         this.setState( { loading: true });
-        this.context.fetchNews(qs, responseFun, errorFunc);
+        this.context.fetchNews(qs, responseFun, errorFunc, this.cancel);
     }
 
     componentDidMount () {

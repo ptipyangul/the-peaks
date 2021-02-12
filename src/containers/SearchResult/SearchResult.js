@@ -30,7 +30,7 @@ class SearchResult extends Component {
 
             perPage: configs.LOAD_PER_PAGE,
             page: 1,
-            totalPage: null,            
+            totalPage: null
         }
         this.cancel = null;
         this.handleScroll = this.handleScroll.bind(this);
@@ -168,7 +168,6 @@ class SearchResult extends Component {
     }
 
     render () {
-
         let results;
         if (!this.state.error && this.state.searchResults) {
             results = this.state.searchResults.map( (news, index) => {
