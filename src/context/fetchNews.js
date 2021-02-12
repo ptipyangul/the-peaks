@@ -5,13 +5,19 @@ import configs from '../configs.json';
 export const GetNewsContext = React.createContext();
 
 export const GetNewsContextProvider = ({ children }) => {
-    const [ newsResponse, setNewsResponse ] = useState(['test']);
+    const [ cancelState, setCancelState ] = useState([null]);
+    let cancel = null;
+    
+    if ( cancel ) {
+        cancel.cancel();
+    }
+    cancel = axios.CancelToken.source();
 
     const fetchNews = (qs, responseFun, errorFunc) => {
 
         const url = `${configs.NEWS_API_ENDPOINT}${qs}&api-key=${configs.NEWS_API_KEY}`
 
-        axios.get(url)
+        axios.get(url, { cancelToken: cancel.token })
             .then(response => responseFun(response))
             .catch(error => errorFunc(error));
     }

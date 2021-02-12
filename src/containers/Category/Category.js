@@ -5,7 +5,7 @@ import './Category.scss';
 import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
 import Loader from "../../components/Loader/Loader";
-import { GetNewsContext } from '../../context/getNews';
+import { GetNewsContext } from '../../context/fetchNews';
 import configs from '../../configs.json';
 
 import { Row, Col, Container, CardDeck } from 'react-bootstrap';
@@ -13,17 +13,7 @@ import { Row, Col, Container, CardDeck } from 'react-bootstrap';
 class Category extends Component {
 
     _isMounted = false;
-
     static contextType = GetNewsContext;
-
-    componentDidMount () {
-        this._isMounted = true;
-        document.title = this.capitalize(this.state.categoryName) + ' | ' + configs.PAGE_TITLE;
-        this.getNews();
-        window.addEventListener('scroll', this.handleScroll);
-        
-        const getNewsContext = this.context;
-    }
 
     constructor(props) {
         super(props);
@@ -47,6 +37,15 @@ class Category extends Component {
         this.handleScroll = this.handleScroll.bind(this);
     }
 
+    componentDidMount () {
+        this._isMounted = true;
+        document.title = this.capitalize(this.state.categoryName) + ' | ' + configs.PAGE_TITLE;
+        this.getNews();
+        window.addEventListener('scroll', this.handleScroll);
+        
+        const getNewsContext = this.context;
+    }
+
     capitalize = (s) => {
         if (typeof s !== 'string') return ''
         return s.charAt(0).toUpperCase() + s.slice(1)
@@ -68,15 +67,7 @@ class Category extends Component {
 
     getNews() {
         const { categoryName, perPage, page, searchResults, sorting } = this.state;
-
-        if ( this.cancel ) {
-            this.cancel.cancel();
-        }
-        this.cancel = axios.CancelToken.source();
-
-        this.setState( { loading: true });
-
-        let sectionNameParam = (categoryName === 'lifestyle') ? 'lifeandstyle' : categoryName;
+        const sectionNameParam = (categoryName === 'lifestyle') ? 'lifeandstyle' : categoryName;
 
         const responseFun = (response) => {
             const data = [...searchResults, ...response.data.response.results];
@@ -88,46 +79,20 @@ class Category extends Component {
                             totalPage: response.data.response.pages });
         };
         const errorFunc = (error) => {
-            // if (axios.isCancel(error) || error) {
-            //     this.setState({
-            //         error: true,
-            //         loading: false,
-            //         message: 'Something went wrong. Please try refreshing the page.'
-            //     })
-            // }
+            if (axios.isCancel(error) || error) {
+                this.setState({
+                    error: true,
+                    loading: false,
+                    message: 'Something went wrong. Please try refreshing the page.'
+                })
+            }
         };
         const qs = `search?section=${sectionNameParam}`
                 + `&order-by=${sorting}`
                 + `&show-fields=thumbnail%2CtrailText&page=${page}&page-size=${perPage}`;
 
+        this.setState( { loading: true });
         this.context.fetchNews(qs, responseFun, errorFunc)
-        
-        // axios.get(
-        //     configs.NEWS_API_ENDPOINT
-        //     + 'search'
-        //     + '?section='+  sectionNameParam
-        //     + `&order-by=${sorting}`
-        //     + `&show-fields=thumbnail%2CtrailText&page=${page}&page-size=${perPage}`
-        //     + `&api-key=${configs.NEWS_API_KEY}`
-        //     ,{ cancelToken: this.cancel.token })
-        //     .then(response => {
-        //         const data = [...searchResults, ...response.data.response.results];
-        //         this.setState({ searchResults: data, 
-        //                         error: false,
-        //                         message: null,
-        //                         loading: false,
-        //                         scrolling: false,
-        //                         totalPage: response.data.response.pages });
-        //     })
-        //     .catch(error => {
-        //         if (axios.isCancel(error) || error) {
-        //             this.setState({
-        //                 error: true,
-        //                 loading: false,
-        //                 message: 'Something went wrong. Please try refreshing the page.'
-        //             })
-        //         }
-        //     });
     }
 
     handleScroll () {

@@ -8,7 +8,7 @@ import Article from './containers/Article/Article';
 import SearchResult from './containers/SearchResult/SearchResult';
 import Bookmark from './containers/Bookmark/Bookmark';
 import NotFound from './containers/NotFound/NotFound';
-import { GetNewsContextProvider } from './context/getNews';
+import { GetNewsContextProvider } from './context/fetchNews';
 
 class App extends Component {
   constructor(props) {
