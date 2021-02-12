@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
 import './Category.scss';
 import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
@@ -69,7 +68,7 @@ class Category extends Component {
         const { categoryName, perPage, page, searchResults, sorting } = this.state;
         const sectionNameParam = (categoryName === 'lifestyle') ? 'lifeandstyle' : categoryName;
 
-        const responseFun = (response) => {
+        const responseFunc = (response) => {
             const data = [...searchResults, ...response.data.response.results];
             this.setState({ searchResults: data, 
                             error: false,
@@ -92,7 +91,7 @@ class Category extends Component {
                 + `&show-fields=thumbnail%2CtrailText&page=${page}&page-size=${perPage}`;
 
         this.setState( { loading: true });
-        this.context.fetchNews(qs, responseFun, errorFunc)
+        this.context.fetchNews(qs, responseFunc, errorFunc)
     }
 
     handleScroll () {

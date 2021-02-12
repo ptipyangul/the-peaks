@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import configs from '../../configs.json';
 import Loader from "../../components/Loader/Loader";
 import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
+import { GetNewsContext } from '../../context/fetchNews';
 import './Bookmark.scss';
 import { Container, Row, Col } from 'react-bootstrap';
 
 class Bookmark extends Component {
 
     pageTitle = "All Bookmark | ";
+    static contextType = GetNewsContext;
 
     constructor(props) {
         super(props);
@@ -24,40 +25,43 @@ class Bookmark extends Component {
     }
 
     getBookmarks() {
-        let localBookmarks = this.state.localBookmarks;
-        let idsString = localBookmarks.join(",");
+        const localBookmarks = this.state.localBookmarks;
+        let idsString = null;
+        if (localBookmarks)
+            idsString = localBookmarks.join(",");
+        
+        const qs = `search?ids=${idsString}`
+                + `&order-by=${this.state.sorting}`
+                + `&show-fields=thumbnail%2CtrailText'`
+                + '&show-elements=image';
+
+        const responseFunc = (response) => {
+            const data = response.data.response.results;
+            if ( data.length <= 0 ) {
+                this.setState({ message: 'No bookmark.' });
+            }
+            this.setState({loadedBookmarks: data, error: false, loading: false});     
+        }
+        const errorFunc = (error) => {
+            this.setState({error: true });
+        }
+
         this.setState({ loading: true });
-        axios.get(
-            configs.NEWS_API_ENDPOINT
-            + 'search?ids='
-            + idsString
-            + '&order-by=' + this.state.sorting
-            +'&show-fields=thumbnail%2CtrailText'
-            +'&show-elements=image'
-            + '&api-key=' + configs.NEWS_API_KEY)
-            .then(response => {
-                const data = response.data.response.results;
-                if ( data.length <= 0 ) {
-                    this.setState({ message: 'No bookmark.' });
-                }
-                this.setState({loadedBookmarks: data, error: false, loading: false});           
-            })
-            .catch(error => {
-                this.setState({error: true });
-            });
+        this.context.fetchNews(qs, responseFunc, errorFunc)
     }
 
     componentDidMount () {
         document.title = this.pageTitle + configs.PAGE_TITLE;
 
         let bookmarks = this.getLocalStoredBookmark();
-        if (bookmarks) {
+         if (bookmarks) {
             this.setState({ localBookmarks: bookmarks }, () => {
                 this.getBookmarks();
             });            
         } else {
             this.setState({ message: 'No bookmark.'});
         }
+        const getNewsContext = this.context;
     }
 
     componentDidUpdate(prevProps) {
@@ -78,7 +82,7 @@ class Bookmark extends Component {
 
     render () {
 
-        let newsResults = <div>{this.state.message}</div>;
+        let newsResults = <Col>{this.state.message}</Col>;
 
         if (!this.state.error && this.state.loadedBookmarks) {           
             if (this.state.loadedBookmarks.length > 0 ) { 
