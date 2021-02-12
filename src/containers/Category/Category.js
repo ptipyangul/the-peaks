@@ -8,7 +8,7 @@ import Loader from "../../components/Loader/Loader";
 import { GetNewsContext } from '../../context/fetchNews';
 import configs from '../../configs.json';
 
-import { Row, Col, Container, CardDeck } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 
 class Category extends Component {
 
