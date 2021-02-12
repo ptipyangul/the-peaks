@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Navigation.scss';
 import logo from '../../assets/logo.png';
+import {DebounceInput} from 'react-debounce-input';
 
 import { Container, Row, Col, Nav, Accordion, Button } from 'react-bootstrap';
 
@@ -48,11 +49,12 @@ class Navigation extends Component {
                             </Nav>                            
                         </Col>
                         <Col sm={2} className="SearchCol text-right">
-                            <input
-                                type="text"
-                                placeholder="Search all news"
-                                onKeyUp={event => this.handleSearchBoxChanged(event)}
-                                maxLength="50"/>
+                            <DebounceInput
+                                placeholder="Search..."
+                                maxLength="50"
+                                minLength={2}
+                                debounceTimeout={300}
+                                onChange={event => this.handleSearchBoxChanged(event)} />
                         </Col>
                         <Col sm={1} className="BookmarkCol text-right">
                             <a className="Bookmark" href="/bookmark"><i class="fas fa-bookmark"></i></a>
@@ -92,12 +94,12 @@ class Navigation extends Component {
                                     </Nav>
                                 </Accordion.Collapse>
                                 <Accordion.Collapse eventKey="1">
-                                    <input
-                                            className="SearchInput"
-                                            type="text"
-                                            placeholder="Search all news"
-                                            onKeyUp={event => this.handleSearchBoxChanged(event)}
-                                            maxLength="50"/>
+                                    <DebounceInput
+                                        placeholder="Search..."
+                                        maxLength="50"
+                                        minLength={2}
+                                        debounceTimeout={300}
+                                        onChange={event => this.handleSearchBoxChanged(event)} />
                                 </Accordion.Collapse> 
                             </Col>
                         </Row>

@@ -111,13 +111,19 @@ class SearchResult extends Component {
 
     componentDidMount() {
         document.title = this.pageTitle + ' | ' + configs.PAGE_TITLE;
-        if (this.state.searchKey == null) {
-            let qs = this.parseParams(this.props.location.search);
-            if (qs.q) {
-                this.setState({ searchKey: qs.q });
-            }
-        }
         window.addEventListener('scroll', this.handleScroll);
+        if ( this.state.searchKey != this.props.searchKey ) {
+            this.setState({ searchKey: this.props.searchKey,
+                error: false,
+                searchResults: [],
+                sorting: 'newest',
+                page: 1,
+                totalPage: null,
+                scrolling: false
+            }, () => {
+                this.getSearchResults();
+            });
+        }
     }
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
@@ -152,7 +158,6 @@ class SearchResult extends Component {
                     message: 'No results.'
                 });
             }
-
         }
     }
 
