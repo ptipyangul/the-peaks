@@ -84,12 +84,12 @@
                 color: transparent;
             }
             input[type=text]:focus {
-                width: 100%;
+                width: 150px;
                 color: #000;
                 background-color: #fff;
                 background-position: 10px;
+                border: 1px solid #833bb6;
                 outline-width: 0;
-                box-shadow: 0 0 10px -3px;
             }
             input[type=text]:focus::placeholder {
                 color: #000;
@@ -131,6 +131,12 @@
                 i {
                     color: #833bb6;
                 }
+            }
+        }
+        .SearchAccordion {
+            margin-top: 10px;
+            input {
+                width: 100%;
             }
         }
     }

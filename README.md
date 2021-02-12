@@ -16,3 +16,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Developer
 Pongpun Tipyangul (p.tipyangul@gmail.com)
+
+## Future improvement
+- Display proper message to users on Search page
+- Fix error message reported on Google Chrome

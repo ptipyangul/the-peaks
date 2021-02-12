@@ -79,7 +79,7 @@ class Navigation extends Component {
                                 </Accordion.Toggle>
                             </Col>
                         </Row>
-                        <Row>
+                        <Row className="SearchAccordion">
                             <Col>
                                 <Accordion.Collapse eventKey="0">
                                     <Nav className="flex-column">

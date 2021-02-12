@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Loader.scss';
 import Spinner from 'react-bootstrap/Spinner';
 
 class Loader extends Component {
