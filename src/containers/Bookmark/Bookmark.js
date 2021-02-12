@@ -4,11 +4,14 @@ import configs from '../../configs.json';
 import Loader from "../../components/Loader/Loader";
 import NewsCard from "../../components/NewsCard/NewsCard";
 import NewsSorting from '../../components/NewsSorting/NewsSorting';
-import classes from './Bookmark.module.scss';
+import { GetNewsContext } from '../../context/fetchNews';
+import './Bookmark.scss';
+import { Container, Row, Col } from 'react-bootstrap';
 
 class Bookmark extends Component {
 
     pageTitle = "All Bookmark | ";
+    static contextType = GetNewsContext;
 
     constructor(props) {
         super(props);
@@ -20,37 +23,43 @@ class Bookmark extends Component {
             sorting: 'newest',
             message: ''
         }
+        this.cancel = null;
     }
 
     getBookmarks() {
-        let localBookmarks = this.state.localBookmarks;
-        let idsString = localBookmarks.join(",");
+        const localBookmarks = this.state.localBookmarks;
+        let idsString = null;
+        if (localBookmarks)
+            idsString = localBookmarks.join(",");
+
+        if ( this.cancel ) this.cancel.cancel();
+        this.cancel = axios.CancelToken.source();
+        
+        const qs = `search?ids=${idsString}`
+                + `&order-by=${this.state.sorting}`
+                + `&show-fields=thumbnail%2CtrailText'`
+                + '&show-elements=image';
+
+        const responseFunc = (response) => {
+            const data = response.data.response.results;
+            if ( data.length <= 0 ) {
+                this.setState({ message: 'No bookmark.' });
+            }
+            this.setState({loadedBookmarks: data, error: false, loading: false});     
+        }
+        const errorFunc = (error) => {
+            this.setState({error: true });
+        }
+
         this.setState({ loading: true });
-        axios.get(
-            configs.NEWS_API_ENDPOINT
-            + 'search?ids='
-            + idsString
-            + '&order-by=' + this.state.sorting
-            +'&show-fields=thumbnail%2CtrailText'
-            +'&show-elements=image'
-            + '&api-key=' + configs.NEWS_API_KEY)
-            .then(response => {
-                const data = response.data.response.results;
-                if ( data.length <= 0 ) {
-                    this.setState({ message: 'No bookmark.' });
-                }
-                this.setState({loadedBookmarks: data, error: false, loading: false});           
-            })
-            .catch(error => {
-                this.setState({error: true });
-            });
+        this.context.fetchNews(qs, responseFunc, errorFunc, this.cancel)
     }
 
     componentDidMount () {
         document.title = this.pageTitle + configs.PAGE_TITLE;
 
         let bookmarks = this.getLocalStoredBookmark();
-        if (bookmarks) {
+         if (bookmarks) {
             this.setState({ localBookmarks: bookmarks }, () => {
                 this.getBookmarks();
             });            
@@ -77,32 +86,36 @@ class Bookmark extends Component {
 
     render () {
 
-        let newsResults = <div>{this.state.message}</div>;
+        let newsResults = <Col>{this.state.message}</Col>;
 
         if (!this.state.error && this.state.loadedBookmarks) {           
             if (this.state.loadedBookmarks.length > 0 ) { 
                 newsResults = this.state.loadedBookmarks.map( (news, index) => {
-                    return <NewsCard 
-                        key={news.id}
-                        img={news.fields.thumbnail}
-                        title={news.webTitle}
-                        body={news.fields.trailText}
-                        index={index}
-                        newsId={news.id} />
+                    return <Col lg={4} md={6} xs={12}>
+                            <NewsCard 
+                            key={news.id}
+                            img={news.fields.thumbnail}
+                            title={news.webTitle}
+                            body={news.fields.trailText}
+                            index={index}
+                            newsId={news.id}
+                            showImage={true} />
+                        </Col>
                 });
             }
         }
+
         return (
-            <div className="wrapper">
-                <div className={classes.bookmarkContainer}>
-                    <div className={classes.HeadingDiv}><h1>All Bookmark</h1></div>           
-                    <div className={classes.newsSortingDiv}><NewsSorting changed={this.handleSortingChanged}/></div>
-                </div>
-                <div className={classes.bookmarkResult}>
+            <Container>
+                <Row className="PageHeaderRow align-items-center">
+                    <Col sm={10}><h1>Bookmark</h1></Col>           
+                    <Col sm={2}><NewsSorting changed={this.handleSortingChanged}/></Col>
+                </Row>
+                <Row className="SearchResultsArea">
                     {newsResults}
-                </div>
+                </Row>
                 <Loader isLoading={this.state.loading} />
-            </div>
+            </Container>
         )
     }
 }

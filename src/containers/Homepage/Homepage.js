@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import classes from './Homepage.module.scss';
+import './Homepage.scss';
 import TopStories from '../../components/HomepageComponents/TopStories/TopStories';
 import CategoryBasedSections from '../../components/HomepageComponents/CategoyBased/CategoryBased';
-import NewsSorting from '../../components/NewsSorting/NewsSorting';
+
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 class homepageArea extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            sorting: 'newest'
-        }
+        this.state = {}
     }
 
     handleSortingChanged = (event) => {
@@ -20,47 +18,44 @@ class homepageArea extends Component {
 
     render () {
         return (
-            <div className={classes.homepage}>
-                <div className="wrapper">
-                    <div className={classes.homepageSections}>
-                        <div className={classes.topStoriesHeader}>
-                            <h1 className={classes.heading}>Top stories</h1>
-                            <div className={classes.bookmarkCol}>
-                               <Link to="/bookmark"><div className="bookmarkBtn topStories">VIEW BOOKMARK</div></Link>
-                            </div>
-                            <div className={classes.topStoriesSorting}><NewsSorting changed={this.handleSortingChanged}/></div>
-                        </div>
-                        <TopStories sorting={this.state.sorting}/>
-                    </div>
-                    <div className={classes.homepageSections}>
-                        <div className={classes.categoryBaseHeader}>
-                            <h2>Sports</h2>
-                            <div className={classes.categorySeeAllCol}>
-                                <a href="/category/sport">See all</a>
-                            </div>
-                        </div>
-                        <CategoryBasedSections sectionName="sport" />
-                    </div>
-                    <div className={classes.homepageSections}>
-                        <div className={classes.categoryBaseHeader}>
-                            <h2>Culture</h2>
-                            <div className={classes.categorySeeAllCol}>
-                                <a href="/category/culture">See all</a>
-                            </div>
-                        </div>
-                        <CategoryBasedSections sectionName="culture" />
-                    </div>
-                    <div className={classes.homepageSections}>
-                        <div className={classes.categoryBaseHeader}>
-                            <h2>Lifestyle</h2>
-                            <div className={classes.categorySeeAllCol}>
-                                <a href="/category/lifestyle">See all</a>
-                            </div>
-                        </div>
-                        <CategoryBasedSections sectionName="lifeandstyle" />
-                    </div>
+            <Container className="HomepagePage">
+                <div className="topSection">
+                    <TopStories />
                 </div>
-            </div>
+                <div className="homepageSections">
+                    <Row className="categoryBaseHeader">
+                        <Col sm={10}><h2>Sports</h2></Col>
+                        <Col sm={2} className="text-right"><Button variant="outline-primary" size="sm" href="/category/sport">See all</Button></Col>
+                    </Row>
+                    <Row className="categoryBaseItems">
+                        <Col sm={12}>
+                            <CategoryBasedSections sectionName="sport" />
+                        </Col>                            
+                    </Row>
+                </div>
+                <div className="homepageSections">
+                    <Row className="categoryBaseHeader">
+                        <Col sm={10}><h2>Culture</h2></Col>
+                        <Col sm={2} className="text-right"><Button variant="outline-primary" size="sm" href="/category/culture">See all</Button></Col>
+                    </Row>
+                    <Row className="categoryBaseItems">
+                        <Col sm={12}>
+                            <CategoryBasedSections sectionName="culture" />
+                        </Col>                            
+                    </Row>
+                </div>
+                <div className="homepageSections">
+                    <Row className="categoryBaseHeader">
+                        <Col sm={10}><h2>Lifestyle</h2></Col>
+                        <Col sm={2} className="text-right"><Button variant="outline-primary" size="sm" href="/category/lifestyle">See all</Button></Col>
+                    </Row>
+                    <Row className="categoryBaseItems">
+                        <Col sm={12}>
+                            <CategoryBasedSections sectionName="lifeandstyle" />
+                        </Col>                            
+                    </Row>
+                </div>
+            </Container>
         );
     }
 }

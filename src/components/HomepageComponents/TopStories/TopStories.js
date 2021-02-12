@@ -1,99 +1,146 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import configs from '../../../configs.json';
-import classes from './TopStories.module.scss';
-import Loader from "../../Loader/Loader";
+import './TopStories.scss';
+import { Link } from 'react-router-dom';
 import NewsCard from "../../NewsCard/NewsCard";
+import { GetNewsContext } from '../../../context/fetchNews';
+
+import { Row, Col, Badge } from 'react-bootstrap';
+import Loader from '../../Loader/Loader';
 
 class topStories extends Component {
+    static contextType = GetNewsContext;
+
     constructor(props) {
         super(props);
         this.state = {
             news: null,
             error: false,
-            sorting: 'newest',
-            loading: false
+            loading: false,
+            hightlightNews: null,
+            rightColNews: null,
+            flashNews: null,
+            mdMoreNewsContent: null
         }
+        this.cancel = null;
     }
 
     getNews() {
-        this.setState( { loading: true });
-        axios.get(
-            configs.NEWS_API_ENDPOINT
-            + '/search'
-            + '?order-by='
-            + this.state.sorting
-            +'&show-fields=thumbnail%2CtrailText&page=1&page-size=8&show-section=true'
-            + '&api-key='
-            + configs.NEWS_API_KEY)
-            .then(response => {
-                const news = response.data.response.results;
-                this.setState({news: news, error: false, loading: false});
-            })
-            .catch(error => {
-                this.setState({ error: true, loading: false });
+        if ( this.cancel ) this.cancel.cancel();
+        this.cancel = axios.CancelToken.source();
+
+        const qs = 'search?show-fields=thumbnail%2CtrailText&page=1&page-size=8&show-section=true';
+        const responseFunc = (response) => {
+            const news = response.data.response.results;
+            this.setState({news: news, error: false, loading: false}, () => {
+                this.setUpNewsContent();
             });
+        }
+        const errorFunc = (error) => {
+            this.setState({ error: true, loading: false });
+        }
+
+        this.setState( { loading: true });
+        this.context.fetchNews(qs, responseFunc, errorFunc, this.cancel);
     }
 
     componentDidMount () {
         this.getNews();
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.sorting !== this.props.sorting) {
-            this.setState({sorting: this.props.sorting}, () => {
-                this.getNews();
-            })
-        }
+    normalizeNewsData = (newsArray) => {
+        const array = newsArray.map( news => {
+            return {
+                img: news.fields.thumbnail,
+                trailText: news.fields.trailText,
+                title: news.webTitle,
+                newsId: news.id
+            };
+        });
+        return array;
+    }
+
+    // Create news content
+    setUpNewsContent = () => {
+        // Hightlight news
+        const highLightNewsData = this.normalizeNewsData([(this.state.news[0])])[0];
+        const highlightNewsContent = <Link to={`/article/${highLightNewsData.newsId}`} key={highLightNewsData.id}> 
+                <Row className="align-items-center">
+                    <Col md={6}><img src={highLightNewsData.img} alt={highLightNewsData.title} /></Col> 
+                    <Col md={6}>
+                        <div className="highlightContent">
+                            <Badge pill variant="success">LATEST</Badge>
+                            <p className="title">{highLightNewsData.title}</p>
+                            <p className="trailText">{highLightNewsData.trailText}</p>
+                        </div>
+                    </Col>
+                </Row>
+            </Link>;
+        this.setState({ hightlightNews: highlightNewsContent });
+
+        // Right columns news
+        const rightColNews = this.normalizeNewsData(this.state.news.slice(1,4));
+        const rightcolNewsContent = rightColNews.map( news => {
+            return (
+                <Link to={`/article/${news.newsId}`} key={news.id}>
+                    <div>
+                        <p>{news.title}</p>
+                    </div>
+                </Link>);
+        });
+        this.setState({ rightColNews: rightcolNewsContent });
+
+        // More news for smaller screen
+        const mdMoreNews = rightColNews.map( news => {
+            return <Col md={4}>
+                <NewsCard 
+                    key={news.id}
+                    newsId = {news.newsId}
+                    img={news.img}
+                    title={news.title}
+                    showImage={true} />
+                </Col>
+        });
+        this.setState({ mdMoreNewsContent: mdMoreNews });
+
+        // Flash news
+        const flashNews = this.normalizeNewsData(this.state.news.slice(5,8));
+        const flashNewsContent = flashNews.map( news => {
+            return (
+                <Link to={`/article/${news.newsId}`} key={news.id}>
+                    <span>{news.title}</span>
+                </Link>);
+        });
+        this.setState({ flashNews: flashNewsContent });
     }
 
     render () {
-        
-        let topNewsResults;
-
-        let firstRowResults;
-        let secondRowResults;
-
-        if (!this.state.error && this.state.news) {
-            let allnews = [...this.state.news];
-            const firstHalf = allnews.splice(0, 5);
-            const secondHalf = allnews.splice(-3);
-            firstRowResults = firstHalf.map( (news, index) => {
-                return <NewsCard 
-                    key={news.id}
-                    newsId = {news.id}
-                    img={news.fields.thumbnail}
-                    title={news.webTitle}
-                    trailText={news.fields.trailText}
-                    index={index}
-                    linkClassName={classes['index'+ index]}/>                
-            });
-            secondRowResults = secondHalf.map( (news, index) => {
-                return <NewsCard 
-                    key={news.id}
-                    newsId = {news.id}
-                    img={news.fields.thumbnail}
-                    title={news.webTitle}
-                    trailText={news.fields.trailText}
-                    index={index}
-                    linkClassName={classes['index'+ index]}/>                
-            });
-
+        if (this.state.loading) {
+            return <Loader isLoading={this.state.loading} />
+        } else {
+            return (
+                <Row className="TopStoriesSection align-items-center ="> 
+                    <Col md={12} lg={9}>
+                        <div className="highlight">{this.state.hightlightNews}</div>
+                        <div className="mdMoreNews d-lg-none d-xl-none">
+                            <Row>
+                                {this.state.mdMoreNewsContent}
+                            </Row>
+                        </div>
+                        <div className="flashnews d-none d-lg-block d-xl-none">
+                            <div className="track">
+                                <div className="content">
+                                    {this.state.flashNews}
+                                </div>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col sm={3} className="rightcol d-none d-lg-block d-xl-none">
+                        {this.state.rightColNews}
+                    </Col>
+                </Row>
+            )
         }
-        if ( this.state.error && this.state.message && !this.state.loading) {
-            topNewsResults = <p>{this.state.message}</p>;
-        }
-        return (
-            <div>
-                <div className={classes.topStoriesFirstRow}>                
-                    {firstRowResults}
-                </div>
-                <div className={classes.topStoriesSecondRow}>
-                    {secondRowResults}
-                </div>
-                <Loader isLoading={this.state.loading} />
-            </div>
-        )
     }
 }
 

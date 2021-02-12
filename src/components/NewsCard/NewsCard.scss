@@ -1,0 +1,24 @@
+@import '../../assets/variables.scss';
+
+.newsCard {
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    a:hover {
+        color: #833bb6;
+        text-decoration: none;
+    }
+
+    .cardBody {
+        padding: 0;
+    }
+    .cardTitle {
+        font-size: 15px;
+        color: #000;
+        margin-top: 10px;
+    }
+    .card-img-top {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+}

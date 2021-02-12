@@ -1,0 +1,10 @@
+@import '../../assets/variables.scss';
+
+.CategoryContainer {
+    @include pageContentMargin;
+    .SearchResultsArea {
+        div[class^="col-"] {
+            margin-bottom: 40px;
+        }
+    }
+}

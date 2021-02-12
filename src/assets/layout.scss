@@ -4,15 +4,8 @@
     padding-bottom: 20px;
 }
 
-.wrapper {
-    width: 90%;
-    max-width: 1170px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 @mixin heading {
-    font-family: 'Source Serif Pro', serif;
+    font-family: 'Alike', serif;
     margin: 0;
 }
 @mixin headingH1 {
@@ -68,8 +61,15 @@ h2 {
 }
 
 .footer {
+    flex-shrink: 0;
+    color: #fff;
+    font-size: 13px;
+    padding: 30px 0;
+    text-align: center;
     background-color: #003480;
-    height: 200px;
+    .logo {
+        width: 50px;
+    }
 }
 
 html, body {
@@ -83,6 +83,7 @@ body {
 #root {
     flex: 1 0 auto;
 }
-.footer {
-    flex-shrink: 0;
+
+.PageHeaderRow {
+    margin-bottom: 20px;
 }

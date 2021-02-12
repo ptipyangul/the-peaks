@@ -1,5 +1,5 @@
 {
-  "name": "7-peaks-test",
+  "name": "diff-news",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,8 +7,11 @@
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.2",
     "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
+    "react-bootstrap": "^1.4.3",
+    "react-debounce-input": "^3.2.3",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
@@ -37,6 +40,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {}
+  }
 }

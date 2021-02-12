@@ -1,0 +1,143 @@
+@import '../../assets/variables.scss';
+
+.NavigationContainer {
+
+    .NavLargerScreen {
+        .LogoCol { 
+            img {
+                max-width: 110px;
+                margin: 10px 0;
+            }
+        }
+        .NavCol {
+            a:link,
+            a:visited {
+                color: #000;
+                border-right: 1px solid #ccc;
+            }
+            .nav-item:last-child > a {
+                border-right: 0;
+            }
+            .nav-link {
+                font-size: 15px;
+                padding: 0 10px;
+            }
+            // Hamburger
+            .checkBox {
+                display: none;
+            }
+            .checkBtn {
+                display: none;
+                line-height: 80px;
+                margin-right: 40px;   
+                img {
+                    width: 20px;
+                }     
+                @media (max-width: $ss-screen) {
+                    display: block;
+                }
+            }
+            @media (max-width: $ss-screen) {
+                ul {
+                    display: block;
+                    position: fixed;
+                    width: 100%;
+                    height: 100vh;
+                    background: #043481;
+                    top: $menu-height;
+                    left: -100%;
+                    text-align: left;
+                    transition: all .5s;
+                    z-index: 1;
+                    padding-top: 10px;
+                }
+                nav ul li {
+                    border: 0;
+                    text-align: left;
+                    padding-left: 15px;
+                }
+                a:hover,a.active {
+                    background: none;
+                }   
+                .checkBox:checked ~ ul{
+                    left: 0;
+                }
+            }
+    
+        }
+        .SearchCol { 
+            text-align: right;
+            input[type=text] {
+                width: 100px;
+                box-sizing: border-box;
+                border: none;
+                font-size: 15px;
+                background-color: transparent;
+                background-position: right;
+                background-repeat: no-repeat;
+                background-size: 20px;
+                background-image: url('../../assets/search_24px.png');
+                padding: 10px 0px 10px 35px;
+                color: transparent;
+            }
+            input[type=text]::placeholder {
+                color: transparent;
+            }
+            input[type=text]:focus {
+                width: 150px;
+                color: #000;
+                background-color: #fff;
+                background-position: 10px;
+                border: 1px solid #833bb6;
+                outline-width: 0;
+            }
+            input[type=text]:focus::placeholder {
+                color: #000;
+                opacity: 0.5;
+            }
+        }
+        .BookmarkCol {
+            i {
+                color: #833bb6;
+                font-size: 20px;
+            }
+        }
+        .noScroll {
+            height: 100%;
+            overflow: hidden
+        }
+    }
+    .NavSmallScreen {
+        padding: 10px 0;
+        .Logo {
+            img {
+                width: 65px;
+            }
+        }
+        .hamburburMenu {
+            Button {
+                background-color: #833bb6;
+            }
+        }
+        .nav-link {
+            padding-left: 0;
+        }
+        .SearchInput {
+            width: 100%;
+        }
+        .SearchCol {
+            Button {
+                border: 0;
+                i {
+                    color: #833bb6;
+                }
+            }
+        }
+        .SearchAccordion {
+            margin-top: 10px;
+            input {
+                width: 100%;
+            }
+        }
+    }
+}

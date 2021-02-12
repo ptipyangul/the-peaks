@@ -1,0 +1,21 @@
+@import '../../assets/variables.scss';
+
+.HomepagePage {
+    @include pageContentMargin;
+    .topSection {
+        margin-bottom: 10px;
+    }
+    .categoryBaseHeader {
+        padding: 15px 0;
+        h2 {
+            font-size: 18px;
+        }
+        .categorySeeAllCol {
+            text-align: right;
+        }
+    }
+    .homepageSections {
+        margin-bottom: 40px;
+        border-top: 1px solid #c0c0c0;
+    }
+}
