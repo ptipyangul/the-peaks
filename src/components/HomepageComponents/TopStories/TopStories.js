@@ -127,7 +127,7 @@ class topStories extends Component {
                                 {this.state.mdMoreNewsContent}
                             </Row>
                         </div>
-                        <div className="flashnews d-none d-lg-block d-xl-none">
+                        <div className="flashnews d-none d-lg-block d-xl-block d-xl-none">
                             <div className="track">
                                 <div className="content">
                                     {this.state.flashNews}
@@ -135,7 +135,7 @@ class topStories extends Component {
                             </div>
                         </div>
                     </Col>
-                    <Col sm={3} className="rightcol d-none d-lg-block d-xl-none">
+                    <Col sm={3} className="rightcol d-none d-lg-block d-xl-block d-xl-none">
                         {this.state.rightColNews}
                     </Col>
                 </Row>

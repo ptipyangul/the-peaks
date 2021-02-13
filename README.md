@@ -10,3 +10,5 @@ The website consists of Homepage, Category pages, Article pages, Bookmark and Se
 - Display proper message to users on Search page
 - Fix error message reported on Google Chrome
 - Update README.MD content
+- Reponsive > Category base header
+- Update meta data
