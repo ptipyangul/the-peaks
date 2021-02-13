@@ -2,7 +2,7 @@
 
 The Diff. News is the real time updated news website from the Award-winning journalism: The Guardian. It consists of Homepage, Category pages, Article pages, Bookmark and Search page.
 
-## Feature
+## Features
 
  - **Homepage**: Latest news content from all categories, and latest news from the top categories.
  - **Category**: Show news content based on its categories. There are 6 category pages namely: Sports, World, Culture, Lifestyle, Tech, Travel.
@@ -12,7 +12,7 @@ The Diff. News is the real time updated news website from the Award-winning jour
  - **Infinite scroll**: Scrolling page auto detection, and serve more news to the page
  - **Loading Spinner**: Handling UI when fetching news content.
 
-## Showcase
+## Showcases
 - Fetching news content API from [The Guardian Open Platform API](https://open-platform.theguardian.com/).
 - Fully use `react-bootstrap` to build the front-end.
 - `LocalStorage` for managing bookmark data.
