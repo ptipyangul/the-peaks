@@ -60,13 +60,22 @@ class SearchResult extends Component {
                     + `&show-fields=thumbnail%2CtrailText&page=${page}&page-size=${perPage}`;
         const responseFunc = (response) => {
             const data = [...searchResults, ...response.data.response.results];
-            if ( data.length  <= 0) this.setState({ message: 'No results' });                
-            this.setState({ searchResults: data, 
-                            error: false,
-                            message: null,
-                            loading: false,
-                            scrolling: false,
-                            totalPage: response.data.response.pages });
+            if ( data.length <= 0) {
+                this.setState({ 
+                    error: false,
+                    message: 'No results',
+                    loading: false,
+                    scrolling: false,
+                    totalPage: 0
+                });
+            } else {
+                this.setState({ searchResults: data, 
+                    error: false,
+                    message: null,
+                    loading: false,
+                    scrolling: false,
+                    totalPage: response.data.response.pages });
+            }
         };
         const errorFunc = (error) => {
             if (axios.isCancel(error)) {
@@ -77,7 +86,7 @@ class SearchResult extends Component {
                 this.setState({
                     error: true,
                     loading: false,
-                    message: 'Something went wrong. Please try refreshing the page.'              
+                    message: 'Something went wrong. Please try again.'              
                 });
             }
         }
@@ -126,6 +135,7 @@ class SearchResult extends Component {
             });
         }
     }
+
     componentWillUnmount() {
         window.removeEventListener('scroll', this.handleScroll);
     }
@@ -173,7 +183,7 @@ class SearchResult extends Component {
 
     render () {
         let results;
-        if (!this.state.error && this.state.searchResults) {
+        if (this.state.error === false && this.state.searchResults.length > 0) {
             results = this.state.searchResults.map( (news, index) => {
                 return <Col lg={4} md={6} xs={12} key={news.id}>
                         <NewsCard 
@@ -185,9 +195,8 @@ class SearchResult extends Component {
                             showImage={true} />
                         </Col>
             });
-        }
-        if ( this.state.error && this.state.message && !this.state.loading) {
-            results = <p>{this.state.message}</p>;
+        } else {
+            results = <Col>{this.state.message}</Col>;
         }
 
         return (

@@ -10,5 +10,5 @@ The website consists of Homepage, Category pages, Article pages, Bookmark and Se
 - Firebase, Analytics
 
 ## Future improvement
-- Display proper message to users on Search page
 - Update README.MD content
+- Use reducer for httpstate

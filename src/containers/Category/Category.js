@@ -122,7 +122,7 @@ class Category extends Component {
 
     render () {
 
-        let newsResults;
+        let newsResults = <Col>{this.state.message}</Col>;
 
         if ( !this.state.error && this.state.searchResults ) {           
             newsResults = this.state.searchResults.map( (news, index) => {
@@ -137,9 +137,7 @@ class Category extends Component {
                     </Col>
             });
         }
-        if ( this.state.error && this.state.message ) {
-            newsResults = <p>{this.state.message}</p>;
-        }
+
         return (
             <Container className="CategoryContainer">
                 <Row className="PageHeaderRow align-items-center">

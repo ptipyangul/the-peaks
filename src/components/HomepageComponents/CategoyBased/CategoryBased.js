@@ -32,7 +32,7 @@ class categoryBasedSections extends Component {
             this.setState({news: news, error: false, loading: false});
         };
         const errorFunc = (error) => {
-            this.setState({error: true, loading: false});
+            this.setState({error: true, loading: false, message: 'Something went wrong. Please try again.'});
         }
 
         this.setState( { loading: true });
@@ -74,6 +74,8 @@ class categoryBasedSections extends Component {
 
         if (this.state.loading) {
             return <Loader isLoading={this.state.loading} />
+        } if (this.state.error && this.state.message) {
+            return <Row><Col>{this.state.message}</Col></Row>
         } else {
             return (
                 <Row>

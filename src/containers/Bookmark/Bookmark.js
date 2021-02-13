@@ -48,7 +48,7 @@ class Bookmark extends Component {
             this.setState({loadedBookmarks: data, error: false, loading: false});     
         }
         const errorFunc = (error) => {
-            this.setState({error: true });
+            this.setState({error: true, message: 'Something went wrong. Please try again.' });
         }
 
         this.setState({ loading: true });
@@ -87,7 +87,6 @@ class Bookmark extends Component {
     render () {
 
         let newsResults = <Col>{this.state.message}</Col>;
-
         if (!this.state.error && this.state.loadedBookmarks) {           
             if (this.state.loadedBookmarks.length > 0 ) { 
                 newsResults = this.state.loadedBookmarks.map( (news, index) => {
@@ -105,7 +104,7 @@ class Bookmark extends Component {
         }
 
         return (
-            <Container>
+            <Container className="bookmarkContainer">
                 <Row className="PageHeaderRow align-items-center">
                     <Col sm={10}><h1>Bookmark</h1></Col>           
                     <Col sm={2}><NewsSorting changed={this.handleSortingChanged}/></Col>

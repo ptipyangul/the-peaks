@@ -37,7 +37,7 @@ class topStories extends Component {
             });
         }
         const errorFunc = (error) => {
-            this.setState({ error: true, loading: false });
+            this.setState({ error: true, loading: false, message: 'Something went wrong. Please try again' });
         }
 
         this.setState( { loading: true });
@@ -114,8 +114,10 @@ class topStories extends Component {
     }
 
     render () {
-        if (this.state.loading) {
+        if ( this.state.loading ) {
             return <Loader isLoading={this.state.loading} />
+        } else if ( this.state.error && this.state.message ) {
+            return <Row><Col>{this.state.message}</Col></Row>
         } else {
             return (
                 <Row className="TopStoriesSection align-items-center"> 
