@@ -57,7 +57,7 @@ class Navigation extends Component {
                                 onChange={event => this.handleSearchBoxChanged(event)} />
                         </Col>
                         <Col sm={1} className="BookmarkCol text-right">
-                            <a className="Bookmark" href="/bookmark"><i class="fas fa-bookmark"></i></a>
+                            <a className="Bookmark" href="/bookmark"><i className="fas fa-bookmark"></i></a>
                         </Col>                    
                     </Row>
                 </div>
@@ -67,7 +67,7 @@ class Navigation extends Component {
                         <Row className="d-flex align-items-center">
                             <Col xs={3} className="hamburburMenu">
                                 <Accordion.Toggle as={Button} variant="primary" size="sm" eventKey="0">
-                                    <i class="fas fa-bars"></i>
+                                    <i className="fas fa-bars"></i>
                                 </Accordion.Toggle>
                             </Col>
                             <Col xs={6} className="LogoCol text-center">
@@ -75,7 +75,7 @@ class Navigation extends Component {
                             </Col> 
                             <Col xs={3} className="SearchCol text-right">
                                 <Accordion.Toggle as={Button} variant="outline-primary" size="sm" eventKey="1">
-                                    <i class="fas fa-search"></i>
+                                    <i className="fas fa-search"></i>
                                 </Accordion.Toggle>
                             </Col>
                         </Row>

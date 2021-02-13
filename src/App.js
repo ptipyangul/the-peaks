@@ -29,7 +29,7 @@ class App extends Component {
           <div className="App">
               <Route path="/" name="navigation" render={props => <Navigation updateSearchKey={this.handleUpdateKey} {...props} />} />
               <Switch>
-                <Route exact path="/" exact component={Homepage} />
+                <Route exact path="/" component={Homepage} />
                 <Route exact path="/category/:categoryName" name="category" component={Category} />
                 <Route path="/article/:articleID" name="article" component={Article} />
                 <Route exact path="/search" name="search" render={props => <SearchResult searchKey={this.state.searchKey} {...props} />} />

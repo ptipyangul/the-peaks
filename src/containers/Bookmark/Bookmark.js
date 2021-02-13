@@ -91,15 +91,14 @@ class Bookmark extends Component {
         if (!this.state.error && this.state.loadedBookmarks) {           
             if (this.state.loadedBookmarks.length > 0 ) { 
                 newsResults = this.state.loadedBookmarks.map( (news, index) => {
-                    return <Col lg={4} md={6} xs={12}>
+                    return <Col lg={4} md={6} xs={12} key={news.id}>
                             <NewsCard 
-                            key={news.id}
-                            img={news.fields.thumbnail}
-                            title={news.webTitle}
-                            body={news.fields.trailText}
-                            index={index}
-                            newsId={news.id}
-                            showImage={true} />
+                                img={news.fields.thumbnail}
+                                title={news.webTitle}
+                                body={news.fields.trailText}
+                                index={index}
+                                newsId={news.id}
+                                showImage={true} />
                         </Col>
                 });
             }

@@ -66,8 +66,8 @@ class topStories extends Component {
         const highLightNewsData = this.normalizeNewsData([(this.state.news[0])])[0];
         const highlightNewsContent = <Link to={`/article/${highLightNewsData.newsId}`} key={highLightNewsData.id}> 
                 <Row className="align-items-center">
-                    <Col md={6}><img src={highLightNewsData.img} alt={highLightNewsData.title} /></Col> 
-                    <Col md={6}>
+                    <Col md={6} key='hightlistNewsTitle'><img src={highLightNewsData.img} alt={highLightNewsData.title} /></Col> 
+                    <Col md={6} key='hightlistNewsContent'>
                         <div className="highlightContent">
                             <Badge pill variant="success">LATEST</Badge>
                             <p className="title">{highLightNewsData.title}</p>
@@ -82,7 +82,7 @@ class topStories extends Component {
         const rightColNews = this.normalizeNewsData(this.state.news.slice(1,4));
         const rightcolNewsContent = rightColNews.map( news => {
             return (
-                <Link to={`/article/${news.newsId}`} key={news.id}>
+                <Link to={`/article/${news.newsId}`} key={news.newsId}>
                     <div>
                         <p>{news.title}</p>
                     </div>
@@ -92,9 +92,8 @@ class topStories extends Component {
 
         // More news for smaller screen
         const mdMoreNews = rightColNews.map( news => {
-            return <Col md={4}>
+            return <Col md={4} key={`mdMoreNew${news.newsId}`}>
                 <NewsCard 
-                    key={news.id}
                     newsId = {news.newsId}
                     img={news.img}
                     title={news.title}
@@ -107,7 +106,7 @@ class topStories extends Component {
         const flashNews = this.normalizeNewsData(this.state.news.slice(5,8));
         const flashNewsContent = flashNews.map( news => {
             return (
-                <Link to={`/article/${news.newsId}`} key={news.id}>
+                <Link to={`/article/${news.newsId}`} key={news.newsId}>
                     <span>{news.title}</span>
                 </Link>);
         });
@@ -119,7 +118,7 @@ class topStories extends Component {
             return <Loader isLoading={this.state.loading} />
         } else {
             return (
-                <Row className="TopStoriesSection align-items-center ="> 
+                <Row className="TopStoriesSection align-items-center"> 
                     <Col md={12} lg={9}>
                         <div className="highlight">{this.state.hightlightNews}</div>
                         <div className="mdMoreNews d-lg-none d-xl-none">
