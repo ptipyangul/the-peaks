@@ -24,8 +24,8 @@ class homepageArea extends Component {
                 </div>
                 <div className="homepageSections">
                     <Row className="categoryBaseHeader">
-                        <Col sm={10}><h2>Sports</h2></Col>
-                        <Col sm={2} className="text-right"><Button variant="outline-primary" size="sm" href="/category/sport">See all</Button></Col>
+                        <Col sm={10} xs={6}><h2>Sports</h2></Col>
+                        <Col sm={2} xs={6} className="text-right"><Button variant="outline-primary" size="sm" href="/category/sport">See all</Button></Col>
                     </Row>
                     <Row className="categoryBaseItems">
                         <Col sm={12}>
@@ -35,8 +35,8 @@ class homepageArea extends Component {
                 </div>
                 <div className="homepageSections">
                     <Row className="categoryBaseHeader">
-                        <Col sm={10}><h2>Culture</h2></Col>
-                        <Col sm={2} className="text-right"><Button variant="outline-primary" size="sm" href="/category/culture">See all</Button></Col>
+                        <Col sm={10} xs={6}><h2>Culture</h2></Col>
+                        <Col sm={2} xs={6} className="text-right"><Button variant="outline-primary" size="sm" href="/category/culture">See all</Button></Col>
                     </Row>
                     <Row className="categoryBaseItems">
                         <Col sm={12}>
@@ -46,8 +46,8 @@ class homepageArea extends Component {
                 </div>
                 <div className="homepageSections">
                     <Row className="categoryBaseHeader">
-                        <Col sm={10}><h2>Lifestyle</h2></Col>
-                        <Col sm={2} className="text-right"><Button variant="outline-primary" size="sm" href="/category/lifestyle">See all</Button></Col>
+                        <Col sm={10} xs={6}><h2>Lifestyle</h2></Col>
+                        <Col sm={2} xs={6} className="text-right"><Button variant="outline-primary" size="sm" href="/category/lifestyle">See all</Button></Col>
                     </Row>
                     <Row className="categoryBaseItems">
                         <Col sm={12}>

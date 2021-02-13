@@ -11,4 +11,4 @@ The website consists of Homepage, Category pages, Article pages, Bookmark and Se
 
 ## Future improvement
 - Update README.MD content
-- Use reducer for httpstate
+- Convert html or remove
