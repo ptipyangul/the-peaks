@@ -71,7 +71,7 @@ class topStories extends Component {
                         <div className="highlightContent">
                             <Badge pill variant="success">LATEST</Badge>
                             <p className="title">{highLightNewsData.title}</p>
-                            <p className="trailText">{highLightNewsData.trailText}</p>
+                            <p className="trailText">{highLightNewsData.trailText.replace(/(<([^>]+)>)/gi, "")}</p>
                         </div>
                     </Col>
                 </Row>
