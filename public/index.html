@@ -39,16 +39,24 @@
          | diffworld</p>
     </footer>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="/__/firebase/8.2.7/firebase-app.js"></script>
+      <!-- Analytics on Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-analytics.js"></script>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="/__/firebase/8.2.7/firebase-analytics.js"></script>
-
-    <!-- Initialize Firebase -->
-    <script src="/__/firebase/init.js"></script>
-
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyBO1JKw9vX5Tw2-hKEDpwPtOIpJ4h2mo3U",
+        authDomain: "diff-news.firebaseapp.com",
+        projectId: "diff-news",
+        storageBucket: "diff-news.appspot.com",
+        messagingSenderId: "80628009833",
+        appId: "1:80628009833:web:80d77072a48d4e66454bf8",
+        measurementId: "G-XJGY3F5DB2"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
   </body>
   <script src="https://kit.fontawesome.com/1169c05655.js" crossorigin="anonymous"></script>
 </html>
